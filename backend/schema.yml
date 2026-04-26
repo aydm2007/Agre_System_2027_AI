@@ -1,0 +1,8 @@
+openapi: 3.0.3
+info:
+  title: Saradud Agriculture API
+  version: '2.0'
+  description: واجهة برمجة تطبيقات نظام سردود الزراعي (Saradud Agriculture System
+    API v2.0)
+paths: {}
+components: {}

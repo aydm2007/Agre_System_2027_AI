@@ -1,0 +1,15 @@
+{
+  "workspaceName": "AgriAsset_v44",
+  "workspaceRoot": "c:\\tools\\workspace\\AgriAsset_v44",
+  "repoFingerprint": "edc45d3ffc87",
+  "primaryModel": "qwen3-coder:480b-cloud",
+  "plannerModel": "gpt-oss:120b-cloud",
+  "fallbackModel": "qwen3-coder:30b-cloud",
+  "summary": "Project session ready.",
+  "openLoops": [],
+  "recentFiles": [],
+  "contextBudget": 48000,
+  "chatCount": 0,
+  "decisionCount": 0,
+  "branchHint": "main"
+}

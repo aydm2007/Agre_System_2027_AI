@@ -1,0 +1,73 @@
+version: "3.9"
+
+# [AGRI-GUARDIAN] Production Docker Compose Stack (V21)
+# Services: Load Balancer (Nginx), Web (Django ASGI), Database (PostgreSQL 15), Cache/Queue (Redis), Scanner (ClamAV)
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME:-agriasset}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres_password}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+
+  clamav:
+    image: clamav/clamav:stable
+    restart: always
+    # Used for Phase 4 Attachment Policy Scanning
+
+  web:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      clamav:
+        condition: service_started
+    env_file:
+      - .env.production
+    volumes:
+      - static_volume:/app/backend/staticfiles
+      - media_volume:/app/backend/media
+    expose:
+      - "8000"
+
+  nginx:
+    image: nginx:stable-alpine
+    restart: always
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - static_volume:/app/backend/staticfiles:ro
+      - media_volume:/app/backend/media:ro
+
+volumes:
+  pgdata:
+  redisdata:
+  static_volume:
+  media_volume:

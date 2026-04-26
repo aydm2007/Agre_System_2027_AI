@@ -1,0 +1,16 @@
+name: DEPRECATED LEGACY - enterprise-readiness
+
+on:
+  workflow_dispatch:
+
+jobs:
+  enterprise-static-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Enterprise static gate
+        run: |
+          make verify-enterprise-static

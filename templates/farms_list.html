@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+{% block title %}قائمة المزارع{% endblock %}
+{% block content %}
+<div class="flex items-center gap-2 mb-3">
+  <input name="q" id="q" value="{{ q }}" placeholder="بحث..." class="border rounded p-2 flex-1"
+         hx-get="/ui/farms/" hx-trigger="keyup changed delay:300ms" hx-target="#farmsRows" hx-include="#q" />
+</div>
+<table class="w-full text-sm">
+  <thead><tr class="text-right text-gray-600">
+    <th class="p-2">الاسم</th><th class="p-2">المنطقة</th><th class="p-2">المعرف</th>
+  </tr></thead>
+  <tbody id="farmsRows">
+    {% include "partials/farms_table_rows.html" with farms=farms %}
+  </tbody>
+</table>
+{% endblock %}

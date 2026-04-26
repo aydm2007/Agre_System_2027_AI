@@ -1,0 +1,144 @@
+{
+  "command_name": "verify_static_v21",
+  "title": "V21 Static Verification",
+  "generated_at": "2026-03-23T10:22:04.570973-07:00",
+  "overall_status": "FAIL",
+  "repo_root": "C:\\tools\\workspace\\AgriAsset_v44",
+  "suite_dir": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21",
+  "latest_dir": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21",
+  "counts": {
+    "pass": 9,
+    "fail": 1,
+    "blocked": 0,
+    "total": 10
+  },
+  "steps": [
+    {
+      "key": "bootstrap_contract",
+      "label": "Bootstrap/runtime contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_bootstrap_contract.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\bootstrap_contract.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\bootstrap_contract.log"
+    },
+    {
+      "key": "postgres_foundation",
+      "label": "PostgreSQL foundation contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/verify_postgres_foundation_contract.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\postgres_foundation.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\postgres_foundation.log"
+    },
+    {
+      "key": "bare_exceptions",
+      "label": "Bare exception scan",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_no_bare_exceptions.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\bare_exceptions.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\bare_exceptions.log"
+    },
+    {
+      "key": "docx_traceability",
+      "label": "Docx traceability coverage",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_docx_traceability.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\docx_traceability.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\docx_traceability.log"
+    },
+    {
+      "key": "release_hygiene",
+      "label": "Release hygiene static contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/verify_release_hygiene.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\release_hygiene.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\release_hygiene.log"
+    },
+    {
+      "key": "decimal_mutations",
+      "label": "Decimal mutation guard",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/check_no_float_mutations.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\decimal_mutations.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\decimal_mutations.log"
+    },
+    {
+      "key": "idempotency_actions",
+      "label": "Idempotency action contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/check_idempotency_actions.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\idempotency_actions.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\idempotency_actions.log"
+    },
+    {
+      "key": "farm_scope_guards",
+      "label": "Farm scope guard contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/check_farm_scope_guards.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\farm_scope_guards.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\farm_scope_guards.log"
+    },
+    {
+      "key": "service_layer_writes",
+      "label": "Service-layer write contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_service_layer_writes.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\service_layer_writes.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\service_layer_writes.log"
+    },
+    {
+      "key": "compliance_docs",
+      "label": "Compliance docs contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_compliance_docs.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\logs\\compliance_docs.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\logs\\compliance_docs.log"
+    }
+  ],
+  "artifacts": [
+    {
+      "source": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\scripts\\release_gate_float_check.txt",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102155\\verify_static_v21\\artifacts\\release_gate_float_check.txt",
+      "latest_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_static_v21\\artifacts\\release_gate_float_check.txt"
+    }
+  ]
+}

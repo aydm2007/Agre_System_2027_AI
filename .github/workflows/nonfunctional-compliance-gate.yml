@@ -1,0 +1,27 @@
+name: DEPRECATED LEGACY - Non-Functional Compliance Gate
+
+on:
+  workflow_dispatch:
+
+jobs:
+  nonfunctional-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate non-functional compliance docs
+        run: |
+          python scripts/verification/check_compliance_docs.py
+
+      - name: Validate DR evidence freshness
+        run: |
+          python scripts/verification/check_backup_freshness.py
+
+      - name: Validate DR restore drill evidence
+        run: |
+          python scripts/verification/check_restore_drill_evidence.py

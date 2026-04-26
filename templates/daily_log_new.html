@@ -1,0 +1,89 @@
+
+{% extends "base.html" %}
+{% block title %}سجل الإنجاز اليومي (HTMX){% endblock %}
+{% block content %}
+<div class="grid md:grid-cols-3 gap-4">
+  <div>
+    <label class="text-sm">المزرعة</label>
+    <select id="farm" class="border rounded p-2 w-full"
+            hx-get="/ui/partials/crops/0/" hx-target="#crop" hx-swap="outerHTML"
+            hx-trigger="load">
+      <option value="">-- اختر --</option>
+      {% for f in farms %}<option value="{{ f.id }}" hx-get="/ui/partials/crops/{{ f.id }}/" hx-target="#crop">{{ f.name }}</option>{% endfor %}
+    </select>
+  </div>
+  <div>
+    <label class="text-sm">المحصول</label>
+    <select id="crop" class="border rounded p-2 w-full" disabled>
+      <option value="">-- اختر المزرعة أولًا --</option>
+    </select>
+  </div>
+  <div>
+    <label class="text-sm">المهمة</label>
+    <select id="task" class="border rounded p-2 w-full" disabled>
+      <option value="">-- اختر المحصول أولًا --</option>
+    </select>
+  </div>
+</div>
+
+<div class="grid md:grid-cols-3 gap-4 mt-4">
+  <div>
+    <label class="text-sm">نطاق العمل</label>
+    <select id="scope" class="border rounded p-2 w-full">
+      <option value="">-- اختر --</option>
+      <option value="Location">موقع</option>
+      <option value="Asset">أصل</option>
+    </select>
+  </div>
+  <div id="location-container" style="display: none;">
+    <label class="text-sm">الموقع</label>
+    <select id="location" class="border rounded p-2 w-full" disabled></select>
+  </div>
+  <div id="asset-container" style="display: none;">
+    <label class="text-sm">الأصل</label>
+    <select id="asset" class="border rounded p-2 w-full" disabled></select>
+  </div>
+</div>
+
+<div class="grid md:grid-cols-2 gap-4 mt-4">
+  <div>
+    <label class="text-sm">ساعات العمل</label>
+    <input id="hours" type="number" class="border rounded p-2 w-full" placeholder="8" />
+  </div>
+</div>
+
+<script>
+document.addEventListener('change', function(e){
+  if(e.target && e.target.id==='farm'){
+    const id=e.target.value||'0';
+    htmx.ajax('GET','/ui/partials/crops/'+id+'/',{target:'#crop',swap:'outerHTML'});
+    
+    // إعادة تعيين نطاق العمل
+    document.getElementById('scope').value = '';
+    document.getElementById('location-container').style.display = 'none';
+    document.getElementById('asset-container').style.display = 'none';
+  }
+  if(e.target && e.target.id==='crop'){
+    const id=e.target.value||'0';
+    htmx.ajax('GET','/ui/partials/tasks/'+id+'/',{target:'#task',swap:'outerHTML'});
+  }
+  if(e.target && e.target.id==='scope'){
+    const scope = e.target.value;
+    const farmId = document.getElementById('farm').value;
+    
+    // إخفاء كل الحاويات
+    document.getElementById('location-container').style.display = 'none';
+    document.getElementById('asset-container').style.display = 'none';
+    
+    // إظهار الحاوية المناسبة بناءً على النطاق المختار
+    if(scope === 'Location' && farmId) {
+      document.getElementById('location-container').style.display = 'block';
+      htmx.ajax('GET','/ui/partials/locations/'+farmId+'/',{target:'#location',swap:'outerHTML'});
+    } else if(scope === 'Asset' && farmId) {
+      document.getElementById('asset-container').style.display = 'block';
+      htmx.ajax('GET','/ui/partials/assets/'+farmId+'/',{target:'#asset',swap:'outerHTML'});
+    }
+  }
+});
+</script>
+{% endblock %}

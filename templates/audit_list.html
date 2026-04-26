@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+{% block title %}سجل التدقيق{% endblock %}
+{% block content %}
+
+<div class="flex gap-2 mb-3">
+  <input id="filterAction" placeholder="عملية (create/update/delete)" class="border rounded p-2"
+         hx-get="/ui/audit/" hx-trigger="keyup changed delay:300ms" hx-target="#auditRows" hx-include="#filterAction,#filterUser,#filterModel"/>
+  <input id="filterUser" placeholder="المستخدم" class="border rounded p-2"
+         hx-get="/ui/audit/" hx-trigger="keyup changed delay:300ms" hx-target="#auditRows" hx-include="#filterAction,#filterUser,#filterModel"/>
+  <input id="filterModel" placeholder="الموديل" class="border rounded p-2"
+         hx-get="/ui/audit/" hx-trigger="keyup changed delay:300ms" hx-target="#auditRows" hx-include="#filterAction,#filterUser,#filterModel"/>
+</div>
+<table class="w-full text-sm">
+  <thead><tr class="text-right text-gray-600">
+    <th class="p-2">الوقت</th><th class="p-2">المستخدم</th><th class="p-2">العملية</th><th class="p-2">الموديل</th><th class="p-2">المعرّف</th>
+  </tr></thead>
+  <tbody id="auditRows">
+    {% include "partials/audit_rows.html" with page=page %}
+  </tbody>
+</table>
+{% endblock %}

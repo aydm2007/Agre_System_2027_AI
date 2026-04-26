@@ -1,0 +1,26 @@
+{
+  "GroupViewSet": {
+    "reason": "Global auth groups are system-wide and intentionally not farm-scoped.",
+    "review_due": "2027-02-10"
+  },
+  "UnitConversionViewSet": {
+    "reason": "Unit conversions are global master data and apply across all farms.",
+    "review_due": "2027-02-10"
+  },
+  "RaciTemplateViewSet": {
+    "reason": "RACI templates are global governance blueprints by farm tier, not transactional farm-scoped records.",
+    "review_due": "2027-02-10"
+  },
+  "PermissionTemplateViewSet": {
+    "reason": "Permission templates are global system administration blueprints and are intentionally not farm-scoped.",
+    "review_due": "2027-02-10"
+  },
+  "PolicyPackageViewSet": {
+    "reason": "Policy packages are sector-central governance blueprints and are intentionally not farm-scoped business records.",
+    "review_due": "2027-03-27"
+  },
+  "PolicyVersionViewSet": {
+    "reason": "Policy versions are immutable sector-central policy artifacts and are intentionally not farm-scoped business records.",
+    "review_due": "2027-03-27"
+  }
+}

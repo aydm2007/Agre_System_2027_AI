@@ -1,0 +1,386 @@
+[
+  {
+    "farm_slug": "sardood",
+    "name": "Orchard 1",
+    "type": "Orchard",
+    "code": "Or-01"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Orchard 2",
+    "type": "Orchard",
+    "code": "Or-02"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Orchard 3",
+    "type": "Orchard",
+    "code": "Or-03"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Orchard 4",
+    "type": "Orchard",
+    "code": "Or-04"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Grain 1",
+    "type": "Grain",
+    "code": "Gr-01"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Grain 2",
+    "type": "Grain",
+    "code": "Gr-02"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Grain 3",
+    "type": "Grain",
+    "code": "Gr-03"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Grain 4",
+    "type": "Grain",
+    "code": "Gr-04"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Field 1",
+    "type": "Field",
+    "code": "Fi-01"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Field 2",
+    "type": "Field",
+    "code": "Fi-02"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Field 3",
+    "type": "Field",
+    "code": "Fi-03"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "Field 4",
+    "type": "Field",
+    "code": "Fi-04"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Orchard 1",
+    "type": "Orchard",
+    "code": "Or-01"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Orchard 2",
+    "type": "Orchard",
+    "code": "Or-02"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Orchard 3",
+    "type": "Orchard",
+    "code": "Or-03"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Orchard 4",
+    "type": "Orchard",
+    "code": "Or-04"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Field 1",
+    "type": "Field",
+    "code": "Fi-01"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Field 2",
+    "type": "Field",
+    "code": "Fi-02"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Field 3",
+    "type": "Field",
+    "code": "Fi-03"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Field 4",
+    "type": "Field",
+    "code": "Fi-04"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Grain 1",
+    "type": "Grain",
+    "code": "Gr-01"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Grain 2",
+    "type": "Grain",
+    "code": "Gr-02"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Grain 3",
+    "type": "Grain",
+    "code": "Gr-03"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "Grain 4",
+    "type": "Grain",
+    "code": "Gr-04"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "Field 1",
+    "type": "Field",
+    "code": "Fi-01"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "Field 2",
+    "type": "Field",
+    "code": "Fi-02"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "Field 3",
+    "type": "Field",
+    "code": "Fi-03"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "Field 4",
+    "type": "Field",
+    "code": "Fi-04"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "Grain 1",
+    "type": "Grain",
+    "code": "Gr-01"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "Grain 2",
+    "type": "Grain",
+    "code": "Gr-02"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "Grain 3",
+    "type": "Grain",
+    "code": "Gr-03"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "Grain 4",
+    "type": "Grain",
+    "code": "Gr-04"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "Field 1",
+    "type": "Field",
+    "code": "Fi-01"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "Field 2",
+    "type": "Field",
+    "code": "Fi-02"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "Field 3",
+    "type": "Field",
+    "code": "Fi-03"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "Field 4",
+    "type": "Field",
+    "code": "Fi-04"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "Grain 1",
+    "type": "Grain",
+    "code": "Gr-01"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "Grain 2",
+    "type": "Grain",
+    "code": "Gr-02"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "Grain 3",
+    "type": "Grain",
+    "code": "Gr-03"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "Grain 4",
+    "type": "Grain",
+    "code": "Gr-04"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "Field 1",
+    "type": "Field",
+    "code": "Fi-01"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "Field 2",
+    "type": "Field",
+    "code": "Fi-02"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "Field 3",
+    "type": "Field",
+    "code": "Fi-03"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "Field 4",
+    "type": "Field",
+    "code": "Fi-04"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "Grain 1",
+    "type": "Grain",
+    "code": "Gr-01"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "Grain 2",
+    "type": "Grain",
+    "code": "Gr-02"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "Grain 3",
+    "type": "Grain",
+    "code": "Gr-03"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "Grain 4",
+    "type": "Grain",
+    "code": "Gr-04"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "Protected 1",
+    "type": "Protected",
+    "code": "Pr-01"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "Protected 2",
+    "type": "Protected",
+    "code": "Pr-02"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "Protected 3",
+    "type": "Protected",
+    "code": "Pr-03"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "Protected 4",
+    "type": "Protected",
+    "code": "Pr-04"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "Field 1",
+    "type": "Field",
+    "code": "Fi-01"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "Field 2",
+    "type": "Field",
+    "code": "Fi-02"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "Field 3",
+    "type": "Field",
+    "code": "Fi-03"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "Field 4",
+    "type": "Field",
+    "code": "Fi-04"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "Protected 1",
+    "type": "Protected",
+    "code": "Pr-01"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "Protected 2",
+    "type": "Protected",
+    "code": "Pr-02"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "Protected 3",
+    "type": "Protected",
+    "code": "Pr-03"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "Protected 4",
+    "type": "Protected",
+    "code": "Pr-04"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "Field 1",
+    "type": "Field",
+    "code": "Fi-01"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "Field 2",
+    "type": "Field",
+    "code": "Fi-02"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "Field 3",
+    "type": "Field",
+    "code": "Fi-03"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "Field 4",
+    "type": "Field",
+    "code": "Fi-04"
+  }
+]

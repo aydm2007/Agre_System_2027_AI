@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  web:
+    environment:
+      DJANGO_SETTINGS_MODULE: smart_agri.settings
+      SERVER_ENV: production
+      DJANGO_DEBUG: "False"
+      ENABLE_AUDIT_EXPORTS: "True"
+      ENFORCE_IDEMPOTENCY: "True"
+      APP_REQUIRE_VERSION_HEADER: "True"
+    read_only: true
+    tmpfs:
+      - /tmp
+
+  nginx:
+    environment:
+      NGINX_ENTRYPOINT_QUIET_LOGS: "1"
+
+  backup:
+    environment:
+      BACKUP_RETENTION_DAYS: 14
+      BACKUP_DIRECTORY: /backups
+
+  redis:
+    command: ["redis-server", "--appendonly", "yes"]

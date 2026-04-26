@@ -1,0 +1,5 @@
+
+<select id="crop" class="border rounded p-2 w-full" {% if crops %}{% else %}disabled{% endif %}>
+  <option value="">{% if crops %}-- اختر --{% else %}لا توجد محاصيل{% endif %}</option>
+  {% for c in crops %}<option value="{{ c.id }}">{{ c.name }} ({{ c.mode }})</option>{% endfor %}
+</select>

@@ -1,0 +1,282 @@
+[
+  {
+    "farm_slug": "sardood",
+    "name": "بئر رقم 1",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "بئر رقم 2",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "بئر رقم 3",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "بئر رقم 4",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "حراثة 1",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "حراثة 2",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "حراثة 3",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "حراثة 4",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "بئر رقم 1",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "بئر رقم 2",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "بئر رقم 3",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "بئر رقم 4",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "حراثة 1",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "حراثة 2",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "حراثة 3",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "حراثة 4",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "بئر رقم 1",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "بئر رقم 2",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "بئر رقم 3",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "بئر رقم 4",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "حراثة 1",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "حراثة 2",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "حراثة 3",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "حراثة 4",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "بئر رقم 1",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "بئر رقم 2",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "بئر رقم 3",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "بئر رقم 4",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "حراثة 1",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "حراثة 2",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "حراثة 3",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "حراثة 4",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "بئر رقم 1",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "بئر رقم 2",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "بئر رقم 3",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "بئر رقم 4",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "حراثة 1",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "حراثة 2",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "حراثة 3",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "حراثة 4",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "بئر رقم 1",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "بئر رقم 2",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "بئر رقم 3",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "بئر رقم 4",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "حراثة 1",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "حراثة 2",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "حراثة 3",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "حراثة 4",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "بئر رقم 1",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "بئر رقم 2",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "بئر رقم 3",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "بئر رقم 4",
+    "category": "Well"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "حراثة 1",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "حراثة 2",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "حراثة 3",
+    "category": "Machinery"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "حراثة 4",
+    "category": "Machinery"
+  }
+]

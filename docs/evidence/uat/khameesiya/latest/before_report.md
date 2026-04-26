@@ -1,0 +1,13 @@
+# Khameesiya Before Report
+
+- canonical_axes: `100`
+- release_frozen_baseline: `97`
+- farm_provisioning: `0`
+- seasonal_cycle: `0`
+- mango_cycle: `0`
+- banana_cycle: `0`
+- inventory_procurement: `0`
+- strict_finance: `0`
+- harvest_sales: `0`
+- frontend_dual_mode: `0`
+- end_to_end_new_tenant: `12`

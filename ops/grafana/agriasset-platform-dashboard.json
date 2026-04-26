@@ -1,0 +1,11 @@
+{
+  "title": "AgriAsset Platform Overview",
+  "schemaVersion": 39,
+  "version": 1,
+  "panels": [
+    {"title": "HTTP Requests", "type": "timeseries", "targets": [{"expr": "sum(agriasset_http_requests_total)"}]},
+    {"title": "Outbox Pending", "type": "stat", "targets": [{"expr": "agriasset_outbox_events{status=\"pending\"}"}]},
+    {"title": "Outbox Dead Letters", "type": "stat", "targets": [{"expr": "agriasset_outbox_events{status=\"dead_letter\"}"}]},
+    {"title": "Strict Farm Scope Enabled", "type": "stat", "targets": [{"expr": "agriasset_strict_farm_scope_headers"}]}
+  ]
+}

@@ -1,0 +1,7 @@
+-r requirements.txt
+
+# Test and quality tooling for local verification / CI
+pytest
+pytest-django
+pytest-cov
+ruff

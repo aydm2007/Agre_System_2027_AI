@@ -1,0 +1,16 @@
+name: DEPRECATED LEGACY - v5-arabic-enterprise-static
+
+on:
+  workflow_dispatch:
+
+jobs:
+  v5-static-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Arabic enterprise static gate
+        run: |
+          make verify-v5-static

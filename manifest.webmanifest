@@ -1,0 +1,12 @@
+
+{
+  "name": "Saradud Agriculture",
+  "short_name": "Saradud",
+  "start_url": "/frontend/index.html",
+  "display": "standalone",
+  "background_color": "#FDFBF7",
+  "theme_color": "#10B981",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": []
+}

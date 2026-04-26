@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME:-agriasset}
+      POSTGRES_USER: ${DB_USER:-agriasset}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-agriasset_dev_only}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_bootstrap_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-agriasset} -d ${DB_NAME:-agriasset}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minio_dev_only_change_me}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  clamav:
+    image: clamav/clamav:stable
+    ports:
+      - "3310:3310"
+
+  bootstrap:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - backend/.env.postgres.example
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-agriasset}
+      DB_USER: ${DB_USER:-agriasset}
+      DB_PASSWORD: ${DB_PASSWORD:-agriasset_dev_only}
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      AGRIASSET_SEED_DEFAULT_PASSWORD: ${AGRIASSET_SEED_DEFAULT_PASSWORD:-Bootstrap2026!}
+    command: >-
+      bash -lc "python manage.py check &&
+      python manage.py bootstrap_postgres_foundation --default-password \"${AGRIASSET_SEED_DEFAULT_PASSWORD:-Bootstrap2026!}\" &&
+      python manage.py runtime_probe_v21"
+
+volumes:
+  postgres_bootstrap_data:

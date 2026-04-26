@@ -1,0 +1,401 @@
+{
+  "generated_at": "2026-04-19T06:05:38.082025+00:00",
+  "farms": [
+    {
+      "name": "الربوعية",
+      "slug": "al-rabouia",
+      "mode": "SIMPLE"
+    },
+    {
+      "name": "الصارمة",
+      "slug": "al-sarima",
+      "mode": "STRICT"
+    }
+  ],
+  "overall_status": "PASS",
+  "strict_summary_score": 100.0,
+  "before_scorecard": {
+    "canonical_repo_baseline": 100,
+    "uat_pack_provisioning": 0,
+    "simple_operational_cycle": 0,
+    "strict_governed_cycle": 0,
+    "offline_and_custody": 0,
+    "reports_and_diagnostics": 0,
+    "arabic_seed_quality": 0,
+    "harvest_and_production_entry": 0,
+    "custody_workspace_flow": 0,
+    "permissions_arabic_display": 0,
+    "offline_mode_determinism": 0,
+    "units_normalization": 0
+  },
+  "after_scorecard": {
+    "canonical_repo_baseline": 100,
+    "uat_pack_provisioning": 100,
+    "simple_operational_cycle": 100,
+    "strict_governed_cycle": 100,
+    "offline_and_custody": 100,
+    "reports_and_diagnostics": 100,
+    "arabic_seed_quality": 100,
+    "harvest_and_production_entry": 100,
+    "custody_workspace_flow": 100,
+    "permissions_arabic_display": 100,
+    "offline_mode_determinism": 100,
+    "units_normalization": 100
+  },
+  "phases": [
+    {
+      "name": "simple_bootstrap_validation",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:34.686145+00:00",
+      "ended_at": "2026-04-19T06:05:34.691791+00:00",
+      "duration_seconds": 0.01,
+      "result": {
+        "mode": "SIMPLE",
+        "cost_visibility": "summarized_amounts",
+        "smart_card_contract": true,
+        "card_keys": [
+          "execution",
+          "materials",
+          "labor",
+          "well",
+          "machinery",
+          "fuel",
+          "perennial",
+          "harvest",
+          "control",
+          "variance",
+          "financial_trace"
+        ]
+      },
+      "diagnostic": "تم التحقق من أن الربوعية تعمل في SIMPLE مع smart_card_stack كعقد القراءة اليومي ومنع أي surface مالي حوكمي مباشر.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "custody_handshake_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:34.691791+00:00",
+      "ended_at": "2026-04-19T06:05:35.362805+00:00",
+      "duration_seconds": 0.67,
+      "result": {
+        "transfer_id": 279,
+        "accepted_qty": "50.000",
+        "returned_qty": "10.000",
+        "final_status": "partially_consumed",
+        "custody_balance": "0.000",
+        "top_up_blocked": true
+      },
+      "diagnostic": "تمت المصافحة الرقمية للعهدة بنجاح: صرف -> قبول -> استهلاك جزئي -> إرجاع متبقٍ مع منع top-up غير المحكوم.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "seasonal_corn_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:35.362805+00:00",
+      "ended_at": "2026-04-19T06:05:35.858809+00:00",
+      "duration_seconds": 0.5,
+      "result": {
+        "daily_log_id": 1279,
+        "activity_id": 1274,
+        "variance_status": "OK",
+        "cost_materials": "47500.0000",
+        "cost_wastage": "4750.0000",
+        "cost_machinery": "6000.0000"
+      },
+      "diagnostic": "تمت خدمة الذرة مع machine hours وفصل wastage cost عن applied cost مع بقاء التكلفة backend-only.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "mango_perennial_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:35.858809+00:00",
+      "ended_at": "2026-04-19T06:05:36.024865+00:00",
+      "duration_seconds": 0.17,
+      "result": {
+        "daily_log_id": 1280,
+        "activity_id": 1275,
+        "tree_delta": -4,
+        "tree_loss_reason": "جفاف طبيعي",
+        "current_tree_count": 420
+      },
+      "diagnostic": "تم إثبات أن الفقد الروتيني للأشجار يبقى variance تشغيليًا على LocationTreeStock ولا يتحول إلى impairment shortcut.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "banana_perennial_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:36.024865+00:00",
+      "ended_at": "2026-04-19T06:05:36.184498+00:00",
+      "duration_seconds": 0.16,
+      "result": {
+        "daily_log_id": 1281,
+        "activity_id": 1276,
+        "coverage_rows": 2,
+        "activity_locations": 2,
+        "distribution_mode": "exception_weighted"
+      },
+      "diagnostic": "تمت خدمة الموز على أكثر من موقع مع بقاء service coverage row-location-specific وعدم collapse إلى موقع واحد.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "offline_replay_cycle",
+      "category": "runtime_environment_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:36.184498+00:00",
+      "ended_at": "2026-04-19T06:05:36.582550+00:00",
+      "duration_seconds": 0.4,
+      "result": {
+        "sync_status": "synced",
+        "conflict_status_code": 400,
+        "dlq_count": 8
+      },
+      "diagnostic": "تمت مزامنة payload ذرية بنجاح ودخل التسلسل الخارج عن client_seq إلى DLQ دون كسر بقية المزامنة.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "simple_finance_posture_only",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:36.582550+00:00",
+      "ended_at": "2026-04-19T06:05:36.612515+00:00",
+      "duration_seconds": 0.03,
+      "result": {
+        "petty_cash_blocked": true,
+        "supplier_blocked": true,
+        "route_breach_status": 403,
+        "route_breach_audits": 0
+      },
+      "diagnostic": "تم إثبات أن SIMPLE يبقى posture-only في المالية مع audit إلزامي لمحاولات route breach.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "simple_reports_cycle",
+      "category": "api_contract_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:36.612515+00:00",
+      "ended_at": "2026-04-19T06:05:36.732668+00:00",
+      "duration_seconds": 0.12,
+      "result": {
+        "reports_status": 200,
+        "advanced_status": 200,
+        "has_details": false,
+        "forbidden_finance_keys": []
+      },
+      "diagnostic": "تم تحميل تقارير الربوعية في SIMPLE مع بقاء السطح تقنيًا وعدم تسرب القيم المالية الصريحة المحظورة.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "strict_bootstrap_validation",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:36.732668+00:00",
+      "ended_at": "2026-04-19T06:05:36.736143+00:00",
+      "duration_seconds": 0.0,
+      "result": {
+        "mode": "STRICT",
+        "approval_profile": "strict_finance",
+        "treasury_visibility": "visible",
+        "has_farm_finance_manager": true
+      },
+      "diagnostic": "تم التحقق من أن الصارمة تعمل في STRICT مع strict_finance وتعيين المدير المالي للمزرعة كشرط حاكم.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "inventory_procurement_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:36.736143+00:00",
+      "ended_at": "2026-04-19T06:05:36.782498+00:00",
+      "duration_seconds": 0.05,
+      "result": {
+        "purchase_order_id": 319,
+        "receipt_movement_id": "3479",
+        "issue_movement_id": "3480",
+        "remaining_qty": "180.000"
+      },
+      "diagnostic": "تم إثبات دورة procurement -> receipt -> issue ضمن نفس truth chain للمخزون في STRICT.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "petty_cash_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:36.782498+00:00",
+      "ended_at": "2026-04-19T06:05:37.124412+00:00",
+      "duration_seconds": 0.34,
+      "result": {
+        "request_id": 136,
+        "request_status": "DISBURSED",
+        "settlement_id": 124,
+        "settlement_status": "APPROVED"
+      },
+      "diagnostic": "تمت دورة صندوق النثرية الكاملة في الصارمة: طلب -> اعتماد -> صرف -> تسوية -> مرفق authoritative.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "receipts_and_deposit_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:37.124412+00:00",
+      "ended_at": "2026-04-19T06:05:37.144181+00:00",
+      "duration_seconds": 0.02,
+      "result": {
+        "collection_status": "COLLECTED",
+        "deposit_status": "DEPOSITED",
+        "reconcile_status": "RECONCILED"
+      },
+      "diagnostic": "تمت دورة التحصيل والإيداع والمطابقة بالـ idempotency المطلوبة في STRICT.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "supplier_settlement_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:37.144181+00:00",
+      "ended_at": "2026-04-19T06:05:37.384690+00:00",
+      "duration_seconds": 0.24,
+      "result": {
+        "supplier_settlement_id": 131,
+        "status": "PAID",
+        "paid_amount": "47500.0000"
+      },
+      "diagnostic": "تمت دورة تسوية المورد بالاعتماد الحوكمي والمرفق authoritative وترحيل الدفع النهائي.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "fixed_assets_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:37.384690+00:00",
+      "ended_at": "2026-04-19T06:05:37.434165+00:00",
+      "duration_seconds": 0.05,
+      "result": {
+        "status": "posted",
+        "asset_id": 152,
+        "ledger_rows": 18
+      },
+      "diagnostic": "تم إثبات رسملة الأصل الثابت مع trace محاسبي append-only في STRICT.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "fuel_reconciliation_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:37.434165+00:00",
+      "ended_at": "2026-04-19T06:05:37.502458+00:00",
+      "duration_seconds": 0.07,
+      "result": {
+        "status": "posted",
+        "expected_liters": "180.0000",
+        "actual_liters": "200.0000",
+        "variance_liters": "20.0000"
+      },
+      "diagnostic": "تمت دورة الوقود كاملة مع expected vs actual وترحيل التسوية في STRICT.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "harvest_and_sales_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:37.502458+00:00",
+      "ended_at": "2026-04-19T06:05:37.796596+00:00",
+      "duration_seconds": 0.29,
+      "result": {
+        "harvest_activity_id": 1278,
+        "harvest_lot_id": 160,
+        "invoice_id": 139,
+        "invoice_status": "draft"
+      },
+      "diagnostic": "تم إثبات دورة الحصاد والبيع لذرة الصارمة مع HarvestLot وفاتورة بيع على نفس truth chain.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "contract_operations_cycle",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:37.796596+00:00",
+      "ended_at": "2026-04-19T06:05:37.893993+00:00",
+      "duration_seconds": 0.1,
+      "result": {
+        "share_contract_id": 214,
+        "rental_contract_id": 215,
+        "touring_id": 122,
+        "rent_status": "posted",
+        "dashboard_rows": 2
+      },
+      "diagnostic": "تمت دورة العقود مع فصل touring كـ assessment-only وبقاء التسويات الاقتصادية داخل STRICT فقط.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "governance_workbench_cycle",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:37.893993+00:00",
+      "ended_at": "2026-04-19T06:05:38.044168+00:00",
+      "duration_seconds": 0.15,
+      "result": {
+        "approval_request_id": 179,
+        "approval_status": "APPROVED",
+        "stage_events": 7,
+        "workbench_rows": 0,
+        "final_required_role": "SECTOR_DIRECTOR"
+      },
+      "diagnostic": "تمت دورة workbench كاملة مع ApprovalStageEvent append-only ومنع collapse إلى actor واحد عبر السلسلة القطاعية.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    },
+    {
+      "name": "attachments_and_evidence_cycle",
+      "category": "api_contract_defect",
+      "status": "PASS",
+      "started_at": "2026-04-19T06:05:38.044168+00:00",
+      "ended_at": "2026-04-19T06:05:38.082025+00:00",
+      "duration_seconds": 0.04,
+      "result": {
+        "authoritative_archive_state": "hot",
+        "quarantine_state": "quarantined",
+        "financial_records": 27
+      },
+      "diagnostic": "تم التحقق من archive/quarantine lifecycle للمرفقات مع evidence-safe retention في STRICT.",
+      "recommended_fix": "لا يوجد.",
+      "anchors": {}
+    }
+  ],
+  "summary": {
+    "total": 19,
+    "passed": 19,
+    "failed": 0,
+    "failure_categories": []
+  },
+  "reference_gaps": [],
+  "operational_gaps": [],
+  "mode_gaps": [],
+  "governance_gaps": [],
+  "improvements": [
+    "إضافة smoke pack خارجي للتكاملات على نفس البيانات المرجعية للمزرعتين دون الحاجة للدخول في تفاصيل المستودع.",
+    "توسيع weak-network replay profiles لتشمل حالات تأخير أشد مع نفس artifact schema الحالي.",
+    "ربط UAT pack بكتالوج export رسمي للعقود العامة الحساسة بصيغة OpenAPI-style tables."
+  ],
+  "failures": []
+}

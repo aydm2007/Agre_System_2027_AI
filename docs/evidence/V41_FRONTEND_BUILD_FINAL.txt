@@ -1,0 +1,115 @@
+
+> saradud-frontend@2.4.0 build
+> vite build
+
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+
+/grid.svg referenced in /grid.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
+[32m✓[39m 3217 modules transformed.
+rendering chunks...
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /mnt/data/v41work/frontend/src/api/client.js is dynamically imported by /mnt/data/v41work/frontend/src/auth/AuthContext.js, /mnt/data/v41work/frontend/src/hooks/useSmartContext.js but also statically imported by /mnt/data/v41work/frontend/src/api/farmContext.jsx, /mnt/data/v41work/frontend/src/auth/AuthContext.js, /mnt/data/v41work/frontend/src/components/BudgetImportModal.jsx, /mnt/data/v41work/frontend/src/components/CreatePlanWizard.jsx, /mnt/data/v41work/frontend/src/components/Crops/FarmCropLinkModal.jsx, /mnt/data/v41work/frontend/src/components/MasterPlanImportModal.jsx, /mnt/data/v41work/frontend/src/components/RiskDashboard.jsx, /mnt/data/v41work/frontend/src/components/SaleModal.jsx, /mnt/data/v41work/frontend/src/components/Sales/CustomerForm.jsx, /mnt/data/v41work/frontend/src/components/Sales/CustomersList.jsx, /mnt/data/v41work/frontend/src/components/Sales/SalesForm.jsx, /mnt/data/v41work/frontend/src/components/Sales/SalesInvoicePreview.jsx, /mnt/data/v41work/frontend/src/components/Sales/SalesList.jsx, /mnt/data/v41work/frontend/src/components/StrictRouteGuard.jsx, /mnt/data/v41work/frontend/src/components/daily-log/ActivityItemsField.jsx, /mnt/data/v41work/frontend/src/components/daily-log/DailyLogResources.jsx, /mnt/data/v41work/frontend/src/components/daily-log/DailyLogSmartCard.jsx, /mnt/data/v41work/frontend/src/components/dashboard/BurnRateWidget.jsx, /mnt/data/v41work/frontend/src/components/offline/OfflineQueuePanel.jsx, /mnt/data/v41work/frontend/src/components/ui/EmployeeSelect.jsx, /mnt/data/v41work/frontend/src/contexts/SettingsContext.jsx, /mnt/data/v41work/frontend/src/hooks/useFarms.js, /mnt/data/v41work/frontend/src/hooks/useFinancialFilters.js, /mnt/data/v41work/frontend/src/hooks/usePerennialLogic.js, /mnt/data/v41work/frontend/src/offline/OfflineQueueProvider.jsx, /mnt/data/v41work/frontend/src/pages/ApprovalInbox.jsx, /mnt/data/v41work/frontend/src/pages/Audit.jsx, /mnt/data/v41work/frontend/src/pages/CommercialDashboard.jsx, /mnt/data/v41work/frontend/src/pages/ContractOperationsDashboard.jsx, /mnt/data/v41work/frontend/src/pages/CropCards.jsx, /mnt/data/v41work/frontend/src/pages/CropPlanDetail.jsx, /mnt/data/v41work/frontend/src/pages/CropPlans.jsx, /mnt/data/v41work/frontend/src/pages/CropTasks.jsx, /mnt/data/v41work/frontend/src/pages/Crops.jsx, /mnt/data/v41work/frontend/src/pages/DailyLog.jsx, /mnt/data/v41work/frontend/src/pages/DailyLogHistory.jsx, /mnt/data/v41work/frontend/src/pages/Dashboard.jsx, /mnt/data/v41work/frontend/src/pages/Employees/EmployeeForm.jsx, /mnt/data/v41work/frontend/src/pages/Employees/EmployeeList.jsx, /mnt/data/v41work/frontend/src/pages/FarmDetails.jsx, /mnt/data/v41work/frontend/src/pages/Finance/ActualExpenseList.jsx, /mnt/data/v41work/frontend/src/pages/Finance/AdvancedReportsScreen.jsx, /mnt/data/v41work/frontend/src/pages/Finance/CashBoxList.jsx, /mnt/data/v41work/frontend/src/pages/Finance/FiscalPeriodList.jsx, /mnt/data/v41work/frontend/src/pages/Finance/FiscalYearList.jsx, /mnt/data/v41work/frontend/src/pages/Finance/LedgerList.jsx, /mnt/data/v41work/frontend/src/pages/Finance/MakerCheckerDashboard.jsx, /mnt/data/v41work/frontend/src/pages/Finance/PayrollSettlement.jsx, /mnt/data/v41work/frontend/src/pages/Finance/PettyCashDashboard.jsx, /mnt/data/v41work/frontend/src/pages/Finance/ReceiptsDepositDashboard.jsx, /mnt/data/v41work/frontend/src/pages/Finance/SupplierSettlementDashboard.jsx, /mnt/data/v41work/frontend/src/pages/Finance/TreasuryDashboard.jsx, /mnt/data/v41work/frontend/src/pages/Finance/TreasuryTransactions.jsx, /mnt/data/v41work/frontend/src/pages/Finance/VarianceAnalysis.jsx, /mnt/data/v41work/frontend/src/pages/Finance/WorkflowExport.jsx, /mnt/data/v41work/frontend/src/pages/Finance/components/ClosingWizard.jsx, /mnt/data/v41work/frontend/src/pages/Finance/components/ExpenseForm.jsx, /mnt/data/v41work/frontend/src/pages/FixedAssetsDashboard.jsx, /mnt/data/v41work/frontend/src/pages/FuelReconciliationDashboard.jsx, /mnt/data/v41work/frontend/src/pages/GroupManagement.jsx, /mnt/data/v41work/frontend/src/pages/HR/TimesheetPage.jsx, /mnt/data/v41work/frontend/src/pages/HR/WorkerProductivity.jsx, /mnt/data/v41work/frontend/src/pages/HarvestProducts/hooks/useHarvestCatalog.js, /mnt/data/v41work/frontend/src/pages/LocationWellsManagement.jsx, /mnt/data/v41work/frontend/src/pages/ManageCatalog.jsx, /mnt/data/v41work/frontend/src/pages/MaterialsCatalog.jsx, /mnt/data/v41work/frontend/src/pages/PredictiveVariance.jsx, /mnt/data/v41work/frontend/src/pages/ProcurementApprovals.jsx, /mnt/data/v41work/frontend/src/pages/QRScanner.jsx, /mnt/data/v41work/frontend/src/pages/Reports/hooks/useReportData.js, /mnt/data/v41work/frontend/src/pages/Reports/hooks/useReportFilters.js, /mnt/data/v41work/frontend/src/pages/ResourceAnalytics.jsx, /mnt/data/v41work/frontend/src/pages/Sales/InvoicePrint.jsx, /mnt/data/v41work/frontend/src/pages/ServiceCards.jsx, /mnt/data/v41work/frontend/src/pages/Settings.jsx, /mnt/data/v41work/frontend/src/pages/SolarFleetMonitor.jsx, /mnt/data/v41work/frontend/src/pages/StockManagement.jsx, /mnt/data/v41work/frontend/src/pages/TemplateManager.jsx, /mnt/data/v41work/frontend/src/pages/TreeCensus.jsx, /mnt/data/v41work/frontend/src/pages/TreeVarianceAlerts.jsx, /mnt/data/v41work/frontend/src/pages/UserManagement.jsx, /mnt/data/v41work/frontend/src/pages/VarianceAlerts.jsx, /mnt/data/v41work/frontend/src/pages/settings/ApprovalRulesTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/CostCentersTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/CropRecipesTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/GovernanceTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/MembershipsTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/RoleTemplateMatrix.jsx, /mnt/data/v41work/frontend/src/pages/settings/SharecroppingContractsTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/SupervisorsTab.jsx, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /mnt/data/v41work/frontend/src/auth/AuthContext.js is dynamically imported by /mnt/data/v41work/frontend/src/api/approvalClient.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js, /mnt/data/v41work/frontend/src/api/client.js but also statically imported by /mnt/data/v41work/frontend/src/api/farmContext.jsx, /mnt/data/v41work/frontend/src/app.jsx, /mnt/data/v41work/frontend/src/components/Nav.jsx, /mnt/data/v41work/frontend/src/components/PrivateRoute.jsx, /mnt/data/v41work/frontend/src/components/farms/FarmList.jsx, /mnt/data/v41work/frontend/src/contexts/SettingsContext.jsx, /mnt/data/v41work/frontend/src/hooks/usePageFarmFilter.js, /mnt/data/v41work/frontend/src/pages/ContractOperationsDashboard.jsx, /mnt/data/v41work/frontend/src/pages/CropCards.jsx, /mnt/data/v41work/frontend/src/pages/DailyLog.jsx, /mnt/data/v41work/frontend/src/pages/DailyLogHistory.jsx, /mnt/data/v41work/frontend/src/pages/Dashboard.jsx, /mnt/data/v41work/frontend/src/pages/FarmDetails.jsx, /mnt/data/v41work/frontend/src/pages/Farms.jsx, /mnt/data/v41work/frontend/src/pages/Finance/ActualExpenseList.jsx, /mnt/data/v41work/frontend/src/pages/Finance/FiscalPeriodList.jsx, /mnt/data/v41work/frontend/src/pages/Finance/PettyCashDashboard.jsx, /mnt/data/v41work/frontend/src/pages/Finance/SupplierSettlementDashboard.jsx, /mnt/data/v41work/frontend/src/pages/Finance/TreasuryTransactions.jsx, /mnt/data/v41work/frontend/src/pages/Finance/WorkflowExport.jsx, /mnt/data/v41work/frontend/src/pages/Finance/index.jsx, /mnt/data/v41work/frontend/src/pages/FixedAssetsDashboard.jsx, /mnt/data/v41work/frontend/src/pages/FuelReconciliationDashboard.jsx, /mnt/data/v41work/frontend/src/pages/GroupManagement.jsx, /mnt/data/v41work/frontend/src/pages/LocationWellsManagement.jsx, /mnt/data/v41work/frontend/src/pages/Login.jsx, /mnt/data/v41work/frontend/src/pages/ManageCatalog.jsx, /mnt/data/v41work/frontend/src/pages/ResourceAnalytics.jsx, /mnt/data/v41work/frontend/src/pages/ServiceCards.jsx, /mnt/data/v41work/frontend/src/pages/StockManagement.jsx, /mnt/data/v41work/frontend/src/pages/TemplateManager.jsx, /mnt/data/v41work/frontend/src/pages/UserManagement.jsx, /mnt/data/v41work/frontend/src/pages/settings/ApprovalRulesTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/CostCentersTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/CropRecipesTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/GovernanceTab.jsx, /mnt/data/v41work/frontend/src/pages/settings/RoleTemplateMatrix.jsx, dynamic import will not move module into another chunk.
+[39m
+computing gzip size...
+[2mdist/[22m[32mregisterSW.js                                   [39m[1m[2m  0.13 kB[22m[1m[22m
+[2mdist/[22m[32mmanifest.webmanifest                            [39m[1m[2m  0.37 kB[22m[1m[22m
+[2mdist/[22m[32mindex.html                                      [39m[1m[2m  0.88 kB[22m[1m[22m[2m │ gzip:   0.48 kB[22m
+[2mdist/[22m[2massets/[22m[35mindex-D-txTxv6.css                       [39m[1m[2m144.38 kB[22m[1m[22m[2m │ gzip:  20.13 kB[22m
+[2mdist/[22m[2massets/[22m[36mNotFound-COorOUxS.js                     [39m[1m[2m  0.14 kB[22m[1m[22m[2m │ gzip:   0.17 kB[22m
+[2mdist/[22m[2massets/[22m[36mstartOfMonth-Bj5p65-n.js                 [39m[1m[2m  0.15 kB[22m[1m[22m[2m │ gzip:   0.15 kB[22m
+[2mdist/[22m[2massets/[22m[36msubDays-B0h210N2.js                      [39m[1m[2m  0.20 kB[22m[1m[22m[2m │ gzip:   0.18 kB[22m
+[2mdist/[22m[2massets/[22m[36mLoadingSkeleton-CNKdlT3N.js              [39m[1m[2m  0.28 kB[22m[1m[22m[2m │ gzip:   0.23 kB[22m
+[2mdist/[22m[2massets/[22m[36mchevron-down-fppmt0TM.js                 [39m[1m[2m  0.30 kB[22m[1m[22m[2m │ gzip:   0.25 kB[22m
+[2mdist/[22m[2massets/[22m[36mchevron-right-CYcUl2se.js                [39m[1m[2m  0.30 kB[22m[1m[22m[2m │ gzip:   0.25 kB[22m
+[2mdist/[22m[2massets/[22m[36mloader-circle-DwbG508X.js                [39m[1m[2m  0.32 kB[22m[1m[22m[2m │ gzip:   0.26 kB[22m
+[2mdist/[22m[2massets/[22m[36mplus-N7e4jnuJ.js                         [39m[1m[2m  0.33 kB[22m[1m[22m[2m │ gzip:   0.26 kB[22m
+[2mdist/[22m[2massets/[22m[36mx-DMcrg1eX.js                            [39m[1m[2m  0.33 kB[22m[1m[22m[2m │ gzip:   0.26 kB[22m
+[2mdist/[22m[2massets/[22m[36mclock-PWN8cvGv.js                        [39m[1m[2m  0.34 kB[22m[1m[22m[2m │ gzip:   0.27 kB[22m
+[2mdist/[22m[2massets/[22m[36mclock-3-GQ6j49qe.js                      [39m[1m[2m  0.34 kB[22m[1m[22m[2m │ gzip:   0.27 kB[22m
+[2mdist/[22m[2massets/[22m[36msearch-bclQJTc3.js                       [39m[1m[2m  0.35 kB[22m[1m[22m[2m │ gzip:   0.28 kB[22m
+[2mdist/[22m[2massets/[22m[36mtrending-up-CFuB7GFH.js                  [39m[1m[2m  0.35 kB[22m[1m[22m[2m │ gzip:   0.27 kB[22m
+[2mdist/[22m[2massets/[22m[36mcircle-check-DcUkKRuM.js                 [39m[1m[2m  0.35 kB[22m[1m[22m[2m │ gzip:   0.28 kB[22m
+[2mdist/[22m[2massets/[22m[36mcircle-check-big-oICQJCsP.js             [39m[1m[2m  0.37 kB[22m[1m[22m[2m │ gzip:   0.29 kB[22m
+[2mdist/[22m[2massets/[22m[36mlock-C4ddhxP_.js                         [39m[1m[2m  0.38 kB[22m[1m[22m[2m │ gzip:   0.30 kB[22m
+[2mdist/[22m[2massets/[22m[36mcircle-x-DoWRommB.js                     [39m[1m[2m  0.38 kB[22m[1m[22m[2m │ gzip:   0.28 kB[22m
+[2mdist/[22m[2massets/[22m[36mdollar-sign-B9FI6HLh.js                  [39m[1m[2m  0.39 kB[22m[1m[22m[2m │ gzip:   0.30 kB[22m
+[2mdist/[22m[2massets/[22m[36mbriefcase-BwfbSwFQ.js                    [39m[1m[2m  0.39 kB[22m[1m[22m[2m │ gzip:   0.30 kB[22m
+[2mdist/[22m[2massets/[22m[36mreportParams-DOFfmxQk.js                 [39m[1m[2m  0.42 kB[22m[1m[22m[2m │ gzip:   0.26 kB[22m
+[2mdist/[22m[2massets/[22m[36mcircle-alert-B2j2AQtC.js                 [39m[1m[2m  0.42 kB[22m[1m[22m[2m │ gzip:   0.29 kB[22m
+[2mdist/[22m[2massets/[22m[36mfunnel-c0Nrpifv.js                       [39m[1m[2m  0.43 kB[22m[1m[22m[2m │ gzip:   0.32 kB[22m
+[2mdist/[22m[2massets/[22m[36mcalendar-QkK5y6_W.js                     [39m[1m[2m  0.43 kB[22m[1m[22m[2m │ gzip:   0.31 kB[22m
+[2mdist/[22m[2massets/[22m[36musers--Hl8Arjm.js                        [39m[1m[2m  0.48 kB[22m[1m[22m[2m │ gzip:   0.33 kB[22m
+[2mdist/[22m[2massets/[22m[36msprout-CF8mwqvl.js                       [39m[1m[2m  0.48 kB[22m[1m[22m[2m │ gzip:   0.33 kB[22m
+[2mdist/[22m[2massets/[22m[36mshield-check-ByKWyIhl.js                 [39m[1m[2m  0.49 kB[22m[1m[22m[2m │ gzip:   0.36 kB[22m
+[2mdist/[22m[2massets/[22m[36mtrash-2-k3VwXZ0E.js                      [39m[1m[2m  0.50 kB[22m[1m[22m[2m │ gzip:   0.32 kB[22m
+[2mdist/[22m[2massets/[22m[36merrorUtils-REzzUpF8.js                   [39m[1m[2m  0.58 kB[22m[1m[22m[2m │ gzip:   0.43 kB[22m
+[2mdist/[22m[2massets/[22m[36mhand-coins-BXwwqVNY.js                   [39m[1m[2m  0.59 kB[22m[1m[22m[2m │ gzip:   0.40 kB[22m
+[2mdist/[22m[2massets/[22m[36musePageFarmFilter-T55G5mJb.js            [39m[1m[2m  0.76 kB[22m[1m[22m[2m │ gzip:   0.48 kB[22m
+[2mdist/[22m[2massets/[22m[36mdecimal-6OsNNGS2.js                      [39m[1m[2m  0.76 kB[22m[1m[22m[2m │ gzip:   0.42 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-YgAS8wiu.js                        [39m[1m[2m  0.79 kB[22m[1m[22m[2m │ gzip:   0.51 kB[22m
+[2mdist/[22m[2massets/[22m[36msave-Bi1ztZU3.js                         [39m[1m[2m  0.86 kB[22m[1m[22m[2m │ gzip:   0.42 kB[22m
+[2mdist/[22m[2massets/[22m[36mErrorState-Ci-c66Dl.js                   [39m[1m[2m  0.91 kB[22m[1m[22m[2m │ gzip:   0.56 kB[22m
+[2mdist/[22m[2massets/[22m[36mv4-CcQs6ztn.js                           [39m[1m[2m  0.94 kB[22m[1m[22m[2m │ gzip:   0.51 kB[22m
+[2mdist/[22m[2massets/[22m[36mPageFarmFilter-BuuMm-pt.js               [39m[1m[2m  0.95 kB[22m[1m[22m[2m │ gzip:   0.56 kB[22m
+[2mdist/[22m[2massets/[22m[36mfile-text-npFDJ68w.js                    [39m[1m[2m  1.50 kB[22m[1m[22m[2m │ gzip:   0.58 kB[22m
+[2mdist/[22m[2massets/[22m[36mlandmark-B4OLG9xH.js                     [39m[1m[2m  1.55 kB[22m[1m[22m[2m │ gzip:   0.65 kB[22m
+[2mdist/[22m[2massets/[22m[36museTreeCensusOffline-Y_xYeDa2.js         [39m[1m[2m  2.37 kB[22m[1m[22m[2m │ gzip:   1.15 kB[22m
+[2mdist/[22m[2massets/[22m[36museTranslation-CHfQvL25.js               [39m[1m[2m  4.82 kB[22m[1m[22m[2m │ gzip:   2.27 kB[22m
+[2mdist/[22m[2massets/[22m[36mLogin-CE7SxTC0.js                        [39m[1m[2m  5.11 kB[22m[1m[22m[2m │ gzip:   1.85 kB[22m
+[2mdist/[22m[2massets/[22m[36mSolarFleetMonitor-CnU5FXRL.js            [39m[1m[2m  5.49 kB[22m[1m[22m[2m │ gzip:   2.15 kB[22m
+[2mdist/[22m[2massets/[22m[36mProcurementApprovals-ChPEpC0T.js         [39m[1m[2m  5.68 kB[22m[1m[22m[2m │ gzip:   2.07 kB[22m
+[2mdist/[22m[2massets/[22m[36mAudit-CGqV5uEN.js                        [39m[1m[2m  7.38 kB[22m[1m[22m[2m │ gzip:   2.27 kB[22m
+[2mdist/[22m[2massets/[22m[36mPredictiveVariance-BS0flq62.js           [39m[1m[2m  7.40 kB[22m[1m[22m[2m │ gzip:   2.68 kB[22m
+[2mdist/[22m[2massets/[22m[36mFinancialFilterBar-DCulssyo.js           [39m[1m[2m  7.75 kB[22m[1m[22m[2m │ gzip:   3.00 kB[22m
+[2mdist/[22m[2massets/[22m[36mWorkerProductivity-D2MotKvK.js           [39m[1m[2m  8.28 kB[22m[1m[22m[2m │ gzip:   2.97 kB[22m
+[2mdist/[22m[2massets/[22m[36mResourceAnalytics-DxxOG_0x.js            [39m[1m[2m  8.46 kB[22m[1m[22m[2m │ gzip:   2.47 kB[22m
+[2mdist/[22m[2massets/[22m[36mEmployeeAdvancesPage-BMlzBS2v.js         [39m[1m[2m  8.73 kB[22m[1m[22m[2m │ gzip:   2.68 kB[22m
+[2mdist/[22m[2massets/[22m[36mTimesheetPage-vxefAesf.js                [39m[1m[2m  9.21 kB[22m[1m[22m[2m │ gzip:   2.88 kB[22m
+[2mdist/[22m[2massets/[22m[36mServiceCards-BuQSi4Xz.js                 [39m[1m[2m  9.33 kB[22m[1m[22m[2m │ gzip:   3.25 kB[22m
+[2mdist/[22m[2massets/[22m[36mVarianceAlerts-DsuARJJE.js               [39m[1m[2m  9.37 kB[22m[1m[22m[2m │ gzip:   3.25 kB[22m
+[2mdist/[22m[2massets/[22m[36mQRScanner-B9m5ja4H.js                    [39m[1m[2m  9.55 kB[22m[1m[22m[2m │ gzip:   3.33 kB[22m
+[2mdist/[22m[2massets/[22m[36mCropTasks-D3_9A2lw.js                    [39m[1m[2m  9.73 kB[22m[1m[22m[2m │ gzip:   3.66 kB[22m
+[2mdist/[22m[2massets/[22m[36mFixedAssetsDashboard-BtKh0UVw.js         [39m[1m[2m 11.38 kB[22m[1m[22m[2m │ gzip:   3.44 kB[22m
+[2mdist/[22m[2massets/[22m[36mFuelReconciliationDashboard-BbIfYVTw.js  [39m[1m[2m 12.21 kB[22m[1m[22m[2m │ gzip:   3.64 kB[22m
+[2mdist/[22m[2massets/[22m[36mManageCatalog-DnpHjluM.js                [39m[1m[2m 12.42 kB[22m[1m[22m[2m │ gzip:   2.91 kB[22m
+[2mdist/[22m[2massets/[22m[36mMaterialsCatalog-DyqiChX2.js             [39m[1m[2m 12.95 kB[22m[1m[22m[2m │ gzip:   3.38 kB[22m
+[2mdist/[22m[2massets/[22m[36mCrops-OraNfkkv.js                        [39m[1m[2m 13.16 kB[22m[1m[22m[2m │ gzip:   4.34 kB[22m
+[2mdist/[22m[2massets/[22m[36mCommercialDashboard-DDKnh7nh.js          [39m[1m[2m 13.59 kB[22m[1m[22m[2m │ gzip:   4.78 kB[22m
+[2mdist/[22m[2massets/[22m[36mCropCards-DYXTV9ZT.js                    [39m[1m[2m 14.07 kB[22m[1m[22m[2m │ gzip:   4.62 kB[22m
+[2mdist/[22m[2massets/[22m[36mStockManagement-Co9FtHM2.js              [39m[1m[2m 15.59 kB[22m[1m[22m[2m │ gzip:   4.34 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-DK7JJZhu.js                        [39m[1m[2m 15.90 kB[22m[1m[22m[2m │ gzip:   4.95 kB[22m
+[2mdist/[22m[2massets/[22m[36mTemplateManager-DFrwP01-.js              [39m[1m[2m 16.01 kB[22m[1m[22m[2m │ gzip:   3.70 kB[22m
+[2mdist/[22m[2massets/[22m[36mTreeVarianceAlerts-DcsqSyHK.js           [39m[1m[2m 16.06 kB[22m[1m[22m[2m │ gzip:   4.91 kB[22m
+[2mdist/[22m[2massets/[22m[36mFarmDetails-BfmrIPSS.js                  [39m[1m[2m 17.01 kB[22m[1m[22m[2m │ gzip:   3.66 kB[22m
+[2mdist/[22m[2massets/[22m[36mLocationWellsPage-BAqx0oUw.js            [39m[1m[2m 18.62 kB[22m[1m[22m[2m │ gzip:   5.27 kB[22m
+[2mdist/[22m[2massets/[22m[36mDashboard-t5GGKHYT.js                    [39m[1m[2m 19.47 kB[22m[1m[22m[2m │ gzip:   6.31 kB[22m
+[2mdist/[22m[2massets/[22m[36mApprovalInbox-Bn2eOlgY.js                [39m[1m[2m 19.70 kB[22m[1m[22m[2m │ gzip:   5.37 kB[22m
+[2mdist/[22m[2massets/[22m[36mContractOperationsDashboard-BQEW_-09.js  [39m[1m[2m 20.70 kB[22m[1m[22m[2m │ gzip:   4.86 kB[22m
+[2mdist/[22m[2massets/[22m[36mformat-Cu6XpJ8o.js                       [39m[1m[2m 20.81 kB[22m[1m[22m[2m │ gzip:   5.88 kB[22m
+[2mdist/[22m[2massets/[22m[36mFarms-Co2aahPu.js                        [39m[1m[2m 24.31 kB[22m[1m[22m[2m │ gzip:   7.46 kB[22m
+[2mdist/[22m[2massets/[22m[36mDailyLogHistory-C_yYumwy.js              [39m[1m[2m 24.67 kB[22m[1m[22m[2m │ gzip:   7.32 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-DvRSOIQ0.js                        [39m[1m[2m 28.56 kB[22m[1m[22m[2m │ gzip:   7.51 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-BmLPXJEJ.js                        [39m[1m[2m 32.68 kB[22m[1m[22m[2m │ gzip:   7.79 kB[22m
+[2mdist/[22m[2massets/[22m[36mCropPlanDetail-DeRR3vVx.js               [39m[1m[2m 34.53 kB[22m[1m[22m[2m │ gzip:   8.24 kB[22m
+[2mdist/[22m[2massets/[22m[36mTreeCensus-CvcVKdLO.js                   [39m[1m[2m 35.52 kB[22m[1m[22m[2m │ gzip:   8.50 kB[22m
+[2mdist/[22m[2massets/[22m[36mSales-DWg-2tPZ.js                        [39m[1m[2m 49.57 kB[22m[1m[22m[2m │ gzip:  12.33 kB[22m
+[2mdist/[22m[2massets/[22m[36mCropPlans-Dfqjh4e0.js                    [39m[1m[2m 63.36 kB[22m[1m[22m[2m │ gzip:  16.62 kB[22m
+[2mdist/[22m[2massets/[22m[36mSettings-BkYMbT3R.js                     [39m[1m[2m118.92 kB[22m[1m[22m[2m │ gzip:  26.12 kB[22m
+[2mdist/[22m[2massets/[22m[36mDailyLog-BNnQgdx6.js                     [39m[1m[2m157.55 kB[22m[1m[22m[2m │ gzip:  49.14 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-5QK31bKt.js                        [39m[1m[2m170.75 kB[22m[1m[22m[2m │ gzip:  37.60 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-D632zNEr.js                        [39m[1m[2m185.41 kB[22m[1m[22m[2m │ gzip:  64.70 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-DFn6473w.js                        [39m[1m[2m374.86 kB[22m[1m[22m[2m │ gzip: 110.50 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-CltE7Pn_.js                        [39m[1m[2m410.60 kB[22m[1m[22m[2m │ gzip: 130.03 kB[22m
+[2mdist/[22m[2massets/[22m[36mBudgetImportModal-Ik1u1jZk.js            [39m[1m[2m433.48 kB[22m[1m[22m[2m │ gzip: 144.75 kB[22m
+[32m✓ built in 11.35s[39m
+
+PWA v1.2.0
+mode      generateSW
+precache  90 entries (2688.31 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-b5f068f6.js

@@ -1,0 +1,177 @@
+version: "21.0"
+status: active
+purpose: readiness_traceability_matrix
+
+axes:
+  - id: architecture_alignment
+    description: alignment with truth chain and service-layer doctrine
+    target_score: 100
+    evidence:
+      - AGENTS.md truth chain
+      - PRD architecture sections
+      - service-layer usage in code review
+    must_pass:
+      - no_direct_transactional_writes_from_views_or_tasks
+      - smart_card_read_side_only
+
+  - id: simple_strict_boundary
+    description: effective and testable separation between SIMPLE and STRICT
+    target_score: 100
+    commands:
+      - npm run test
+      - python backend/manage.py verify_static_v21
+    must_pass:
+      - no_strict_route_leakage_in_simple
+      - backend_policy_enforcement_exists
+      - simple_audit_on_breach_exists
+
+  - id: farm_size_governance
+    description: SMALL MEDIUM LARGE enforcement
+    target_score: 100
+    must_pass:
+      - small_compensating_controls_documented_and_enforced
+      - medium_large_require_farm_finance_manager
+      - thresholds_backend_enforced
+
+  - id: sector_approval_chain
+    description: multi-level chain in strict mode
+    target_score: 100
+    must_pass:
+      - sector_accountant_lane
+      - sector_reviewer_lane
+      - sector_chief_accountant_lane
+      - sector_finance_director_lane
+      - sector_director_lane_when_required
+      - no_collapse_to_single_role
+
+  - id: financial_integrity
+    description: ledger discipline and financial correctness
+    target_score: 100
+    commands:
+      - python backend/manage.py check
+      - pytest
+    must_pass:
+      - append_only_ledger
+      - reversal_based_correction
+      - idempotency_headers_for_sensitive_paths
+      - decimal_only
+      - no_frontend_ledger_writes
+      - bulk_transition_excluded_requires_variance
+
+  - id: close_readiness
+    description: soft close, hard close, reopen, override, lock semantics
+    target_score: 100
+    must_pass:
+      - soft_close_local
+      - hard_close_sector
+      - reopen_governed
+      - override_governed
+      - no_mutable_final_posting_shortcuts
+
+  - id: attachment_lifecycle
+    description: evidence classification and retention safety
+    target_score: 100
+    commands:
+      - python backend/manage.py scan_pending_attachments
+    must_pass:
+      - class_defined
+      - metadata_present
+      - authoritative_evidence_retained
+      - archive_policy_defined
+      - purge_policy_restricted
+      - clean_scan_before_authoritative_if_required
+
+  - id: security_hardening
+    description: release-safe secrets and secure upload posture
+    target_score: 100
+    must_pass:
+      - no_hardcoded_credentials_in_release_paths
+      - no_wildcard_allowed_hosts_in_release
+      - upload_hardening_for_double_extension_pdf_js_macro_zipbomb
+      - secret_source_is_env_or_secret_store
+
+  - id: release_hygiene
+    description: clean release artifact and packaging discipline
+    target_score: 100
+    must_pass:
+      - postgresql_is_sole_database_engine
+      - no_logs_in_release
+      - no_dist_or_cache_noise
+      - no_media_evidence_bundled_by_accident
+
+  - id: schema_migration_readiness
+    description: model schema parity and migration safety
+    target_score: 100
+    commands:
+      - python backend/manage.py showmigrations --plan
+      - python backend/manage.py migrate --plan
+      - python scripts/verification/detect_zombies.py
+    must_pass:
+      - no_zombies
+      - no_ghosts
+      - no_undocumented_triggers
+      - sequence_health_checked
+      - policy_metadata_fields_present
+
+  - id: runtime_readiness
+    description: stack proof and runtime probes
+    target_score: 100
+    commands:
+      - python backend/manage.py runtime_probe_v21
+      - python backend/manage.py report_due_remote_reviews
+      - python backend/manage.py verify_release_gate_v21
+    must_pass:
+      - django_check_pass
+      - runtime_probe_pass
+      - db_reachable
+      - workers_or_hooks_verified
+      - release_gate_pass_or_blocked_with_reason
+
+  - id: backend_tests
+    description: backend tests for touched workflows
+    target_score: 100
+    must_pass:
+      - target_workflow_tests_green
+      - no_deleted_tests_to_fake_success
+
+  - id: frontend_tests_build
+    description: frontend lint test build
+    target_score: 100
+    commands:
+      - npm ci
+      - npm run lint
+      - npm run test
+      - npm run build
+    must_pass:
+      - build_green
+      - mode_guard_tests_green
+      - role_ux_tests_green
+
+  - id: ui_rtl_role_ux
+    description: RTL first and role aware surfaces
+    target_score: 100
+    must_pass:
+      - rtl_layout_preserved
+      - role_workbench_visible_in_strict
+      - simple_surface_remains_control_focused
+      - no_forbidden_absolute_finance_leak_in_simple
+
+scoring_policy:
+  live_score_authority: docs/evidence/closure/latest/verify_axis_complete_v21/summary.json
+  matrix_note: readiness aids must not outclaim the latest canonical verification summary
+  score_95_plus_requires:
+    - all_red_blockers_closed
+    - runtime_readiness_not_failed
+    - no_critical_security_gap
+    - no_reference_conflict_unresolved
+  score_98_requires:
+    - release_gate_pass
+    - runtime_probe_pass
+    - evidence_pack_complete
+    - no_known_open_blocker
+  score_100_requires:
+    - verify_axis_complete_v21_pass
+    - all_18_axes_pass
+    - postgresql_only_evidence
+    - no_blocked_step_in_active_run
+    - no_reference_conflict_unresolved

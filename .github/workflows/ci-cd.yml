@@ -1,0 +1,11 @@
+name: AgriAsset CI/CD Pipeline
+
+on:
+  push:
+    branches: ["main", "master", "develop"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  canonical:
+    uses: ./.github/workflows/_shared-enterprise-ci.yml

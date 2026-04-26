@@ -1,0 +1,540 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.0, pytest-9.0.2, pluggy-1.6.0
+django: version: 5.0.6, settings: smart_agri.settings (from ini)
+rootdir: c:\tools\workspace\AgriAsset_v44\backend
+configfile: pytest.ini
+plugins: anyio-4.11.0, locust-2.43.1, cov-7.0.0, django-4.11.1
+collected 10 items
+
+smart_agri\core\tests\test_rls_policies.py E........F                    [100%]
+
+=================================== ERRORS ====================================
+_______ ERROR at setup of TestRLSFarmIsolation.test_api_farm_isolation ________
+
+self = <django.db.backends.utils.CursorWrapper object at 0x0000023E1FAEAF50>
+sql = 'CREATE DATABASE "agriasset2026_test" ', params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='postgresql' alias='__no_db__'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x0000023E1FAEAF50>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+E               psycopg2.errors.DuplicateDatabase: database "agriasset2026_test" already exists
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:103: DuplicateDatabase
+
+The above exception was the direct cause of the following exception:
+
+self = <django.db.backends.postgresql.creation.DatabaseCreation object at 0x0000023E1F334E90>
+verbosity = 0, autoclobber = True, keepdb = False
+
+    def _create_test_db(self, verbosity, autoclobber, keepdb=False):
+        """
+        Internal implementation - create the test db tables.
+        """
+        test_database_name = self._get_test_db_name()
+        test_db_params = {
+            "dbname": self.connection.ops.quote_name(test_database_name),
+            "suffix": self.sql_table_creation_suffix(),
+        }
+        # Create the test database and connect to it.
+        with self._nodb_cursor() as cursor:
+            try:
+>               self._execute_create_test_db(cursor, test_db_params, keepdb)
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\base\creation.py:204: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\postgresql\creation.py:46: in _execute_create_test_db
+    super()._execute_create_test_db(cursor, parameters, keepdb)
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\base\creation.py:190: in _execute_create_test_db
+    cursor.execute("CREATE DATABASE %(dbname)s %(suffix)s" % parameters)
+smart_agri\core\apps.py:21: in execute_with_pragma_compat
+    return original_execute(self, sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:79: in execute
+    return self._execute_with_wrappers(
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:92: in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:100: in _execute
+    with self.db.wrap_database_errors:
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\utils.py:91: in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <django.db.backends.utils.CursorWrapper object at 0x0000023E1FAEAF50>
+sql = 'CREATE DATABASE "agriasset2026_test" ', params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='postgresql' alias='__no_db__'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x0000023E1FAEAF50>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+E               django.db.utils.ProgrammingError: database "agriasset2026_test" already exists
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:103: ProgrammingError
+
+During handling of the above exception, another exception occurred:
+
+self = <django.db.backends.utils.CursorWrapper object at 0x0000023E1FAEAF50>
+sql = 'DROP DATABASE "agriasset2026_test"', params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='postgresql' alias='__no_db__'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x0000023E1FAEAF50>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+E               psycopg2.errors.ObjectInUse: database "agriasset2026_test" is being accessed by other users
+E               DETAIL:  There is 1 other session using the database.
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:103: ObjectInUse
+
+The above exception was the direct cause of the following exception:
+
+self = <django.db.backends.postgresql.creation.DatabaseCreation object at 0x0000023E1F334E90>
+verbosity = 0, autoclobber = True, keepdb = False
+
+    def _create_test_db(self, verbosity, autoclobber, keepdb=False):
+        """
+        Internal implementation - create the test db tables.
+        """
+        test_database_name = self._get_test_db_name()
+        test_db_params = {
+            "dbname": self.connection.ops.quote_name(test_database_name),
+            "suffix": self.sql_table_creation_suffix(),
+        }
+        # Create the test database and connect to it.
+        with self._nodb_cursor() as cursor:
+            try:
+                self._execute_create_test_db(cursor, test_db_params, keepdb)
+            except Exception as e:
+                # if we want to keep the db, then no need to do any of the below,
+                # just return and skip it all.
+                if keepdb:
+                    return test_database_name
+    
+                self.log("Got an error creating the test database: %s" % e)
+                if not autoclobber:
+                    confirm = input(
+                        "Type 'yes' if you would like to try deleting the test "
+                        "database '%s', or 'no' to cancel: " % test_database_name
+                    )
+                if autoclobber or confirm == "yes":
+                    try:
+                        if verbosity >= 1:
+                            self.log(
+                                "Destroying old test database for alias %s..."
+                                % (
+                                    self._get_database_display_str(
+                                        verbosity, test_database_name
+                                    ),
+                                )
+                            )
+>                       cursor.execute("DROP DATABASE %(dbname)s" % test_db_params)
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\base\creation.py:228: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+smart_agri\core\apps.py:21: in execute_with_pragma_compat
+    return original_execute(self, sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:79: in execute
+    return self._execute_with_wrappers(
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:92: in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:100: in _execute
+    with self.db.wrap_database_errors:
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\utils.py:91: in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <django.db.backends.utils.CursorWrapper object at 0x0000023E1FAEAF50>
+sql = 'DROP DATABASE "agriasset2026_test"', params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='postgresql' alias='__no_db__'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x0000023E1FAEAF50>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+E               django.db.utils.OperationalError: database "agriasset2026_test" is being accessed by other users
+E               DETAIL:  There is 1 other session using the database.
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:103: OperationalError
+
+During handling of the above exception, another exception occurred:
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_api_farm_isolation>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x0000023E1BF58990>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+    
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+    
+        original_runtest = TestCaseFunction.runtest
+    
+        def non_debugging_runtest(self) -> None:
+            self._testcase(result=self)
+    
+        from django.test import SimpleTestCase
+    
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+    
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\pytest_django\plugin.py:584: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\pytest_django\fixtures.py:198: in django_db_setup
+    db_cfg = setup_databases(
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\utils.py:203: in setup_databases
+    connection.creation.create_test_db(
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\base\creation.py:62: in create_test_db
+    self._create_test_db(verbosity, autoclobber, keepdb)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <django.db.backends.postgresql.creation.DatabaseCreation object at 0x0000023E1F334E90>
+verbosity = 0, autoclobber = True, keepdb = False
+
+    def _create_test_db(self, verbosity, autoclobber, keepdb=False):
+        """
+        Internal implementation - create the test db tables.
+        """
+        test_database_name = self._get_test_db_name()
+        test_db_params = {
+            "dbname": self.connection.ops.quote_name(test_database_name),
+            "suffix": self.sql_table_creation_suffix(),
+        }
+        # Create the test database and connect to it.
+        with self._nodb_cursor() as cursor:
+            try:
+                self._execute_create_test_db(cursor, test_db_params, keepdb)
+            except Exception as e:
+                # if we want to keep the db, then no need to do any of the below,
+                # just return and skip it all.
+                if keepdb:
+                    return test_database_name
+    
+                self.log("Got an error creating the test database: %s" % e)
+                if not autoclobber:
+                    confirm = input(
+                        "Type 'yes' if you would like to try deleting the test "
+                        "database '%s', or 'no' to cancel: " % test_database_name
+                    )
+                if autoclobber or confirm == "yes":
+                    try:
+                        if verbosity >= 1:
+                            self.log(
+                                "Destroying old test database for alias %s..."
+                                % (
+                                    self._get_database_display_str(
+                                        verbosity, test_database_name
+                                    ),
+                                )
+                            )
+                        cursor.execute("DROP DATABASE %(dbname)s" % test_db_params)
+                        self._execute_create_test_db(cursor, test_db_params, keepdb)
+                    except Exception as e:
+                        self.log("Got an error recreating the test database: %s" % e)
+>                       sys.exit(2)
+E                       SystemExit: 2
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\base\creation.py:232: SystemExit
+---------------------------- Captured stderr setup ----------------------------
+Got an error creating the test database: database "agriasset2026_test" already exists
+
+Got an error recreating the test database: database "agriasset2026_test" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+
+================================== FAILURES ===================================
+________ TestMultiUserScenarios.test_user_with_multiple_farms_sees_all ________
+
+self = <django.db.backends.utils.CursorWrapper object at 0x0000023E1FE8D050>
+sql = 'TRUNCATE "core_activity_machine", "accounts_permissiontemplate_permissions", "accounts_farmgovernanceprofile", "core_..., "core_syncconflict_dlq", "core_asset_batch_maintenance", "accounts_usermfatoken", "core_employee", "core_laborrate";'
+params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='postgresql' alias='default'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x0000023E1FE8D050>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+E               psycopg2.errors.DeadlockDetected: deadlock detected
+E               DETAIL:  Process 13292 waits for AccessExclusiveLock on relation 1043271 of database 1043233; blocked by process 11944.
+E               Process 11944 waits for AccessShareLock on relation 1043243 of database 1043233; blocked by process 13292.
+E               HINT:  See server log for query details.
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:103: DeadlockDetected
+
+The above exception was the direct cause of the following exception:
+
+self = <django.core.management.commands.flush.Command object at 0x0000023E20004610>
+options = {'allow_cascade': False, 'database': 'default', 'force_color': False, 'inhibit_post_migrate': False, ...}
+database = 'default'
+connection = <DatabaseWrapper vendor='postgresql' alias='default'>
+verbosity = 0, interactive = False, reset_sequences = False
+allow_cascade = False, inhibit_post_migrate = False
+
+        def handle(self, **options):
+            database = options["database"]
+            connection = connections[database]
+            verbosity = options["verbosity"]
+            interactive = options["interactive"]
+            # The following are stealth options used by Django's internals.
+            reset_sequences = options.get("reset_sequences", True)
+            allow_cascade = options.get("allow_cascade", False)
+            inhibit_post_migrate = options.get("inhibit_post_migrate", False)
+    
+            self.style = no_style()
+    
+            # Import the 'management' module within each installed app, to register
+            # dispatcher events.
+            for app_config in apps.get_app_configs():
+                try:
+                    import_module(".management", app_config.name)
+                except ImportError:
+                    pass
+    
+            sql_list = sql_flush(
+                self.style,
+                connection,
+                reset_sequences=reset_sequences,
+                allow_cascade=allow_cascade,
+            )
+    
+            if interactive:
+                confirm = input(
+                    """You have requested a flush of the database.
+    This will IRREVERSIBLY DESTROY all data currently in the "%s" database,
+    and return each table to an empty state.
+    Are you sure you want to do this?
+    
+        Type 'yes' to continue, or 'no' to cancel: """
+                    % connection.settings_dict["NAME"]
+                )
+            else:
+                confirm = "yes"
+    
+            if confirm == "yes":
+                try:
+>                   connection.ops.execute_sql_flush(sql_list)
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\management\commands\flush.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\base\operations.py:461: in execute_sql_flush
+    cursor.execute(sql)
+smart_agri\core\apps.py:21: in execute_with_pragma_compat
+    return original_execute(self, sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:79: in execute
+    return self._execute_with_wrappers(
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:92: in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:100: in _execute
+    with self.db.wrap_database_errors:
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\utils.py:91: in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <django.db.backends.utils.CursorWrapper object at 0x0000023E1FE8D050>
+sql = 'TRUNCATE "core_activity_machine", "accounts_permissiontemplate_permissions", "accounts_farmgovernanceprofile", "core_..., "core_syncconflict_dlq", "core_asset_batch_maintenance", "accounts_usermfatoken", "core_employee", "core_laborrate";'
+params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='postgresql' alias='default'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x0000023E1FE8D050>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+E               django.db.utils.OperationalError: deadlock detected
+E               DETAIL:  Process 13292 waits for AccessExclusiveLock on relation 1043271 of database 1043233; blocked by process 11944.
+E               Process 11944 waits for AccessShareLock on relation 1043243 of database 1043233; blocked by process 13292.
+E               HINT:  See server log for query details.
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\backends\utils.py:103: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+self = <smart_agri.core.tests.test_rls_policies.TestMultiUserScenarios testMethod=test_user_with_multiple_farms_sees_all>
+result = <TestCaseFunction test_user_with_multiple_farms_sees_all>
+debug = False
+
+    def _setup_and_call(self, result, debug=False):
+        """
+        Perform the following in order: pre-setup, run test, post-teardown,
+        skipping pre/post hooks if test is set to be skipped.
+    
+        If debug=True, reraise any errors in setup and use super().debug()
+        instead of __call__() to run the test.
+        """
+        testMethod = getattr(self, self._testMethodName)
+        skipped = getattr(self.__class__, "__unittest_skip__", False) or getattr(
+            testMethod, "__unittest_skip__", False
+        )
+    
+        # Convert async test methods.
+        if iscoroutinefunction(testMethod):
+            setattr(self, self._testMethodName, async_to_sync(testMethod))
+    
+        if not skipped:
+            try:
+                self._pre_setup()
+            except Exception:
+                if debug:
+                    raise
+                result.addError(self, sys.exc_info())
+                return
+        if debug:
+            super().debug()
+        else:
+            super().__call__(result)
+        if not skipped:
+            try:
+>               self._post_teardown()
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\testcases.py:296: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\testcases.py:1102: in _post_teardown
+    self._fixture_teardown()
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\testcases.py:1136: in _fixture_teardown
+    call_command(
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\management\__init__.py:194: in call_command
+    return command.execute(*args, **defaults)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\management\base.py:459: in execute
+    output = self.handle(*args, **options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <django.core.management.commands.flush.Command object at 0x0000023E20004610>
+options = {'allow_cascade': False, 'database': 'default', 'force_color': False, 'inhibit_post_migrate': False, ...}
+database = 'default'
+connection = <DatabaseWrapper vendor='postgresql' alias='default'>
+verbosity = 0, interactive = False, reset_sequences = False
+allow_cascade = False, inhibit_post_migrate = False
+
+        def handle(self, **options):
+            database = options["database"]
+            connection = connections[database]
+            verbosity = options["verbosity"]
+            interactive = options["interactive"]
+            # The following are stealth options used by Django's internals.
+            reset_sequences = options.get("reset_sequences", True)
+            allow_cascade = options.get("allow_cascade", False)
+            inhibit_post_migrate = options.get("inhibit_post_migrate", False)
+    
+            self.style = no_style()
+    
+            # Import the 'management' module within each installed app, to register
+            # dispatcher events.
+            for app_config in apps.get_app_configs():
+                try:
+                    import_module(".management", app_config.name)
+                except ImportError:
+                    pass
+    
+            sql_list = sql_flush(
+                self.style,
+                connection,
+                reset_sequences=reset_sequences,
+                allow_cascade=allow_cascade,
+            )
+    
+            if interactive:
+                confirm = input(
+                    """You have requested a flush of the database.
+    This will IRREVERSIBLY DESTROY all data currently in the "%s" database,
+    and return each table to an empty state.
+    Are you sure you want to do this?
+    
+        Type 'yes' to continue, or 'no' to cancel: """
+                    % connection.settings_dict["NAME"]
+                )
+            else:
+                confirm = "yes"
+    
+            if confirm == "yes":
+                try:
+                    connection.ops.execute_sql_flush(sql_list)
+                except Exception as exc:
+>                   raise CommandError(
+                        "Database %s couldn't be flushed. Possible reasons:\n"
+                        "  * The database isn't running or isn't configured correctly.\n"
+                        "  * At least one of the expected database tables doesn't exist.\n"
+                        "  * The SQL was invalid.\n"
+                        "Hint: Look at the output of 'django-admin sqlflush'. "
+                        "That's the SQL this command wasn't able to run."
+                        % (connection.settings_dict["NAME"],)
+                    ) from exc
+E                   django.core.management.base.CommandError: Database agriasset2026_test couldn't be flushed. Possible reasons:
+E                     * The database isn't running or isn't configured correctly.
+E                     * At least one of the expected database tables doesn't exist.
+E                     * The SQL was invalid.
+E                   Hint: Look at the output of 'django-admin sqlflush'. That's the SQL this command wasn't able to run.
+
+C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\management\commands\flush.py:75: CommandError
+============================== warnings summary ===============================
+..\..\..\..\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\conf\__init__.py:251
+  C:\Users\ibrahim\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\conf\__init__.py:251: RemovedInDjango51Warning: The STATICFILES_STORAGE setting is deprecated. Use STORAGES instead.
+    warnings.warn(STATICFILES_STORAGE_DEPRECATED_MSG, RemovedInDjango51Warning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR smart_agri/core/tests/test_rls_policies.py::TestRLSFarmIsolation::test_api_farm_isolation
+FAILED smart_agri/core/tests/test_rls_policies.py::TestMultiUserScenarios::test_user_with_multiple_farms_sees_all
+========= 1 failed, 8 passed, 1 warning, 1 error in 243.37s (0:04:03) =========

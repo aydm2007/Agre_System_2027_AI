@@ -1,0 +1,24 @@
+
+site_name: AgriAsset V21 Documentation
+site_description: Unified documentation for the AgriAsset YECO Edition platform
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - User Guide: user_guide_ar.md
+  - Developer Guide: developer_guide_ar.md
+  - Word Export Policy: word_export_policy_ar.md
+  - System Overview: system_overview.md
+  - Deployment: DEPLOYMENT.md
+  - Developer & AI Playbook: DEVELOPER_AI_PLAYBOOK.md
+  - Backend:
+    - API Overview: backend_api_overview.md
+    - Offline Outbox: OFFLINE_OUTBOX.md
+    - Treasury & Cash Management: FINANCE_TREASURY.md
+  - Architecture:
+    - Comprehensive: comprehensive_documentation.md
+    - Database Setup: DATABASE_SETUP.md
+  - QA & Testing:
+    - Test Plan: TEST_DRY_RUN.md
+    - Production Release Gate: PRODUCTION_RELEASE_GATE.md

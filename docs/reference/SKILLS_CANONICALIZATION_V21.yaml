@@ -1,0 +1,88 @@
+version: "21.0"
+status: active_canonical
+purpose: >-
+  تحديد المهارات canonical والمهارات المكررة أو المقيدة، ومنع استعمال ملف skill غير محسوم
+  كمرجع إنتاجي داخل الإصدار 25.
+
+skills:
+  agri_guardian:
+    canonical: .agent/skills/agri_guardian/SKILL.md
+    role: master_architecture_and_mode_guardian
+    mandatory: true
+    notes:
+      - always_active_for_cross_cutting_changes
+      - governs dual_mode_contract and readiness doctrine
+
+  auditor:
+    canonical: .agent/skills/auditor/SKILL.md
+    role: forensic_trace_and_evidence
+    mandatory: true
+    notes:
+      - required for approval timeline and evidence readiness
+
+  financial_integrity:
+    canonical: .agent/skills/financial_integrity/SKILL.md
+    role: ledger_close_idempotency_reversal_guard
+    mandatory: true
+    notes:
+      - required for supplier settlement petty cash fuel fixed assets receipts
+
+  schema_guardian:
+    canonical: .agent/skills/schema_guardian/SKILL_V2.md
+    deprecated:
+      - .agent/skills/schema_guardian/SKILL.md
+    role: schema_governance_parity_and_metadata_readiness
+    mandatory: true
+    notes:
+      - use V2 as canonical because it includes later governance metadata framing
+
+  schema_sentinel:
+    canonical: .agent/skills/schema_sentinel/SKILL_NEW.md
+    deprecated:
+      - .agent/skills/schema_sentinel/SKILL.md
+    role: database_dba_state_enforcer
+    mandatory: true
+    notes:
+      - NEW is more complete due to air_gapped_migration_safety and temporal_integrity notes
+
+  sql_sync:
+    canonical: .agent/skills/sql_sync/SKILL.md
+    role: orm_sql_alignment_and_trigger_sequence_audit
+    mandatory: conditional
+    activation:
+      - inspectdb_diff
+      - trigger_audit
+      - sequence_drift
+      - dump_alignment
+
+  agri_maestro:
+    canonical: .agent/skills/agri_maestro/SKILL.md
+    role: large_refactor_and_rollout_orchestrator
+    mandatory: conditional
+    activation:
+      - refactors_over_50_files
+      - multi_app_rollout
+      - governance_phase_rollout
+
+  startup_sentinel:
+    canonical: .agent/skills/startup_sentinel/SKILL.md
+    role: local_startup_troubleshooting_only
+    mandatory: false
+    restrictions:
+      - do_not_commit_wildcard_allowed_hosts
+      - do_not_commit_hardcoded_fallback_db_config
+      - do_not_append_settings_patch_as_release_fix
+    status: advisory_only
+
+override_rules:
+  - skills_do_not_override_prd
+  - skills_do_not_override_agents
+  - startup_sentinel_cannot_upgrade_or_override_security_policy
+  - deprecated_skill_files_must_not_be_cited_as_authoritative_in_new_reports
+
+improvements_required:
+  - collapse_duplicate_skill_files_into_single_canonical_file_per_skill
+  - add version header inside each canonical skill
+  - add status field: canonical/deprecated/advisory_only
+  - add machine_readable activation and forbidden_actions blocks
+  - add release_safe flag per skill

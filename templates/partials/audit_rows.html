@@ -1,0 +1,21 @@
+
+{% for a in page.object_list %}
+<tr class="border-t">
+  <td class="p-2">{{ a.timestamp|date:"Y-m-d H:i:s" }}</td>
+  <td class="p-2">{{ a.user }}</td>
+  <td class="p-2">{{ a.action }}</td>
+  <td class="p-2">{{ a.model }}</td>
+  <td class="p-2">{{ a.object_id }}</td>
+</tr>
+{% endfor %}
+<tr>
+  <td colspan="5" class="p-2 text-center">
+    {% if page.has_next %}
+      <button class="px-3 py-1 bg-gray-100 rounded"
+              hx-get="/ui/audit/?page={{ page.next_page_number }}"
+              hx-target="#auditRows" hx-swap="afterend">المزيد…</button>
+    {% else %}
+      <span class="text-gray-400">لا مزيد</span>
+    {% endif %}
+  </td>
+</tr>

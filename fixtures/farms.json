@@ -1,0 +1,37 @@
+[
+  {
+    "name": "مزرعة سردود",
+    "slug": "sardood",
+    "region": "الحديدة"
+  },
+  {
+    "name": "مزرعة الجروبة",
+    "slug": "aljaruba",
+    "region": "الحديدة"
+  },
+  {
+    "name": "مزرعة المكيمنية",
+    "slug": "almakaymaniyah",
+    "region": "الحديدة"
+  },
+  {
+    "name": "مزرعة سنوان",
+    "slug": "sanwan",
+    "region": "الجوف"
+  },
+  {
+    "name": "مزرعة النعمانية",
+    "slug": "alnaemaniyah",
+    "region": "الجوف"
+  },
+  {
+    "name": "مزرعة معبر",
+    "slug": "maabar",
+    "region": "ذمار"
+  },
+  {
+    "name": "مزرعة الأسرة",
+    "slug": "alusra",
+    "region": "ذمار"
+  }
+]

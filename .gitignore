@@ -1,0 +1,102 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+*.pyc
+
+# Django
+*.log
+local_settings.py
+*.sqlite3
+
+# Runtime/generated
+backend/logs/
+backend/media/
+backend/staticfiles/
+backend/.pytest_cache/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.dist-local/
+frontend/.vite/
+frontend/.vite-local/
+frontend/test-results/
+frontend/playwright-report/
+frontend/.pw-results/
+frontend/.pw-results-axis-*/
+frontend/.vite-playwright-cache/
+
+# Logs
+**/logs/
+*.log
+
+# Root-level node_modules (if accidentally installed at root)
+/node_modules/
+
+# Build/lint output (should not be committed)
+build_*.txt
+buildout.txt
+lintout.txt
+lint_after_export.txt
+frontend_lint_after.txt
+setup_log.txt
+setup_out.txt
+backend_check.log
+
+# Release gate output (generated, not source)
+*_RELEASE_GATE.stdout.json
+release_readiness_snapshot.json
+release_readiness_snapshot.md
+backend/release_readiness_snapshot.json
+backend/release_readiness_snapshot.md
+Agriasset V21 Comprehensive Audit Report
+docs/evidence/closure/[0-9]*/
+*.codex.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# [AGRI-ASSET SOVEREIGN MOBILE]
+.gradle/
+.gradle_cache/
+.gradle_sovereign/
+**/.gradle/
+**/.gradle_cache/
+**/.gradle_sovereign/
+**/build/
+**/captures/
+**/local.properties
+**/GeneratedPluginRegistrant.java
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+*.keystore
+*.jks
+google-services.json
+
+# OS/System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Allowed Files explicitly requested by User
+!*.sql

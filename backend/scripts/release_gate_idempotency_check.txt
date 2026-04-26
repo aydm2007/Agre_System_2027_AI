@@ -1,0 +1,10 @@
+[AGRI-GUARDIAN] Idempotency Compliance Scan (v2 — Class-Level)
+============================================================
+
+Checking: api.py
+Checking: viewsets.py
+Checking: api.py
+
+Files checked: 3
+
+PASSED: All audited ViewSets are idempotency-compliant.

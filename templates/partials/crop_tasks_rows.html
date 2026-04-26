@@ -1,0 +1,6 @@
+
+{% for t in tasks %}
+<tr class="border-t"><td class="p-2">{{ t.crop.name }} ({{ t.crop.mode }})</td><td class="p-2">{{ t.stage }}</td><td class="p-2">{{ t.name }}</td></tr>
+{% empty %}
+<tr><td colspan="3" class="p-4 text-center text-gray-500">لا توجد مهام</td></tr>
+{% endfor %}

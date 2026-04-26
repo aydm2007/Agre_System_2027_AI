@@ -1,0 +1,221 @@
+{
+  "generated_at": "2026-03-27T12:03:45.205674+00:00",
+  "farm_name": "الخميسية",
+  "farm_slug": "al-khameesiya",
+  "overall_status": "PASS",
+  "strict_summary_score": 100.0,
+  "before_scorecard": {
+    "canonical_axes": 100,
+    "release_frozen_baseline": 97,
+    "farm_provisioning": 0,
+    "seasonal_cycle": 0,
+    "mango_cycle": 0,
+    "banana_cycle": 0,
+    "inventory_procurement": 0,
+    "strict_finance": 0,
+    "harvest_sales": 0,
+    "frontend_dual_mode": 0,
+    "end_to_end_new_tenant": 12
+  },
+  "phases": [
+    {
+      "name": "simple_bootstrap_validation",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:43.275372+00:00",
+      "ended_at": "2026-03-27T12:03:43.281370+00:00",
+      "duration_seconds": 0.01,
+      "result": {
+        "mode": "SIMPLE",
+        "cost_visibility": "summarized_amounts",
+        "smart_card_contract": true,
+        "service_card_keys": [
+          "execution",
+          "materials",
+          "labor",
+          "well",
+          "machinery",
+          "fuel",
+          "perennial",
+          "harvest",
+          "control",
+          "variance",
+          "financial_trace"
+        ]
+      }
+    },
+    {
+      "name": "seasonal_tomato_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:43.281370+00:00",
+      "ended_at": "2026-03-27T12:03:43.544097+00:00",
+      "duration_seconds": 0.26,
+      "result": {
+        "daily_log_id": 256,
+        "activity_id": 241,
+        "variance_status": "CRITICAL",
+        "smart_card_keys": [
+          "execution",
+          "materials",
+          "machinery",
+          "fuel",
+          "control",
+          "variance",
+          "financial_trace"
+        ]
+      }
+    },
+    {
+      "name": "mango_perennial_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:43.544097+00:00",
+      "ended_at": "2026-03-27T12:03:43.682526+00:00",
+      "duration_seconds": 0.14,
+      "result": {
+        "daily_log_id": 257,
+        "activity_id": 242,
+        "tree_delta": -5,
+        "current_tree_count": 500,
+        "tree_loss_reason": "جفاف طبيعي"
+      }
+    },
+    {
+      "name": "banana_perennial_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:43.682526+00:00",
+      "ended_at": "2026-03-27T12:03:43.822591+00:00",
+      "duration_seconds": 0.14,
+      "result": {
+        "daily_log_id": 258,
+        "activity_id": 243,
+        "variety": "جراند نين",
+        "service_rows": 1
+      }
+    },
+    {
+      "name": "inventory_procurement",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:43.822591+00:00",
+      "ended_at": "2026-03-27T12:03:43.867593+00:00",
+      "duration_seconds": 0.05,
+      "result": {
+        "purchase_order_id": 28,
+        "receipt_movement_id": "278",
+        "issue_movement_id": "279",
+        "remaining_qty": "6900.000"
+      }
+    },
+    {
+      "name": "simple_posture_only_finance",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:43.867593+00:00",
+      "ended_at": "2026-03-27T12:03:43.877600+00:00",
+      "duration_seconds": 0.01,
+      "result": {
+        "petty_cash_blocked": true,
+        "supplier_settlement_blocked": true,
+        "petty_cash_message": "🔴 [FORENSIC BLOCK] هذه العملية المالية تتطلب تفعيل النظام المالي الصارم (STRICT). المزرعة حالياً في وضع SIMPLE.",
+        "supplier_message": "🔴 [FORENSIC BLOCK] Service execution blocked: STRICT mode required."
+      }
+    },
+    {
+      "name": "strict_mode_transition",
+      "category": "api_contract_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:43.877600+00:00",
+      "ended_at": "2026-03-27T12:03:43.884594+00:00",
+      "duration_seconds": 0.01,
+      "result": {
+        "mode": "STRICT",
+        "contract_mode": "full_erp",
+        "treasury_visibility": "visible",
+        "smart_card_count": 7
+      }
+    },
+    {
+      "name": "strict_finance_execution",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:43.884594+00:00",
+      "ended_at": "2026-03-27T12:03:44.440585+00:00",
+      "duration_seconds": 0.56,
+      "result": {
+        "petty_cash_request_id": 32,
+        "petty_cash_settlement_id": 20,
+        "supplier_settlement_id": 27,
+        "receipt_status": "COLLECTED",
+        "deposit_status": "DEPOSITED",
+        "reconcile_status": "RECONCILED",
+        "fixed_asset_status": "posted",
+        "fuel_status": "posted"
+      }
+    },
+    {
+      "name": "harvest_and_sales",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:44.440585+00:00",
+      "ended_at": "2026-03-27T12:03:44.899847+00:00",
+      "duration_seconds": 0.46,
+      "result": {
+        "harvest_activity_id": 244,
+        "harvest_lot_id": 28,
+        "invoice_id": 23,
+        "invoice_status": "draft"
+      }
+    },
+    {
+      "name": "contract_operations",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:44.899847+00:00",
+      "ended_at": "2026-03-27T12:03:44.996843+00:00",
+      "duration_seconds": 0.1,
+      "result": {
+        "contract_id": 20,
+        "touring_id": 20,
+        "rent_status": "posted",
+        "dashboard_rows": 2
+      }
+    },
+    {
+      "name": "attachments_and_evidence",
+      "category": "api_contract_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:44.996843+00:00",
+      "ended_at": "2026-03-27T12:03:45.083839+00:00",
+      "duration_seconds": 0.09,
+      "result": {
+        "operational_scan_state": "passed",
+        "authoritative_archive_state": "hot",
+        "quarantine_state": "quarantined"
+      }
+    },
+    {
+      "name": "governance_workbench",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-03-27T12:03:45.083839+00:00",
+      "ended_at": "2026-03-27T12:03:45.205674+00:00",
+      "duration_seconds": 0.12,
+      "result": {
+        "approval_request_id": 32,
+        "approval_status": "APPROVED",
+        "stage_events": 7,
+        "workbench_rows": 2,
+        "final_required_role": "SECTOR_DIRECTOR"
+      }
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "failure_categories": []
+  }
+}

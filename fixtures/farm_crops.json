@@ -1,0 +1,157 @@
+[
+  {
+    "farm_slug": "sardood",
+    "crop": "مانجو",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "sardood",
+    "crop": "موز",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "sardood",
+    "crop": "قمح",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "sardood",
+    "crop": "ذرة شامية",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "crop": "مانجو",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "crop": "موز",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "crop": "قمح",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "crop": "ذرة شامية",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "crop": "قمح",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "crop": "ذرة شامية",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "crop": "بطاطس",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "sanwan",
+    "crop": "قمح",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "sanwan",
+    "crop": "ذرة شامية",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "sanwan",
+    "crop": "شمام",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "sanwan",
+    "crop": "بطاطس",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "sanwan",
+    "crop": "كوسة",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "crop": "قمح",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "crop": "ذرة شامية",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "crop": "شمام",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "crop": "بطاطس",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "crop": "كوسة",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "maabar",
+    "crop": "طماطم",
+    "mode": "Protected"
+  },
+  {
+    "farm_slug": "maabar",
+    "crop": "خيار",
+    "mode": "Protected"
+  },
+  {
+    "farm_slug": "maabar",
+    "crop": "طماطم",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "maabar",
+    "crop": "خيار",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "maabar",
+    "crop": "بطاطس",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "alusra",
+    "crop": "طماطم",
+    "mode": "Protected"
+  },
+  {
+    "farm_slug": "alusra",
+    "crop": "خيار",
+    "mode": "Protected"
+  },
+  {
+    "farm_slug": "alusra",
+    "crop": "طماطم",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "alusra",
+    "crop": "خيار",
+    "mode": "Open"
+  },
+  {
+    "farm_slug": "alusra",
+    "crop": "بطاطس",
+    "mode": "Open"
+  }
+]

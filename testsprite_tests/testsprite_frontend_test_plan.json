@@ -1,0 +1,413 @@
+[
+  {
+    "id": "TC001",
+    "title": "Dashboard KPI and Chart Accuracy",
+    "description": "Verify that the dashboard displays correct KPIs and charts reflecting live farm data including cost trends, plan status distribution, and activity metrics.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login with valid credentials and select a farm with known data."
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the Dashboard page."
+      },
+      {
+        "type": "assertion",
+        "description": "Check that KPI cards display accurate values matching backend data."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify charts for cost trends, plan status distribution, and activities render correctly and values match expected statistics."
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Daily Log Creation Online",
+    "description": "Verify that daily agricultural activities can be correctly logged in online mode including task selection, team and material tracking.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login successfully and navigate to the DailyLog page."
+      },
+      {
+        "type": "action",
+        "description": "Create a new daily log entry with valid farm, date, tasks, and add team members and materials."
+      },
+      {
+        "type": "action",
+        "description": "Submit the daily log while online."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the daily log is saved successfully and appears in activity feed and backend data store."
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Daily Log Creation Offline and Synchronization",
+    "description": "Verify that a daily agricultural activity log can be created offline and is queued properly, then synchronizes automatically when online.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Set application to offline mode (disable network)."
+      },
+      {
+        "type": "action",
+        "description": "Create a new daily log entry with valid data including tasks, team, and materials."
+      },
+      {
+        "type": "action",
+        "description": "Save the daily log, confirming it is queued locally."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the UI indicates the log is queued and stored in offline queue."
+      },
+      {
+        "type": "action",
+        "description": "Restore network connectivity."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the queued daily log is automatically synchronized to backend and removed from queue."
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Tree Inventory Event Logging",
+    "description": "Verify tree inventory can be filtered, updated, and event logs added for planting, harvest, loss, and adjustments.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login and navigate to Tree Inventory page."
+      },
+      {
+        "type": "action",
+        "description": "Apply filters for tree statuses (productive, declining) and verify displayed counts and summaries update accordingly."
+      },
+      {
+        "type": "action",
+        "description": "Select a tree batch and add event logs such as planting, harvest, loss, and stock adjustments."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm event logs are saved and reflected in inventory counts and history."
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Crop Management Task and Product Linking",
+    "description": "Verify crop plans and tasks can be managed including adding tasks and linking associated products/services.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Crop Plans and select a crop card."
+      },
+      {
+        "type": "action",
+        "description": "Add a new task to the crop plan with valid details."
+      },
+      {
+        "type": "action",
+        "description": "Link relevant products or services to the newly created task."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify tasks and linked products appear correctly in crop details and backend data."
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Sales Invoice Creation and Tracking",
+    "description": "Verify agricultural product sales invoices can be created, saved, and tracked in the sales module.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Sales page."
+      },
+      {
+        "type": "action",
+        "description": "Create a new sales invoice with valid customer info, products, quantities, prices, and discounts."
+      },
+      {
+        "type": "action",
+        "description": "Save the invoice and verify it appears in the invoice table with correct totals."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm invoice data persists and can be updated or marked as paid."
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Inventory Stock Movement and Reorder Alerts",
+    "description": "Verify stock movements can be recorded and reorder alerts trigger correctly when stock levels fall below thresholds.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Stock Management page."
+      },
+      {
+        "type": "action",
+        "description": "Record stock additions and removals for various materials."
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure stock levels update correctly after movements."
+      },
+      {
+        "type": "action",
+        "description": "Reduce stock below reorder threshold for a material."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that reorder alert notification is displayed for that material."
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "User Authentication and Role-Based Farm Access Control",
+    "description": "Verify secure user login with correct credential validation and farm-specific access permissions enforced with Row Level Security.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Attempt login with valid user credentials."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm login succeeds and user can view only farms assigned to their memberships."
+      },
+      {
+        "type": "action",
+        "description": "Attempt login with invalid credentials."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm login fails with appropriate error message."
+      },
+      {
+        "type": "action",
+        "description": "Attempt data access for a farm outside user's permissions."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm access is denied and no data leakage occurs due to RLS enforcement."
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Financial Risk Zone Anomaly Detection",
+    "description": "Verify that the Financial Risk Zone analytics module identifies cost anomalies with correct statistical calculations and flags outliers.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Reports page and access Financial Risk Zone analytics."
+      },
+      {
+        "type": "action",
+        "description": "Generate report with filters that include known cost anomalies."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify anomalies are flagged and statistical calculations are accurate."
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "API Endpoint Authentication and Error Handling",
+    "description": "Verify backend API endpoints enforce authentication and return proper error codes and messages when requests are unauthorized or malformed.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Make API requests to backend with valid authentication tokens for allowed operations."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm API returns expected data with success status."
+      },
+      {
+        "type": "action",
+        "description": "Make API requests without authentication or with invalid tokens."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify API returns 401 Unauthorized or 403 Forbidden as appropriate."
+      },
+      {
+        "type": "action",
+        "description": "Make API requests with invalid payloads or missing required data."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify API returns 400 Bad Request with descriptive error messages."
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Offline Queue Persistence and Retry Mechanism",
+    "description": "Verify offline queued requests and associated data persist in IndexedDB and service workers retry synchronization with backend when connectivity is restored.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Put app offline and create multiple daily logs and stock movement entries."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm requests are saved in offline queue storage."
+      },
+      {
+        "type": "action",
+        "description": "Reload the application and confirm queued requests persist."
+      },
+      {
+        "type": "action",
+        "description": "Restore network connectivity."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify queued requests are retried automatically and synchronized success is confirmed in UI."
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Database Migrations and RLS Policy Application",
+    "description": "Verify all database migrations including Row Level Security policy scripts (0093, 0094) apply cleanly without errors in test and staging environments.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Run migration scripts sequentially on a fresh database."
+      },
+      {
+        "type": "assertion",
+        "description": "Check each migration completes without error and schema matches expected definitions."
+      },
+      {
+        "type": "action",
+        "description": "Validate that Row Level Security policies are effectively applied by attempting unauthorized data access."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm unauthorized access is blocked as per RLS rules."
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Reporting and Export to Excel Functionality",
+    "description": "Verify that reports can be generated with filters and exported to Excel format correctly, preserving data integrity and formatting.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Reports page and apply various filter criteria."
+      },
+      {
+        "type": "action",
+        "description": "Generate report based on selected filters."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify report data matches expected filtered data."
+      },
+      {
+        "type": "action",
+        "description": "Export the generated report to Excel."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm exported Excel file downloads correctly and contains accurate, well-formatted data."
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "User Interface Flow and Responsiveness",
+    "description": "Verify all user interface flows including navigation, forms, and data displays conform to documented wireframes and are responsive on desktop and mobile devices.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Test user navigation from login through dashboard, daily logs, crop management, tree inventory, sales, and reports on desktop."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm UI flows match wireframe design and no UI glitches occur."
+      },
+      {
+        "type": "action",
+        "description": "Repeat tests above on multiple mobile device viewports."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all pages render correctly and interactive elements respond well on mobile."
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "System Deployment and Production Readiness Checks",
+    "description": "Verify deployment steps perform clean setup including environment variables, secrets management, migrations, static file collection, and security hardening.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Perform a fresh deployment following documented deployment procedure."
+      },
+      {
+        "type": "assertion",
+        "description": "Check all environment variables and secrets are correctly loaded."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify database migrations run successfully."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm static assets are collected and served correctly."
+      },
+      {
+        "type": "assertion",
+        "description": "Validate security checks including authentication, role enforcement, and RLS policies are operational."
+      }
+    ]
+  }
+]

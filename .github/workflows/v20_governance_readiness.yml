@@ -1,0 +1,21 @@
+name: DEPRECATED LEGACY - V20 Governance Readiness
+
+on:
+  workflow_dispatch:
+
+jobs:
+  static-governance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile backend
+        run: python -m compileall backend
+      - name: Compliance docs
+        run: python scripts/verification/check_compliance_docs.py
+      - name: Bare exceptions
+        run: python scripts/verification/check_no_bare_exceptions.py
+      - name: Runtime smoke if dependencies exist
+        run: python scripts/verification/run_runtime_smoke_if_available.py

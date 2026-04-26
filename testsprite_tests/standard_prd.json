@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "project": "AgriAsset 2025 Agricultural Management System",
+    "date": "2026-01-31",
+    "prepared_by": "Software Development Manager"
+  },
+  "product_overview": "AgriAsset 2025 is a comprehensive agricultural management platform combining farm operations, crop and tree inventory management, cost accounting, and advanced analytics with offline-support progressive web app capabilities. It integrates a React-based frontend with a Django REST Framework backend, secured with role-based access control and Row Level Security, aiming at improving farm productivity, operational decision-making, and financial risk awareness.",
+  "core_goals": [
+    "Provide an intuitive and responsive dashboard with key performance indicators and trends.",
+    "Enable robust daily agricultural activity logging with offline support and team/material tracking.",
+    "Manage crop plans, tasks, and associated products/services comprehensively.",
+    "Offer detailed tree inventory management with service coverage and event tracking to ensure orchard health.",
+    "Facilitate inventory and stock management with alerting on reorder thresholds.",
+    "Implement secure user authentication and farm-specific access control enforcing data isolation.",
+    "Deliver advanced reporting and anomaly detection features, including Financial Risk Zone analytics for cost anomalies.",
+    "Support offline data entry and synchronization to ensure continuous usability in field conditions.",
+    "Maintain high system reliability and data integrity through database migrations, RLS enforcement, and comprehensive automated tests."
+  ],
+  "key_features": [
+    "Executive dashboard featuring KPI cards, cost trends, and activity metrics with modern glassmorphism UI design.",
+    "Daily logging system with forms supporting task, team, material inputs, and offline queuing.",
+    "Tree inventory tracking categorized by tree statuses with event logging for planting, harvest, and loss.",
+    "Crop management including crop cards, seasonal plans, and task management with product linking.",
+    "Sales module for creating and tracking agricultural product invoices.",
+    "Stock and materials inventory management with stock movement recording and reorder alerts.",
+    "Comprehensive reporting portal with export to Excel and advanced financial anomaly detection.",
+    "User authentication with farm membership roles and permission enforcement using Row Level Security.",
+    "Offline queue mechanism utilizing IndexedDB and service workers, enabling data caching and retry logic for request sync.",
+    "Extensive backend API with a single entrypoint for maintaining consistency and security.",
+    "Support for unit conversions, crop templates, and resource analytics to enhance inventory and cost tracking."
+  ],
+  "user_flow_summary": [
+    "Users authenticate via secure login to access farms assigned per their memberships.",
+    "From the dashboard, users view aggregated KPIs and trends for selected farms.",
+    "Users create daily logs by selecting farm, date, tasks, crop plans, and adding activity details, with support for offline saving and queued upload.",
+    "Crop managers navigate crop cards and plans to assign tasks, link products, and monitor seasonal activities.",
+    "Tree inventory managers update tree stock with event logs for planting, harvest, loss, and adjustments.",
+    "Inventory managers record stock movements and review inventory balances with alerts for reorder.",
+    "Report users generate filtered reports, review cost variances and anomalies in the Financial Risk Zone, and export reports.",
+    "System admins perform migrations, verify RLS policies, create superusers, and monitor deployments for production readiness.",
+    "Offline queued requests and attachments are periodically retried in background, with UI feedback on synchronization status."
+  ],
+  "validation_criteria": [
+    "Dashboard displays accurate KPIs and charts reflecting live farm data.",
+    "Daily logs save correctly in both online and offline modes with attachments syncing.",
+    "User role and farm access permissions enforce strict data isolation via RLS in the database.",
+    "All migrations including RLS policy scripts (0093, 0094) apply cleanly without errors.",
+    "Financial Risk Zone identifies cost anomalies with correct statistical calculations and flags.",
+    "API endpoints respond properly with authentication enforced and error handling.",
+    "Frontend offline queue persists requests and attachments, successfully flushing them when online.",
+    "All automated tests for RLS policies, middleware, and financial ledger isolation pass without failures.",
+    "Deployment steps perform clean setup including environment variables, secrets, migrations, static collection, and security checks.",
+    "User interface flows match documented wireframes and support usability on desktop and mobile devices."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "JavaScript",
+      "React 18",
+      "Vite",
+      "TailwindCSS",
+      "Chart.js",
+      "React Router",
+      "Axios",
+      "Django REST Framework (Backend)",
+      "PostgreSQL (Backend)"
+    ],
+    "features": [
+      {
+        "name": "Dashboard",
+        "description": "Executive dashboard with KPI cards, charts for cost trends, plan status distribution, and activity metrics. Premium glassmorphism design.",
+        "files": [
+          "frontend/src/pages/Dashboard.jsx"
+        ]
+      },
+      {
+        "name": "DailyLog",
+        "description": "Daily work logging system for agricultural activities. Includes form for logging tasks, team management, materials tracking, and offline queue support.",
+        "files": [
+          "frontend/src/pages/DailyLog.jsx",
+          "frontend/src/pages/daily-log/DailyLogForm.jsx",
+          "frontend/src/pages/daily-log/DailyLogHeader.jsx",
+          "frontend/src/pages/daily-log/ActivityFeed.jsx",
+          "frontend/src/pages/daily-log/constants.js",
+          "frontend/src/pages/daily-log/utils.js"
+        ]
+      },
+      {
+        "name": "TreeInventory",
+        "description": "Tree inventory management with filtering, summary statistics, and event logging. Tracks tree counts by status (productive, declining).",
+        "files": [
+          "frontend/src/pages/TreeInventory.jsx",
+          "frontend/src/pages/tree-inventory/utils.js",
+          "frontend/src/pages/tree-inventory/TreeFilterBar.jsx",
+          "frontend/src/pages/tree-inventory/ServiceDetailLine.jsx"
+        ]
+      },
+      {
+        "name": "Sales",
+        "description": "Sales invoice management module for creating and tracking agricultural product sales.",
+        "files": [
+          "frontend/src/pages/Sales.jsx",
+          "frontend/src/pages/Sales/index.jsx",
+          "frontend/src/components/Sales/SalesForm.jsx",
+          "frontend/src/components/Sales/InvoiceTable.jsx"
+        ]
+      },
+      {
+        "name": "Authentication",
+        "description": "User authentication with login, permissions, and farm access control.",
+        "files": [
+          "frontend/src/pages/Login.jsx",
+          "frontend/src/auth/AuthContext.jsx"
+        ]
+      },
+      {
+        "name": "Reports",
+        "description": "Reporting and analytics for farm operations, costs, and activities.",
+        "files": [
+          "frontend/src/pages/Reports.jsx"
+        ]
+      },
+      {
+        "name": "Farms",
+        "description": "Farm management including farm details and location management.",
+        "files": [
+          "frontend/src/pages/Farms.jsx",
+          "frontend/src/pages/FarmDetails.jsx"
+        ]
+      },
+      {
+        "name": "CropManagement",
+        "description": "Crop planning, crop cards, and task management for agricultural operations.",
+        "files": [
+          "frontend/src/pages/Crops.jsx",
+          "frontend/src/pages/CropCards.jsx",
+          "frontend/src/pages/CropPlans.jsx",
+          "frontend/src/pages/CropPlanDetail.jsx",
+          "frontend/src/pages/CropTasks.jsx"
+        ]
+      },
+      {
+        "name": "Inventory",
+        "description": "Stock and materials inventory management.",
+        "files": [
+          "frontend/src/pages/StockManagement.jsx",
+          "frontend/src/pages/MaterialsCatalog.jsx",
+          "frontend/src/pages/HarvestProducts.jsx"
+        ]
+      },
+      {
+        "name": "APIClient",
+        "description": "Centralized API client for all backend communication.",
+        "files": [
+          "frontend/src/api/client.js",
+          "frontend/src/api/farmContext.js"
+        ]
+      }
+    ]
+  }
+}

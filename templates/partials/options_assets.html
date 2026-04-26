@@ -1,0 +1,4 @@
+<select id="asset" class="border rounded p-2 w-full" {% if assets %}{% else %}disabled{% endif %}>
+  <option value="">{% if assets %}-- اختر --{% else %}لا توجد أصول{% endif %}</option>
+  {% for a in assets %}<option value="{{ a.id }}">{{ a.name }} ({{ a.category }})</option>{% endfor %}
+</select>

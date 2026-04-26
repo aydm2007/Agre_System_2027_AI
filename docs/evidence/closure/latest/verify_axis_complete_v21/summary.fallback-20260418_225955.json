@@ -1,0 +1,1751 @@
+{
+  "command_name": "verify_axis_complete_v21",
+  "title": "V21 Axis-Complete Verification",
+  "generated_at": "2026-04-18T22:59:54.983425-07:00",
+  "overall_status": "FAIL",
+  "repo_root": "C:\\tools\\workspace\\AgriAsset_v44",
+  "suite_dir": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21",
+  "latest_dir": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21",
+  "counts": {
+    "pass": 52,
+    "fail": 2,
+    "blocked": 0,
+    "total": 54
+  },
+  "steps": [
+    {
+      "key": "bootstrap_contract",
+      "label": "Bootstrap/runtime contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_bootstrap_contract.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\bootstrap_contract.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\bootstrap_contract.fallback-20260418_223840.log"
+    },
+    {
+      "key": "postgres_foundation",
+      "label": "PostgreSQL foundation contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/verify_postgres_foundation_contract.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\postgres_foundation.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\postgres_foundation.fallback-20260418_223840.log"
+    },
+    {
+      "key": "bare_exceptions",
+      "label": "Bare exception scan",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_no_bare_exceptions.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\bare_exceptions.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\bare_exceptions.fallback-20260418_223843.log"
+    },
+    {
+      "key": "docx_traceability",
+      "label": "Docx traceability coverage",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_docx_traceability.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\docx_traceability.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\docx_traceability.fallback-20260418_223843.log"
+    },
+    {
+      "key": "release_hygiene",
+      "label": "Release hygiene static contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/verify_release_hygiene.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\release_hygiene.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\release_hygiene.fallback-20260418_224647.log"
+    },
+    {
+      "key": "decimal_mutations",
+      "label": "Decimal mutation guard",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/check_no_float_mutations.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\decimal_mutations.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\decimal_mutations.fallback-20260418_224648.log"
+    },
+    {
+      "key": "idempotency_actions",
+      "label": "Idempotency action contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/check_idempotency_actions.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\idempotency_actions.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\idempotency_actions.fallback-20260418_224649.log"
+    },
+    {
+      "key": "farm_scope_guards",
+      "label": "Farm scope guard contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/check_farm_scope_guards.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\farm_scope_guards.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\farm_scope_guards.fallback-20260418_224650.log"
+    },
+    {
+      "key": "service_layer_writes",
+      "label": "Service-layer write contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_service_layer_writes.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\service_layer_writes.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\service_layer_writes.fallback-20260418_224650.log"
+    },
+    {
+      "key": "compliance_docs",
+      "label": "Compliance docs contract",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_compliance_docs.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\compliance_docs.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\compliance_docs.fallback-20260418_224650.log"
+    },
+    {
+      "key": "xlsx_gate_check",
+      "label": "XLSX integrity gate",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_xlsx_gate.py",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\xlsx_gate_check.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\xlsx_gate_check.fallback-20260418_224706.log"
+    },
+    {
+      "key": "float_guard_strict",
+      "label": "Float guard strict scan",
+      "group": "static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/scripts/float_guard.py --strict",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\float_guard_strict.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\float_guard_strict.fallback-20260418_224706.log"
+    },
+    {
+      "key": "backend_smart_card_mode_tests",
+      "label": "Backend smart-card and mode tests",
+      "group": "backend_tests",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.core.tests.test_service_cards smart_agri.core.tests.test_simple_strict_separation --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\backend_smart_card_mode_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_smart_card_mode_tests.fallback-20260418_224725.log"
+    },
+    {
+      "key": "backend_approval_tests",
+      "label": "Backend approval and reopen tests",
+      "group": "backend_tests",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.finance.tests.test_approval_workflow_api smart_agri.finance.tests.test_approval_override_and_reopen --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\backend_approval_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_approval_tests.fallback-20260418_224750.log"
+    },
+    {
+      "key": "backend_attachment_tests",
+      "label": "Backend attachment and runtime tests",
+      "group": "backend_tests",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.core.tests.test_attachment_policy_service smart_agri.core.tests.test_attachment_lifecycle_v21 smart_agri.core.tests.test_v18_attachment_hardening smart_agri.core.tests.test_v19_remote_review_snapshot --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\backend_attachment_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_attachment_tests.fallback-20260418_224800.log"
+    },
+    {
+      "key": "backend_supplier_mode_tests",
+      "label": "Backend supplier settlement and mode policy tests",
+      "group": "backend_tests",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.finance.tests.test_supplier_settlement_api smart_agri.finance.tests.test_v15_profiled_posting_authority smart_agri.core.tests.test_mode_policy_api --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\backend_supplier_mode_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_supplier_mode_tests.fallback-20260418_224832.log"
+    },
+    {
+      "key": "backend_contract_asset_fuel_cash_tests",
+      "label": "Backend contract, assets, fuel, and petty-cash tests",
+      "group": "backend_tests",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.core.tests.test_contract_operations_dashboard_api smart_agri.core.tests.test_sharecropping_posting_service smart_agri.core.tests.test_fixed_assets_dashboard_api smart_agri.core.tests.test_fuel_reconciliation_dashboard_api smart_agri.finance.tests.test_petty_cash_service smart_agri.finance.tests.test_petty_cash_settlement --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.fallback-20260418_224852.log"
+    },
+    {
+      "key": "frontend_lint",
+      "label": "Frontend lint",
+      "group": "frontend",
+      "command": "npm.cmd --prefix frontend run lint",
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\frontend_lint.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_lint.fallback-20260418_224906.log"
+    },
+    {
+      "key": "frontend_focused_vitest",
+      "label": "Frontend focused Vitest suites",
+      "group": "frontend",
+      "command": "npm.cmd --prefix frontend run test -- src/components/daily-log/__tests__/DailyLogSmartCard.test.jsx src/pages/__tests__/ServiceCards.test.jsx src/pages/Finance/__tests__/SupplierSettlementDashboard.test.jsx src/pages/__tests__/ContractOperationsDashboard.test.jsx src/pages/__tests__/FixedAssetsDashboard.test.jsx src/pages/__tests__/FuelReconciliationDashboard.test.jsx src/pages/Finance/__tests__/PettyCashDashboard.test.jsx src/pages/Finance/__tests__/ReceiptsDepositDashboard.test.jsx --run",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\frontend_focused_vitest.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_focused_vitest.fallback-20260418_224924.log"
+    },
+    {
+      "key": "frontend_build",
+      "label": "Frontend build",
+      "group": "frontend",
+      "command": "npm.cmd --prefix frontend run build",
+      "cwd": ".",
+      "timeout_seconds": 300,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\frontend_build.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_build.fallback-20260418_225005.log"
+    },
+    {
+      "key": "django_check",
+      "label": "Django system checks",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py check --deploy",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\django_check.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\django_check.fallback-20260418_225011.log"
+    },
+    {
+      "key": "seed_runtime_evidence",
+      "label": "Seed runtime governance evidence",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py seed_runtime_governance_evidence",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\seed_runtime_evidence.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\seed_runtime_evidence.fallback-20260418_225017.log"
+    },
+    {
+      "key": "showmigrations_plan",
+      "label": "Django migrations status",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py showmigrations --plan",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\showmigrations_plan.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\showmigrations_plan.fallback-20260418_225023.log"
+    },
+    {
+      "key": "migrate_plan",
+      "label": "Django migration plan",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py migrate --plan",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\migrate_plan.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\migrate_plan.fallback-20260418_225028.log"
+    },
+    {
+      "key": "runtime_probe_v21",
+      "label": "Runtime probe V21",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py runtime_probe_v21",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\runtime_probe_v21.fallback-20260418_225033.log"
+    },
+    {
+      "key": "release_readiness_snapshot",
+      "label": "Release readiness snapshot",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py release_readiness_snapshot",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.fallback-20260418_225038.log"
+    },
+    {
+      "key": "scan_pending_attachments",
+      "label": "Attachment scan",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py scan_pending_attachments",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\scan_pending_attachments.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\scan_pending_attachments.fallback-20260418_225042.log"
+    },
+    {
+      "key": "report_due_remote_reviews",
+      "label": "Due remote reviews",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py report_due_remote_reviews",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\report_due_remote_reviews.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\report_due_remote_reviews.fallback-20260418_225047.log"
+    },
+    {
+      "key": "dispatch_outbox",
+      "label": "Persistent outbox dispatch",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py dispatch_outbox --batch-size 10 --metadata-flag seed_runtime_governance",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\dispatch_outbox.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\dispatch_outbox.fallback-20260418_225051.log"
+    },
+    {
+      "key": "retry_dead_letters",
+      "label": "Persistent outbox retry dead letters",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py retry_dead_letters --limit 10 --metadata-flag seed_runtime_governance",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\retry_dead_letters.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\retry_dead_letters.fallback-20260418_225056.log"
+    },
+    {
+      "key": "purge_dispatched_outbox",
+      "label": "Persistent outbox purge dry-run",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py purge_dispatched_outbox --dry-run --metadata-flag seed_runtime_governance",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\purge_dispatched_outbox.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\purge_dispatched_outbox.fallback-20260418_225100.log"
+    },
+    {
+      "key": "schema_detect_zombies",
+      "label": "Schema zombie detection",
+      "group": "axis_static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/detect_zombies.py",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\schema_detect_zombies.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\schema_detect_zombies.fallback-20260418_225103.log"
+    },
+    {
+      "key": "schema_detect_ghost_triggers",
+      "label": "Schema ghost trigger detection",
+      "group": "axis_static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/detect_ghost_triggers.py",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.fallback-20260418_225105.log"
+    },
+    {
+      "key": "backup_freshness",
+      "label": "Backup freshness contract",
+      "group": "axis_static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_backup_freshness.py",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\backup_freshness.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backup_freshness.fallback-20260418_225105.log"
+    },
+    {
+      "key": "fiscal_period_gates",
+      "label": "Fiscal period gate contract",
+      "group": "axis_static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/check_fiscal_period_gates.py",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\fiscal_period_gates.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\fiscal_period_gates.fallback-20260418_225113.log"
+    },
+    {
+      "key": "zakat_harvest_triggers",
+      "label": "Harvest zakat trigger contract",
+      "group": "axis_static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/scripts/check_zakat_harvest_triggers.py",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.fallback-20260418_225115.log"
+    },
+    {
+      "key": "solar_depreciation_logic",
+      "label": "Solar depreciation contract",
+      "group": "axis_static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/scripts/check_solar_depreciation_logic.py",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.fallback-20260418_225117.log"
+    },
+    {
+      "key": "accounts_service_layer_writes",
+      "label": "Accounts service-layer write contract",
+      "group": "axis_static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_accounts_service_layer_writes.py",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\accounts_service_layer_writes.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\accounts_service_layer_writes.fallback-20260418_225117.log"
+    },
+    {
+      "key": "auth_service_layer_writes",
+      "label": "Auth service-layer write contract",
+      "group": "axis_static",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' scripts/verification/check_auth_service_layer_writes.py",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\auth_service_layer_writes.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\auth_service_layer_writes.fallback-20260418_225117.log"
+    },
+    {
+      "key": "axis_idempotency_tests",
+      "label": "Axis idempotency backend tests",
+      "group": "axis_backend",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.core.tests.test_idempotency_middleware smart_agri.finance.tests.test_fiscal_year_rollover_idempotency smart_agri.core.tests.test_zakat_policy_v2 --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.fallback-20260418_225127.log"
+    },
+    {
+      "key": "axis_fiscal_fund_tests",
+      "label": "Axis fiscal and fund backend tests",
+      "group": "axis_backend",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.finance.tests.test_fiscal_lifecycle smart_agri.finance.tests.test_fiscal_close_governance smart_agri.core.tests.test_fiscal_close_e2e smart_agri.core.tests.test_financial_governance smart_agri.finance.tests.test_financial_integrity_governance --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.fallback-20260418_225135.log"
+    },
+    {
+      "key": "axis_tenant_audit_variance_tests",
+      "label": "Axis tenant, audit, and variance backend tests",
+      "group": "axis_backend",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.finance.tests.test_tenant_isolation smart_agri.core.tests.test_rls_authorization smart_agri.core.tests.test_phase7_audit_append_only smart_agri.core.tests.test_route_breach_middleware smart_agri.core.tests.test_schedule_variance smart_agri.core.tests.test_phase5_variance_workflow --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.fallback-20260418_225157.log"
+    },
+    {
+      "key": "axis_tiering_workbench_tests",
+      "label": "Axis farm tiering and workbench backend tests",
+      "group": "axis_backend",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.core.tests.test_farm_size_governance smart_agri.core.tests.test_v21_governance_comprehensive smart_agri.finance.tests.test_v18_role_workbench smart_agri.finance.tests.test_v21_role_workbench smart_agri.accounts.tests.test_role_delegation --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.fallback-20260418_225206.log"
+    },
+    {
+      "key": "axis_biological_harvest_tests",
+      "label": "Axis biological and harvest backend tests",
+      "group": "axis_backend",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.core.tests.test_biological_asset_impairment smart_agri.core.tests.test_tree_inventory smart_agri.core.tests.test_phase6_zakat_solar smart_agri.core.tests.test_harvest_products smart_agri.core.tests.test_activity_requirements smart_agri.sales.tests.test_sale_service --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.fallback-20260418_225241.log"
+    },
+    {
+      "key": "axis_settlement_contract_mass_tests",
+      "label": "Axis settlement, contract, and mass-casualty backend tests",
+      "group": "axis_backend",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.core.tests.test_seasonal_settlement smart_agri.core.tests.test_operational_contracts smart_agri.core.tests.test_shadow_accounting_strict smart_agri.core.tests.test_sardood_scenarios --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.fallback-20260418_225248.log"
+    },
+    {
+      "key": "axis_single_crop_tests",
+      "label": "Axis single-crop costing backend tests",
+      "group": "axis_backend",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.core.tests.test_activity_cost_snapshot_integrity smart_agri.core.tests.test_service_cards smart_agri.core.tests.test_v21_e2e_cycle --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.fallback-20260418_225305.log"
+    },
+    {
+      "key": "axis_governance_maintenance_dry_run",
+      "label": "Axis governance maintenance dry run",
+      "group": "axis_runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py run_governance_maintenance_cycle --dry-run",
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.fallback-20260418_225309.log"
+    },
+    {
+      "key": "axis_integration_accounts_tests",
+      "label": "Axis integration and account governance backend tests",
+      "group": "axis_backend",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py test smart_agri.core.tests.test_integration_hub_contracts smart_agri.accounts.tests.test_memberships_api smart_agri.accounts.tests.test_role_delegation --keepdb --noinput",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_integration_accounts_tests.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_integration_accounts_tests.fallback-20260418_225326.log"
+    },
+    {
+      "key": "axis_prepare_e2e_auth",
+      "label": "Axis E2E auth preparation",
+      "group": "axis_runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py prepare_e2e_auth_v21",
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "env_overrides": {},
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_prepare_e2e_auth.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_prepare_e2e_auth.fallback-20260418_225331.log"
+    },
+    {
+      "key": "axis_playwright_daily_log",
+      "label": "Axis Playwright daily smart-card proof",
+      "group": "axis_frontend",
+      "command": "npx.cmd --prefix frontend playwright test frontend/tests/e2e/daily-log-smart-card.spec.js --project=chromium --config=frontend/playwright.config.js --workers=1 --reporter=line",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\runtime\\axis_playwright_daily_log"
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.fallback-20260418_225616.log"
+    },
+    {
+      "key": "axis_playwright_supplier",
+      "label": "Axis Playwright supplier settlement proof",
+      "group": "axis_frontend",
+      "command": "npx.cmd --prefix frontend playwright test frontend/tests/e2e/supplier-settlement.spec.js --project=chromium --config=frontend/playwright.config.js --workers=1 --reporter=line",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\runtime\\axis_playwright_supplier"
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_playwright_supplier.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_supplier.fallback-20260418_225708.log"
+    },
+    {
+      "key": "axis_playwright_contract",
+      "label": "Axis Playwright contract operations proof",
+      "group": "axis_frontend",
+      "command": "npx.cmd --prefix frontend playwright test frontend/tests/e2e/contract-operations.spec.js --project=chromium --config=frontend/playwright.config.js --workers=1 --reporter=line",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\runtime\\axis_playwright_contract"
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_playwright_contract.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_contract.fallback-20260418_225747.log"
+    },
+    {
+      "key": "axis_playwright_fixed_assets",
+      "label": "Axis Playwright fixed-assets proof",
+      "group": "axis_frontend",
+      "command": "npx.cmd --prefix frontend playwright test frontend/tests/e2e/fixed-assets.spec.js --project=chromium --config=frontend/playwright.config.js --workers=1 --reporter=line",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\runtime\\axis_playwright_fixed_assets"
+      },
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_playwright_fixed_assets.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_fixed_assets.fallback-20260418_225837.log"
+    },
+    {
+      "key": "axis_playwright_fuel",
+      "label": "Axis Playwright fuel and dual-mode proof",
+      "group": "axis_frontend",
+      "command": "npx.cmd --prefix frontend playwright test frontend/tests/e2e/fuel-reconciliation.spec.js frontend/tests/e2e/dual-mode-switch.spec.js --project=chromium --config=frontend/playwright.config.js --workers=1 --reporter=line",
+      "cwd": ".",
+      "timeout_seconds": 900,
+      "env_overrides": {
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\runtime\\axis_playwright_fuel"
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_playwright_fuel.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_fuel.fallback-20260418_225954.log"
+    }
+  ],
+  "artifacts": [
+    {
+      "source": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\release_readiness_snapshot.json",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.json",
+      "latest_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.fallback-20260418_225954.json"
+    },
+    {
+      "source": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\release_readiness_snapshot.md",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.md",
+      "latest_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.fallback-20260418_225954.md"
+    },
+    {
+      "source": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\scripts\\release_gate_float_check.txt",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\artifacts\\release_gate_float_check.txt",
+      "latest_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_gate_float_check.fallback-20260418_225954.txt"
+    }
+  ],
+  "latest_sync_warnings": [
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\bootstrap_contract.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\bootstrap_contract.fallback-20260418_223840.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\bootstrap_contract.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\postgres_foundation.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\postgres_foundation.fallback-20260418_223840.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\postgres_foundation.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\bare_exceptions.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\bare_exceptions.fallback-20260418_223843.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\bare_exceptions.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\docx_traceability.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\docx_traceability.fallback-20260418_223843.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\docx_traceability.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\release_hygiene.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\release_hygiene.fallback-20260418_224647.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\release_hygiene.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\decimal_mutations.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\decimal_mutations.fallback-20260418_224648.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\decimal_mutations.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\idempotency_actions.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\idempotency_actions.fallback-20260418_224649.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\idempotency_actions.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\farm_scope_guards.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\farm_scope_guards.fallback-20260418_224650.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\farm_scope_guards.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\service_layer_writes.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\service_layer_writes.fallback-20260418_224650.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\service_layer_writes.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\compliance_docs.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\compliance_docs.fallback-20260418_224650.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\compliance_docs.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\xlsx_gate_check.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\xlsx_gate_check.fallback-20260418_224706.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\xlsx_gate_check.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\float_guard_strict.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\float_guard_strict.fallback-20260418_224706.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\float_guard_strict.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_smart_card_mode_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_smart_card_mode_tests.fallback-20260418_224725.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\backend_smart_card_mode_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_approval_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_approval_tests.fallback-20260418_224750.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\backend_approval_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_attachment_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_attachment_tests.fallback-20260418_224800.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\backend_attachment_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_supplier_mode_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_supplier_mode_tests.fallback-20260418_224832.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\backend_supplier_mode_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.fallback-20260418_224852.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\backend_contract_asset_fuel_cash_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_lint.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_lint.fallback-20260418_224906.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\frontend_lint.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_focused_vitest.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_focused_vitest.fallback-20260418_224924.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\frontend_focused_vitest.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_build.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_build.fallback-20260418_225005.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\frontend_build.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\django_check.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\django_check.fallback-20260418_225011.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\django_check.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\seed_runtime_evidence.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\seed_runtime_evidence.fallback-20260418_225017.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\seed_runtime_evidence.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\showmigrations_plan.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\showmigrations_plan.fallback-20260418_225023.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\showmigrations_plan.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\migrate_plan.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\migrate_plan.fallback-20260418_225028.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\migrate_plan.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\runtime_probe_v21.fallback-20260418_225033.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\runtime_probe_v21.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.fallback-20260418_225038.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\release_readiness_snapshot.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\scan_pending_attachments.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\scan_pending_attachments.fallback-20260418_225042.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\scan_pending_attachments.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\report_due_remote_reviews.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\report_due_remote_reviews.fallback-20260418_225047.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\report_due_remote_reviews.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\dispatch_outbox.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\dispatch_outbox.fallback-20260418_225051.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\dispatch_outbox.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\retry_dead_letters.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\retry_dead_letters.fallback-20260418_225056.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\retry_dead_letters.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\purge_dispatched_outbox.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\purge_dispatched_outbox.fallback-20260418_225100.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\purge_dispatched_outbox.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\schema_detect_zombies.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\schema_detect_zombies.fallback-20260418_225103.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\schema_detect_zombies.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.fallback-20260418_225105.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\schema_detect_ghost_triggers.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backup_freshness.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backup_freshness.fallback-20260418_225105.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\backup_freshness.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\fiscal_period_gates.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\fiscal_period_gates.fallback-20260418_225113.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\fiscal_period_gates.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.fallback-20260418_225115.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\zakat_harvest_triggers.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.fallback-20260418_225117.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\solar_depreciation_logic.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\accounts_service_layer_writes.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\accounts_service_layer_writes.fallback-20260418_225117.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\accounts_service_layer_writes.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\auth_service_layer_writes.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\auth_service_layer_writes.fallback-20260418_225117.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\auth_service_layer_writes.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.fallback-20260418_225127.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_idempotency_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.fallback-20260418_225135.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_fiscal_fund_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.fallback-20260418_225157.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_tenant_audit_variance_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.fallback-20260418_225206.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_tiering_workbench_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.fallback-20260418_225241.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_biological_harvest_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.fallback-20260418_225248.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_settlement_contract_mass_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.fallback-20260418_225305.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_single_crop_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.fallback-20260418_225309.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_governance_maintenance_dry_run.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_integration_accounts_tests.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_integration_accounts_tests.fallback-20260418_225326.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_integration_accounts_tests.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_prepare_e2e_auth.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_prepare_e2e_auth.fallback-20260418_225331.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_prepare_e2e_auth.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.fallback-20260418_225616.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_playwright_daily_log.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_supplier.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_supplier.fallback-20260418_225708.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_playwright_supplier.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_contract.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_contract.fallback-20260418_225747.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_playwright_contract.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_fixed_assets.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_fixed_assets.fallback-20260418_225837.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_playwright_fixed_assets.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "step_log",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_fuel.log",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_fuel.fallback-20260418_225954.log",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\logs\\\\axis_playwright_fuel.log'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "artifact_copy",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.json",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.fallback-20260418_225954.json",
+      "source_path": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\release_readiness_snapshot.json",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\artifacts\\\\release_readiness_snapshot.json'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "artifact_copy",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.md",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.fallback-20260418_225954.md",
+      "source_path": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\release_readiness_snapshot.md",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\artifacts\\\\release_readiness_snapshot.md'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    },
+    {
+      "kind": "artifact_copy",
+      "requested_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_gate_float_check.txt",
+      "fallback_latest_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_gate_float_check.fallback-20260418_225954.txt",
+      "source_path": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\scripts\\release_gate_float_check.txt",
+      "error": "[Errno 13] Permission denied: 'C:\\\\tools\\\\workspace\\\\AgriAsset_v44\\\\docs\\\\evidence\\\\closure\\\\latest\\\\verify_axis_complete_v21\\\\artifacts\\\\release_gate_float_check.txt'",
+      "status": "DEGRADED_LATEST_MIRROR"
+    }
+  ],
+  "axes": [
+    {
+      "number": 1,
+      "key": "schema_parity",
+      "title": "Schema Parity",
+      "status": "FAIL",
+      "code_anchor": "backend/smart_agri/core/migrations/, backend/smart_agri/finance/migrations/",
+      "test_anchor": "backend/smart_agri/core/tests/test_schema_parity_runtime.py",
+      "gate_anchor": "python scripts/verification/detect_zombies.py ; python scripts/verification/detect_ghost_triggers.py",
+      "runtime_anchor": "python backend/manage.py showmigrations --plan ; python backend/manage.py migrate --plan",
+      "step_keys": [
+        "postgres_foundation",
+        "showmigrations_plan",
+        "migrate_plan",
+        "schema_detect_zombies",
+        "schema_detect_ghost_triggers"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "postgres_foundation",
+          "status": "PASS",
+          "label": "PostgreSQL foundation contract",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\postgres_foundation.log"
+        },
+        {
+          "key": "showmigrations_plan",
+          "status": "PASS",
+          "label": "Django migrations status",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\showmigrations_plan.log"
+        },
+        {
+          "key": "migrate_plan",
+          "status": "PASS",
+          "label": "Django migration plan",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\migrate_plan.log"
+        },
+        {
+          "key": "schema_detect_zombies",
+          "status": "FAIL",
+          "label": "Schema zombie detection",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\schema_detect_zombies.log"
+        },
+        {
+          "key": "schema_detect_ghost_triggers",
+          "status": "PASS",
+          "label": "Schema ghost trigger detection",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.log"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "key": "idempotency_v2",
+      "title": "Idempotency V2",
+      "status": "PASS",
+      "code_anchor": "backend idempotency middleware and financial mutation services",
+      "test_anchor": "backend/smart_agri/core/tests/test_idempotency_middleware.py ; backend/smart_agri/finance/tests/test_fiscal_year_rollover_idempotency.py",
+      "gate_anchor": "python scripts/check_idempotency_actions.py",
+      "runtime_anchor": "python backend/manage.py verify_release_gate_v21",
+      "step_keys": [
+        "idempotency_actions",
+        "axis_idempotency_tests"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "idempotency_actions",
+          "status": "PASS",
+          "label": "Idempotency action contract",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\idempotency_actions.log"
+        },
+        {
+          "key": "axis_idempotency_tests",
+          "status": "PASS",
+          "label": "Axis idempotency backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.log"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "key": "fiscal_lifecycle",
+      "title": "Fiscal Lifecycle",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/finance/services/fiscal_*",
+      "test_anchor": "backend/smart_agri/finance/tests/test_fiscal_lifecycle.py ; backend/smart_agri/core/tests/test_fiscal_close_e2e.py",
+      "gate_anchor": "python scripts/check_fiscal_period_gates.py",
+      "runtime_anchor": "python backend/manage.py release_readiness_snapshot",
+      "step_keys": [
+        "fiscal_period_gates",
+        "axis_fiscal_fund_tests",
+        "release_readiness_snapshot"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "fiscal_period_gates",
+          "status": "PASS",
+          "label": "Fiscal period gate contract",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\fiscal_period_gates.log"
+        },
+        {
+          "key": "axis_fiscal_fund_tests",
+          "status": "PASS",
+          "label": "Axis fiscal and fund backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log"
+        },
+        {
+          "key": "release_readiness_snapshot",
+          "status": "PASS",
+          "label": "Release readiness snapshot",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "key": "fund_accounting",
+      "title": "Fund Accounting",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/core/services/financial_governance.py ; backend/smart_agri/finance/services/fiscal_fund_governance_service.py",
+      "test_anchor": "backend/smart_agri/core/tests/test_financial_governance.py ; backend/smart_agri/finance/tests/test_financial_integrity_governance.py",
+      "gate_anchor": "python backend/manage.py verify_release_gate_v21",
+      "runtime_anchor": "python backend/manage.py release_readiness_snapshot",
+      "step_keys": [
+        "axis_fiscal_fund_tests",
+        "release_readiness_snapshot"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "axis_fiscal_fund_tests",
+          "status": "PASS",
+          "label": "Axis fiscal and fund backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log"
+        },
+        {
+          "key": "release_readiness_snapshot",
+          "status": "PASS",
+          "label": "Release readiness snapshot",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "key": "decimal_and_surra",
+      "title": "Decimal and Surra",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/core/services/costing.py ; finance/api_ledger_support.py",
+      "test_anchor": "backend/smart_agri/core/tests/test_strict_decimals.py ; backend/smart_agri/core/tests/test_labor_estimation_api.py",
+      "gate_anchor": "python scripts/check_no_float_mutations.py ; python backend/scripts/float_guard.py --strict",
+      "runtime_anchor": "python backend/manage.py verify_static_v21",
+      "step_keys": [
+        "decimal_mutations",
+        "float_guard_strict",
+        "axis_single_crop_tests"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "decimal_mutations",
+          "status": "PASS",
+          "label": "Decimal mutation guard",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\decimal_mutations.log"
+        },
+        {
+          "key": "float_guard_strict",
+          "status": "PASS",
+          "label": "Float guard strict scan",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\float_guard_strict.log"
+        },
+        {
+          "key": "axis_single_crop_tests",
+          "status": "PASS",
+          "label": "Axis single-crop costing backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "key": "tenant_isolation",
+      "title": "Tenant Isolation",
+      "status": "PASS",
+      "code_anchor": "backend farm scope middleware and PostgreSQL RLS policies",
+      "test_anchor": "backend/smart_agri/finance/tests/test_tenant_isolation.py ; backend/smart_agri/core/tests/test_rls_authorization.py",
+      "gate_anchor": "python scripts/check_farm_scope_guards.py",
+      "runtime_anchor": "python backend/manage.py runtime_probe_v21",
+      "step_keys": [
+        "farm_scope_guards",
+        "axis_tenant_audit_variance_tests",
+        "runtime_probe_v21"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "farm_scope_guards",
+          "status": "PASS",
+          "label": "Farm scope guard contract",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\farm_scope_guards.log"
+        },
+        {
+          "key": "axis_tenant_audit_variance_tests",
+          "status": "PASS",
+          "label": "Axis tenant, audit, and variance backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
+        },
+        {
+          "key": "runtime_probe_v21",
+          "status": "PASS",
+          "label": "Runtime probe V21",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "key": "auditability",
+      "title": "Auditability",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/core/models/log.py::AuditLog ; append-only ledger flows",
+      "test_anchor": "backend/smart_agri/core/tests/test_phase7_audit_append_only.py ; backend/smart_agri/core/tests/test_route_breach_middleware.py",
+      "gate_anchor": "python scripts/verification/check_service_layer_writes.py",
+      "runtime_anchor": "python backend/manage.py verify_release_gate_v21",
+      "step_keys": [
+        "service_layer_writes",
+        "axis_tenant_audit_variance_tests"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "service_layer_writes",
+          "status": "PASS",
+          "label": "Service-layer write contract",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\service_layer_writes.log"
+        },
+        {
+          "key": "axis_tenant_audit_variance_tests",
+          "status": "PASS",
+          "label": "Axis tenant, audit, and variance backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "key": "variance_and_bom",
+      "title": "Variance and BOM",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/core/services/schedule_variance_service.py ; DailyLog governance services",
+      "test_anchor": "backend/smart_agri/core/tests/test_schedule_variance.py ; backend/smart_agri/core/tests/test_phase5_variance_workflow.py",
+      "gate_anchor": "python backend/manage.py verify_release_gate_v21",
+      "runtime_anchor": "python backend/manage.py runtime_probe_v21",
+      "step_keys": [
+        "axis_tenant_audit_variance_tests",
+        "runtime_probe_v21",
+        "axis_playwright_daily_log"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "axis_tenant_audit_variance_tests",
+          "status": "PASS",
+          "label": "Axis tenant, audit, and variance backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
+        },
+        {
+          "key": "runtime_probe_v21",
+          "status": "PASS",
+          "label": "Runtime probe V21",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
+        },
+        {
+          "key": "axis_playwright_daily_log",
+          "status": "PASS",
+          "label": "Axis Playwright daily smart-card proof",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "key": "sovereign_and_zakat",
+      "title": "Sovereign and Zakat",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/core/services/zakat_policy.py ; sovereign_zakat_service.py",
+      "test_anchor": "backend/smart_agri/core/tests/test_phase6_zakat_solar.py ; backend/smart_agri/core/tests/test_zakat_policy_v2.py ; backend/smart_agri/sales/tests/test_sale_service.py",
+      "gate_anchor": "python backend/scripts/check_zakat_harvest_triggers.py ; python backend/scripts/check_solar_depreciation_logic.py",
+      "runtime_anchor": "python backend/manage.py runtime_probe_v21",
+      "step_keys": [
+        "zakat_harvest_triggers",
+        "solar_depreciation_logic",
+        "axis_biological_harvest_tests",
+        "runtime_probe_v21"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "zakat_harvest_triggers",
+          "status": "PASS",
+          "label": "Harvest zakat trigger contract",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log"
+        },
+        {
+          "key": "solar_depreciation_logic",
+          "status": "PASS",
+          "label": "Solar depreciation contract",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.log"
+        },
+        {
+          "key": "axis_biological_harvest_tests",
+          "status": "PASS",
+          "label": "Axis biological and harvest backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
+        },
+        {
+          "key": "runtime_probe_v21",
+          "status": "PASS",
+          "label": "Runtime probe V21",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "key": "farm_tiering",
+      "title": "Farm Tiering",
+      "status": "PASS",
+      "code_anchor": "backend farm-size governance services and accounts delegation services",
+      "test_anchor": "backend/smart_agri/core/tests/test_farm_size_governance.py ; backend/smart_agri/core/tests/test_v21_governance_comprehensive.py ; backend/smart_agri/accounts/tests/test_role_delegation.py",
+      "gate_anchor": "python scripts/verification/check_compliance_docs.py",
+      "runtime_anchor": "python backend/manage.py run_governance_maintenance_cycle --dry-run",
+      "step_keys": [
+        "compliance_docs",
+        "axis_tiering_workbench_tests",
+        "axis_governance_maintenance_dry_run"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "compliance_docs",
+          "status": "PASS",
+          "label": "Compliance docs contract",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\compliance_docs.log"
+        },
+        {
+          "key": "axis_tiering_workbench_tests",
+          "status": "PASS",
+          "label": "Axis farm tiering and workbench backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.log"
+        },
+        {
+          "key": "axis_governance_maintenance_dry_run",
+          "status": "PASS",
+          "label": "Axis governance maintenance dry run",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.log"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "key": "biological_assets",
+      "title": "Biological Assets",
+      "status": "PASS",
+      "code_anchor": "backend tree inventory and impairment services",
+      "test_anchor": "backend/smart_agri/core/tests/test_biological_asset_impairment.py ; backend/smart_agri/core/tests/test_tree_inventory.py",
+      "gate_anchor": "python backend/manage.py verify_release_gate_v21",
+      "runtime_anchor": "python backend/manage.py release_readiness_snapshot",
+      "step_keys": [
+        "axis_biological_harvest_tests",
+        "release_readiness_snapshot"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "axis_biological_harvest_tests",
+          "status": "PASS",
+          "label": "Axis biological and harvest backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
+        },
+        {
+          "key": "release_readiness_snapshot",
+          "status": "PASS",
+          "label": "Release readiness snapshot",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "key": "harvest_compliance",
+      "title": "Harvest Compliance",
+      "status": "PASS",
+      "code_anchor": "backend harvest services and sales integration",
+      "test_anchor": "backend/smart_agri/core/tests/test_harvest_products.py ; backend/smart_agri/core/tests/test_activity_requirements.py ; backend/smart_agri/core/tests/test_zakat_policy_v2.py",
+      "gate_anchor": "python backend/scripts/check_zakat_harvest_triggers.py",
+      "runtime_anchor": "python backend/manage.py runtime_probe_v21",
+      "step_keys": [
+        "zakat_harvest_triggers",
+        "axis_biological_harvest_tests"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "zakat_harvest_triggers",
+          "status": "PASS",
+          "label": "Harvest zakat trigger contract",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log"
+        },
+        {
+          "key": "axis_biological_harvest_tests",
+          "status": "PASS",
+          "label": "Axis biological and harvest backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "key": "seasonal_settlement",
+      "title": "Seasonal Settlement",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/core/services/seasonal_settlement_service.py",
+      "test_anchor": "backend/smart_agri/core/tests/test_seasonal_settlement.py",
+      "gate_anchor": "python backend/manage.py verify_release_gate_v21",
+      "runtime_anchor": "python backend/manage.py release_readiness_snapshot",
+      "step_keys": [
+        "axis_settlement_contract_mass_tests",
+        "release_readiness_snapshot"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "axis_settlement_contract_mass_tests",
+          "status": "PASS",
+          "label": "Axis settlement, contract, and mass-casualty backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
+        },
+        {
+          "key": "release_readiness_snapshot",
+          "status": "PASS",
+          "label": "Release readiness snapshot",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "key": "schedule_variance",
+      "title": "Schedule Variance",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/core/services/schedule_variance_service.py",
+      "test_anchor": "backend/smart_agri/core/tests/test_schedule_variance.py",
+      "gate_anchor": "python backend/manage.py verify_release_gate_v21",
+      "runtime_anchor": "npx --prefix frontend playwright test frontend/tests/e2e/daily-log-smart-card.spec.js",
+      "step_keys": [
+        "axis_tenant_audit_variance_tests",
+        "axis_playwright_daily_log"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "axis_tenant_audit_variance_tests",
+          "status": "PASS",
+          "label": "Axis tenant, audit, and variance backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
+        },
+        {
+          "key": "axis_playwright_daily_log",
+          "status": "PASS",
+          "label": "Axis Playwright daily smart-card proof",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "key": "sharecropping",
+      "title": "Sharecropping",
+      "status": "PASS",
+      "code_anchor": "backend sharecropping services and contract operations service",
+      "test_anchor": "backend/smart_agri/core/tests/test_operational_contracts.py ; backend/smart_agri/core/tests/test_sharecropping_posting_service.py",
+      "gate_anchor": "python backend/manage.py verify_release_gate_v21",
+      "runtime_anchor": "npx --prefix frontend playwright test frontend/tests/e2e/contract-operations.spec.js",
+      "step_keys": [
+        "axis_settlement_contract_mass_tests",
+        "axis_playwright_contract"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "axis_settlement_contract_mass_tests",
+          "status": "PASS",
+          "label": "Axis settlement, contract, and mass-casualty backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
+        },
+        {
+          "key": "axis_playwright_contract",
+          "status": "PASS",
+          "label": "Axis Playwright contract operations proof",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_playwright_contract.log"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "key": "single_crop_costing",
+      "title": "Single-Crop Costing",
+      "status": "PASS",
+      "code_anchor": "backend activity cost snapshot and smart-card contract",
+      "test_anchor": "backend/smart_agri/core/tests/test_activity_cost_snapshot_integrity.py ; backend/smart_agri/core/tests/test_v21_e2e_cycle.py",
+      "gate_anchor": "python scripts/check_no_float_mutations.py",
+      "runtime_anchor": "npx --prefix frontend playwright test frontend/tests/e2e/daily-log-smart-card.spec.js",
+      "step_keys": [
+        "axis_single_crop_tests",
+        "axis_playwright_daily_log"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "axis_single_crop_tests",
+          "status": "PASS",
+          "label": "Axis single-crop costing backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log"
+        },
+        {
+          "key": "axis_playwright_daily_log",
+          "status": "PASS",
+          "label": "Axis Playwright daily smart-card proof",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "key": "petty_cash_settlement",
+      "title": "Petty Cash Settlement",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/finance/services/petty_cash_service.py",
+      "test_anchor": "backend/smart_agri/finance/tests/test_petty_cash_service.py ; backend/smart_agri/finance/tests/test_petty_cash_settlement.py",
+      "gate_anchor": "python backend/manage.py verify_release_gate_v21",
+      "runtime_anchor": "python backend/manage.py release_readiness_snapshot",
+      "step_keys": [
+        "backend_contract_asset_fuel_cash_tests",
+        "release_readiness_snapshot"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "backend_contract_asset_fuel_cash_tests",
+          "status": "PASS",
+          "label": "Backend contract, assets, fuel, and petty-cash tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.log"
+        },
+        {
+          "key": "release_readiness_snapshot",
+          "status": "PASS",
+          "label": "Release readiness snapshot",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "key": "mass_exterminations",
+      "title": "Mass Exterminations",
+      "status": "PASS",
+      "code_anchor": "backend/smart_agri/core/services/mass_casualty_service.py",
+      "test_anchor": "backend/smart_agri/core/tests/test_sardood_scenarios.py",
+      "gate_anchor": "python backend/manage.py verify_release_gate_v21",
+      "runtime_anchor": "python backend/manage.py release_readiness_snapshot",
+      "step_keys": [
+        "axis_settlement_contract_mass_tests",
+        "release_readiness_snapshot"
+      ],
+      "missing_step_keys": [],
+      "step_results": [
+        {
+          "key": "axis_settlement_contract_mass_tests",
+          "status": "PASS",
+          "label": "Axis settlement, contract, and mass-casualty backend tests",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
+        },
+        {
+          "key": "release_readiness_snapshot",
+          "status": "PASS",
+          "label": "Release readiness snapshot",
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260418_223840\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+        }
+      ]
+    }
+  ],
+  "axis_counts": {
+    "pass": 17,
+    "fail": 1,
+    "blocked": 0,
+    "total": 18
+  },
+  "axis_overall_status": "FAIL"
+}

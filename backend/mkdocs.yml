@@ -1,0 +1,56 @@
+site_name: توثيق AgriAsset 2025
+site_url: https://docs.agriasset.local
+repo_url: https://github.com/aydm2007/agriasset2025
+repo_name: aydm2007/agriasset2025
+edit_uri: ""
+
+# إعدادات السمة (The Look & Feel)
+theme:
+  name: material
+  language: ar             # ضبط اللغة للعربية
+  direction: rtl           # اتجاه النص من اليمين لليسار
+  palette:
+    # الوضع النهاري
+    - scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: التبديل للوضع الليلي
+    # الوضع الليلي (Dark Mode)
+    - scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: التبديل للوضع النهاري
+  features:
+    - navigation.expand
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy    # زر نسخ الأكواد
+
+# الإضافات البرمجية
+markdown_extensions:
+  - admonition             # للملاحظات والتحذيرات الملونة
+  - pymdownx.details       # القوائم المنسدلة
+  - pymdownx.superfences   # دعم الأكواد المتقدم
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# هيكل الموقع (خريطة الموقع)
+nav:
+  - الرئيسية: index.md
+  - الهندسة المعمارية: architecture.md
+  - الهندسة المالية:
+      - النزاهة المالية: financial-integrity.md
+      - إدارة المخزون: inventory-control.md
+      - منطق الخدمات: service-layer.md
+  - أدلة المطورين:
+      - التثبيت: setup.md
+      - المعايير: standards.md

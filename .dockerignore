@@ -1,0 +1,26 @@
+# VCS / editor
+.git
+.github
+.vscode
+.idea
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Runtime
+backend/logs/
+backend/media/
+backend/staticfiles/
+*.sqlite3
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/test-results/
+frontend/playwright-report/
+frontend/.pw-results/
+
+# Evidence (optional in docker image)
+docs/evidence/

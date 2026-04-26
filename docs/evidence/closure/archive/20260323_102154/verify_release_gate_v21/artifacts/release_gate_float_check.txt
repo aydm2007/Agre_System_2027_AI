@@ -1,0 +1,7 @@
+[AGRI-GUARDIAN] Float & Division Safety Scan (v2)
+============================================================
+
+Scanning for float() and '/' in financial mutation paths...
+
+
+FAILED: Float/division violations detected. RELEASE BLOCKED per AGENTS.md §Axis-5.

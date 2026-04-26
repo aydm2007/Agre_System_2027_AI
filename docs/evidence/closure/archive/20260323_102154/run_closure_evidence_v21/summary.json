@@ -1,0 +1,197 @@
+{
+  "command_name": "run_closure_evidence_v21",
+  "title": "V21 Closure Evidence",
+  "generated_at": "2026-03-23T10:22:47.978934-07:00",
+  "overall_status": "BLOCKED",
+  "repo_root": "C:\\tools\\workspace\\AgriAsset_v44",
+  "suite_dir": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21",
+  "latest_dir": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21",
+  "counts": {
+    "pass": 11,
+    "fail": 0,
+    "blocked": 3,
+    "total": 14
+  },
+  "steps": [
+    {
+      "key": "django_check",
+      "label": "Django system checks",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py check --deploy",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\django_check.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\django_check.log"
+    },
+    {
+      "key": "seed_runtime_evidence",
+      "label": "Seed runtime governance evidence",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py seed_runtime_governance_evidence",
+      "cwd": ".",
+      "timeout_seconds": null,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\seed_runtime_evidence.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\seed_runtime_evidence.log"
+    },
+    {
+      "key": "showmigrations_plan",
+      "label": "Django migrations status",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py showmigrations --plan",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\showmigrations_plan.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\showmigrations_plan.log"
+    },
+    {
+      "key": "migrate_plan",
+      "label": "Django migration plan",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py migrate --plan",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\migrate_plan.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\migrate_plan.log"
+    },
+    {
+      "key": "runtime_probe_v21",
+      "label": "Runtime probe V21",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py runtime_probe_v21",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\runtime_probe_v21.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\runtime_probe_v21.log"
+    },
+    {
+      "key": "release_readiness_snapshot",
+      "label": "Release readiness snapshot",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py release_readiness_snapshot",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\release_readiness_snapshot.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\release_readiness_snapshot.log"
+    },
+    {
+      "key": "scan_pending_attachments",
+      "label": "Attachment scan",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py scan_pending_attachments",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\scan_pending_attachments.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\scan_pending_attachments.log"
+    },
+    {
+      "key": "report_due_remote_reviews",
+      "label": "Due remote reviews",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py report_due_remote_reviews",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\report_due_remote_reviews.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\report_due_remote_reviews.log"
+    },
+    {
+      "key": "dispatch_outbox",
+      "label": "Persistent outbox dispatch",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py dispatch_outbox",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\dispatch_outbox.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\dispatch_outbox.log"
+    },
+    {
+      "key": "retry_dead_letters",
+      "label": "Persistent outbox retry dead letters",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py retry_dead_letters",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\retry_dead_letters.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\retry_dead_letters.log"
+    },
+    {
+      "key": "purge_dispatched_outbox",
+      "label": "Persistent outbox purge dry-run",
+      "group": "runtime",
+      "command": "'C:\\Users\\ibrahim\\AppData\\Local\\Programs\\Python\\Python311\\python.exe' backend/manage.py purge_dispatched_outbox --dry-run",
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\purge_dispatched_outbox.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\purge_dispatched_outbox.log"
+    },
+    {
+      "key": "frontend_lint",
+      "label": "Frontend lint",
+      "group": "frontend",
+      "command": "npm --prefix frontend run lint",
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "status": "BLOCKED",
+      "exit_code": 127,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\frontend_lint.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\frontend_lint.log"
+    },
+    {
+      "key": "frontend_test_ci",
+      "label": "Frontend test CI",
+      "group": "frontend",
+      "command": "npm --prefix frontend run test:ci",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "status": "BLOCKED",
+      "exit_code": 127,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\frontend_test_ci.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\frontend_test_ci.log"
+    },
+    {
+      "key": "frontend_build",
+      "label": "Frontend build",
+      "group": "frontend",
+      "command": "npm --prefix frontend run build",
+      "cwd": ".",
+      "timeout_seconds": 300,
+      "status": "BLOCKED",
+      "exit_code": 127,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\logs\\frontend_build.log",
+      "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\logs\\frontend_build.log"
+    }
+  ],
+  "artifacts": [
+    {
+      "source": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\release_readiness_snapshot.json",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\artifacts\\release_readiness_snapshot.json",
+      "latest_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\artifacts\\release_readiness_snapshot.json"
+    },
+    {
+      "source": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\release_readiness_snapshot.md",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\20260323_102154\\run_closure_evidence_v21\\artifacts\\release_readiness_snapshot.md",
+      "latest_copy": "C:\\tools\\workspace\\AgriAsset_v44\\docs\\evidence\\closure\\latest\\run_closure_evidence_v21\\artifacts\\release_readiness_snapshot.md"
+    }
+  ]
+}

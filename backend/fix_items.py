@@ -1,0 +1,1 @@
+import os, django; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smart_agri.settings'); django.setup(); from smart_agri.inventory.models import Item; from smart_agri.core.models import Farm; farm = Farm.objects.filter(name__contains='سردود').first(); Item.objects.filter(name__in=['سماد يوريا 46%%', 'سماد عضوي (دمن)', 'مبيد فطري كبريتي']).update(farm=farm)  

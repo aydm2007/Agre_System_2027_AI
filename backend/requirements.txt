@@ -1,0 +1,34 @@
+# Core web framework
+Django
+djangorestframework
+djangorestframework-simplejwt
+
+# API schema, filtering, headers, environment
+drf-spectacular
+django-filter
+django-cors-headers
+python-dotenv
+
+# UI/runtime integrations referenced by settings.py
+django-htmx
+django-csp
+whitenoise
+
+# Data and background workers
+psycopg2-binary
+celery
+redis
+
+# Observability (optional but imported in sentry settings)
+sentry-sdk
+
+# Documentation tooling used by backend/docs
+mkdocs
+mkdocs-material
+
+# WSGI server for production docker image
+gunicorn
+
+# PDF generation
+reportlab
+openpyxl

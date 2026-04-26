@@ -1,0 +1,216 @@
+{
+  "app_version": "2.0.0",
+  "debug": true,
+  "allowed_hosts_count": 4,
+  "static_root": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\staticfiles",
+  "media_root": "C:\\tools\\workspace\\AgriAsset_v44\\backend\\media",
+  "cache_backend": "django.core.cache.backends.locmem.LocMemCache",
+  "celery_broker_configured": true,
+  "strict_farm_scope_headers": false,
+  "integration_hub": {
+    "publisher": {
+      "name": "logging"
+    },
+    "queued_messages": 0,
+    "pending_messages": 0,
+    "status_counts": {}
+  },
+  "persistent_outbox": {
+    "total": 43,
+    "counts": {
+      "failed": 1,
+      "dispatched": 23,
+      "dead_letter": 1,
+      "pending": 18
+    },
+    "oldest_pending_at": "2026-04-19T05:35:38.572605+00:00",
+    "dead_letter_count": 1,
+    "locked_count": 0,
+    "retry_ready_count": 19,
+    "stale_pending_count": 7,
+    "recent_dead_letters": [
+      {
+        "event_id": "seed-readiness-dead-letter",
+        "event_type": "inventory.changed",
+        "attempts": 10,
+        "last_error": "readiness_dead_letter_failure",
+        "updated_at": "2026-04-19T06:13:41.964678+00:00"
+      }
+    ]
+  },
+  "outbox_health": {
+    "generated_at": "2026-04-19T06:13:57.043873+00:00",
+    "severity": "critical",
+    "total": 43,
+    "counts": {
+      "failed": 1,
+      "dispatched": 23,
+      "dead_letter": 1,
+      "pending": 18
+    },
+    "oldest_pending_at": "2026-04-19T05:35:38.572605+00:00",
+    "dead_letter_count": 1,
+    "dead_letter_severity": "critical",
+    "stale_pending_count": 7,
+    "stale_pending_severity": "attention",
+    "retry_ready_count": 19,
+    "retry_backlog_buckets": {
+      "retry_ready": 19,
+      "locked": 0,
+      "dead_letter": 1
+    },
+    "worker_lock_contention_posture": "healthy",
+    "recent_dead_letters": [
+      {
+        "event_id": "seed-readiness-dead-letter",
+        "event_type": "inventory.changed",
+        "attempts": 10,
+        "last_error": "readiness_dead_letter_failure",
+        "updated_at": "2026-04-19T06:13:41.964678+00:00"
+      }
+    ]
+  },
+  "attachment_runtime": {
+    "pending_scan": 5,
+    "due_archive": 0,
+    "due_purge": 0,
+    "quarantined": 2,
+    "hot_tier": 12,
+    "archive_tier": 1,
+    "archive_backend": "filesystem",
+    "quarantine_backend": "filesystem",
+    "scan_mode": "heuristic",
+    "cdr_enabled": false,
+    "clamd_configured": false,
+    "objectstore_enabled": false,
+    "lifecycle_events": 155
+  },
+  "attachment_runtime_health": {
+    "generated_at": "2026-04-19T06:13:57.068299+00:00",
+    "severity": "critical",
+    "pending_scan": 5,
+    "due_archive": 0,
+    "due_purge": 0,
+    "quarantined": 2,
+    "hot_tier": 12,
+    "archive_tier": 1,
+    "archive_backend": "filesystem",
+    "quarantine_backend": "filesystem",
+    "scan_mode": "heuristic",
+    "cdr_enabled": false,
+    "clamd_configured": false,
+    "objectstore_enabled": false,
+    "lifecycle_events": 155,
+    "pending_scan_severity": "attention",
+    "quarantine_severity": "critical",
+    "due_archive_posture": "healthy",
+    "due_purge_posture": "healthy",
+    "authoritative_evidence_risk_flags": [
+      "pending_scan_backlog",
+      "quarantined_evidence_present"
+    ]
+  },
+  "remote_review": {
+    "due_count": 0,
+    "overdue_count": 0,
+    "open_escalations": 0,
+    "blocked_escalations": 0,
+    "farms": [],
+    "generated_at": "2026-04-19T06:13:57.085076+00:00"
+  },
+  "role_workbench": {
+    "generated_at": "2026-04-19T06:13:57.094800+00:00",
+    "rows": [],
+    "summary": {
+      "total_pending": 0,
+      "director_attention_count": 0,
+      "farm_finance_rows": 0,
+      "farm_finance_attention_count": 0,
+      "sector_rows": 0,
+      "blocked_rows": 0,
+      "attention_rows": 0,
+      "healthy_rows": 0
+    }
+  },
+  "runtime_governance": {
+    "generated_at": "2026-04-19T06:13:57.124529+00:00",
+    "severity": "healthy",
+    "pending_requests": 0,
+    "overdue_requests": 0,
+    "blocked_requests": 0,
+    "strict_finance_pending": 0,
+    "remote_review_posture": {
+      "blocked_requests": 0,
+      "due_farms": 0,
+      "open_escalations": 0,
+      "blocked_escalations": 0
+    },
+    "attachment_runtime_posture": {
+      "pending_scan": 5,
+      "quarantined": 2,
+      "due_archive": 0,
+      "scan_mode": "heuristic"
+    },
+    "lane_health_totals": {
+      "healthy": 0,
+      "attention": 0,
+      "blocked": 0
+    },
+    "blocked_reasons": {
+      "attachment_scan_blocked": 1
+    },
+    "workbench_rows": [],
+    "request_headers": {
+      "request_id": "X-Request-Id",
+      "correlation_id": "X-Correlation-Id"
+    }
+  },
+  "release_health": {
+    "generated_at": "2026-04-19T06:13:57.124529+00:00",
+    "authority_note": "Derived from canonical latest summaries; canonical score authority remains docs/evidence/closure/latest/*.",
+    "severity": "critical",
+    "all_pass": false,
+    "stale_warning_count": 1,
+    "warnings": [
+      "verify_axis_complete_v21:FAIL",
+      "khameesiya_uat:stale_or_missing"
+    ],
+    "summaries": {
+      "verify_release_gate_v21": {
+        "path": "docs/evidence/closure/latest/verify_release_gate_v21/summary.json",
+        "status": "PASS",
+        "generated_at": "2026-04-18T22:16:38.858910-07:00",
+        "axis_overall_status": null
+      },
+      "verify_axis_complete_v21": {
+        "path": "docs/evidence/closure/latest/verify_axis_complete_v21/summary.json",
+        "status": "FAIL",
+        "generated_at": "2026-04-18T08:38:51.394114-07:00",
+        "axis_overall_status": "FAIL"
+      },
+      "khameesiya_uat": {
+        "path": "docs/evidence/uat/khameesiya/latest/summary.json",
+        "status": "PASS",
+        "generated_at": "2026-03-27T12:03:45.205674+00:00",
+        "axis_overall_status": null
+      }
+    }
+  },
+  "fixed_assets": {
+    "assets_count": 32,
+    "full_capitalization_assets": 18,
+    "tracking_only_assets": 12,
+    "depreciating_assets": 2,
+    "capitalization_posts": 22,
+    "disposal_posts": 0
+  },
+  "fuel_reconciliation": {
+    "fuel_logs_count": 4,
+    "alerts_count": 5,
+    "warning_alerts": 4,
+    "critical_alerts": 0,
+    "pending_reconciliation_logs": 1,
+    "posted_reconciliations": 22,
+    "calibrated_tanks": 4
+  }
+}

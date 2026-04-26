@@ -1,0 +1,1 @@
+import os, django; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smart_agri.settings'); django.setup(); from smart_agri.core.models import Farm, FarmCrop, Crop; f=Farm.objects.filter(name__contains='سردود').first(); print([(fc.crop.name, fc.crop.id) for fc in FarmCrop.objects.filter(farm=f)])  

@@ -1,0 +1,46 @@
+[
+  {
+    "name": "مانجو",
+    "mode": "Open"
+  },
+  {
+    "name": "موز",
+    "mode": "Open"
+  },
+  {
+    "name": "قمح",
+    "mode": "Open"
+  },
+  {
+    "name": "ذرة شامية",
+    "mode": "Open"
+  },
+  {
+    "name": "بطاطس",
+    "mode": "Open"
+  },
+  {
+    "name": "شمام",
+    "mode": "Open"
+  },
+  {
+    "name": "كوسة",
+    "mode": "Open"
+  },
+  {
+    "name": "طماطم",
+    "mode": "Protected"
+  },
+  {
+    "name": "خيار",
+    "mode": "Protected"
+  },
+  {
+    "name": "طماطم",
+    "mode": "Open"
+  },
+  {
+    "name": "خيار",
+    "mode": "Open"
+  }
+]

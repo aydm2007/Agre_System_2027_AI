@@ -1,0 +1,15 @@
+name: DEPRECATED LEGACY - V8 Final Static Gates
+
+on:
+  workflow_dispatch:
+
+jobs:
+  static-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: V8 static gates
+        run: make verify-v8-static

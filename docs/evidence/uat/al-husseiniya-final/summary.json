@@ -1,0 +1,255 @@
+{
+  "generated_at": "2026-04-18T19:19:32.365298+00:00",
+  "farm_name": "الحسينية",
+  "farm_slug": "al-husseiniya",
+  "overall_status": "PASS",
+  "strict_summary_score": 100.0,
+  "before_scorecard": {
+    "canonical_axes": 100,
+    "official_al_husseiniya_pack": 0,
+    "medium_farm_governance": 0,
+    "simple_operational_cycle": 0,
+    "perennial_multilocation_service": 0,
+    "strict_finance_cycle": 0,
+    "reports_and_exports": 0,
+    "evidence_artifacts": 0
+  },
+  "phases": [
+    {
+      "name": "simple_bootstrap_validation",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:28.939994+00:00",
+      "ended_at": "2026-04-18T19:19:28.944531+00:00",
+      "duration_seconds": 0.0,
+      "result": {
+        "mode": "SIMPLE",
+        "cost_visibility": "summarized_amounts",
+        "smart_card_contract": true,
+        "service_card_keys": [
+          "execution",
+          "materials",
+          "labor",
+          "well",
+          "machinery",
+          "fuel",
+          "perennial",
+          "harvest",
+          "control",
+          "variance",
+          "financial_trace"
+        ]
+      }
+    },
+    {
+      "name": "seasonal_tomato_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:28.944531+00:00",
+      "ended_at": "2026-04-18T19:19:29.412494+00:00",
+      "duration_seconds": 0.47,
+      "result": {
+        "daily_log_id": 1251,
+        "activity_id": 1247,
+        "variance_status": "CRITICAL",
+        "smart_card_keys": [
+          "execution",
+          "materials",
+          "machinery",
+          "fuel",
+          "control",
+          "variance",
+          "financial_trace"
+        ]
+      }
+    },
+    {
+      "name": "mango_perennial_multilocation_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:29.412494+00:00",
+      "ended_at": "2026-04-18T19:19:29.614462+00:00",
+      "duration_seconds": 0.2,
+      "result": {
+        "activity_id": 1248,
+        "activity_locations": 2,
+        "coverage_rows": 2,
+        "west_orchard_stock": 275
+      }
+    },
+    {
+      "name": "banana_perennial_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:29.615462+00:00",
+      "ended_at": "2026-04-18T19:19:29.796065+00:00",
+      "duration_seconds": 0.18,
+      "result": {
+        "daily_log_id": 1253,
+        "activity_id": 1249,
+        "variety": "جراند نين",
+        "service_rows": 1
+      }
+    },
+    {
+      "name": "inventory_procurement_cycle",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:29.796065+00:00",
+      "ended_at": "2026-04-18T19:19:29.936020+00:00",
+      "duration_seconds": 0.14,
+      "result": {
+        "purchase_order_id": 308,
+        "receipt_movement_id": "3350",
+        "issue_movement_id": "3351",
+        "remaining_qty": "3445.000"
+      }
+    },
+    {
+      "name": "simple_posture_only_finance",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:29.936020+00:00",
+      "ended_at": "2026-04-18T19:19:29.948020+00:00",
+      "duration_seconds": 0.01,
+      "result": {
+        "petty_cash_blocked": true,
+        "supplier_settlement_blocked": true,
+        "petty_cash_message": "🔴 [FORENSIC BLOCK] هذه العملية المالية تتطلب تفعيل النظام المالي الصارم (STRICT). المزرعة حالياً في وضع SIMPLE.",
+        "supplier_message": "🔴 [FORENSIC BLOCK] Service execution blocked: STRICT mode required."
+      }
+    },
+    {
+      "name": "simple_reports_and_shadow_ledger",
+      "category": "api_contract_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:29.948020+00:00",
+      "ended_at": "2026-04-18T19:19:30.146021+00:00",
+      "duration_seconds": 0.2,
+      "result": {
+        "reports_status": 200,
+        "advanced_report_status": 200,
+        "shadow_ledger_status": 200,
+        "export_templates_status": 200,
+        "xlsx_available": true,
+        "forbidden_finance_keys": []
+      }
+    },
+    {
+      "name": "strict_mode_transition",
+      "category": "api_contract_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:30.146021+00:00",
+      "ended_at": "2026-04-18T19:19:30.155019+00:00",
+      "duration_seconds": 0.01,
+      "result": {
+        "mode": "STRICT",
+        "contract_mode": "full_erp",
+        "treasury_visibility": "visible",
+        "smart_card_count": 7
+      }
+    },
+    {
+      "name": "strict_finance_execution",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:30.155019+00:00",
+      "ended_at": "2026-04-18T19:19:31.332044+00:00",
+      "duration_seconds": 1.18,
+      "result": {
+        "petty_cash_request_id": 132,
+        "petty_cash_settlement_id": 120,
+        "supplier_settlement_id": 127,
+        "receipt_status": "COLLECTED",
+        "deposit_status": "DEPOSITED",
+        "reconcile_status": "RECONCILED",
+        "fixed_asset_status": "posted",
+        "fuel_status": "posted"
+      }
+    },
+    {
+      "name": "harvest_and_sales",
+      "category": "service_layer_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:31.332044+00:00",
+      "ended_at": "2026-04-18T19:19:31.956233+00:00",
+      "duration_seconds": 0.62,
+      "result": {
+        "harvest_activity_id": 1250,
+        "harvest_lot_id": 156,
+        "invoice_id": 135,
+        "invoice_status": "draft"
+      }
+    },
+    {
+      "name": "contract_operations",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:31.956233+00:00",
+      "ended_at": "2026-04-18T19:19:32.068230+00:00",
+      "duration_seconds": 0.11,
+      "result": {
+        "contract_id": 207,
+        "touring_id": 118,
+        "rent_status": "posted",
+        "dashboard_rows": 1
+      }
+    },
+    {
+      "name": "strict_reports_and_exports",
+      "category": "api_contract_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:32.068230+00:00",
+      "ended_at": "2026-04-18T19:19:32.097230+00:00",
+      "duration_seconds": 0.03,
+      "result": {
+        "trial_balance_status": 200,
+        "profitability_status": 200,
+        "strict_export_templates_status": 200,
+        "governance_export_available": false,
+        "profitability_keys": [
+          "currency",
+          "expense_accounts",
+          "filters",
+          "other_accounts",
+          "revenue_accounts",
+          "totals"
+        ]
+      }
+    },
+    {
+      "name": "attachments_and_evidence",
+      "category": "api_contract_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:32.097230+00:00",
+      "ended_at": "2026-04-18T19:19:32.163769+00:00",
+      "duration_seconds": 0.07,
+      "result": {
+        "operational_scan_state": "passed",
+        "authoritative_archive_state": "hot",
+        "quarantine_state": "quarantined"
+      }
+    },
+    {
+      "name": "governance_workbench",
+      "category": "governance_reference_defect",
+      "status": "PASS",
+      "started_at": "2026-04-18T19:19:32.163769+00:00",
+      "ended_at": "2026-04-18T19:19:32.364784+00:00",
+      "duration_seconds": 0.2,
+      "result": {
+        "approval_request_id": 175,
+        "approval_status": "APPROVED",
+        "stage_events": 7,
+        "workbench_rows": 3,
+        "final_required_role": "SECTOR_DIRECTOR"
+      }
+    }
+  ],
+  "summary": {
+    "total": 14,
+    "passed": 14,
+    "failed": 0,
+    "failure_categories": []
+  }
+}

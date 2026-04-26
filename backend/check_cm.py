@@ -1,0 +1,1 @@
+import os, django; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smart_agri.settings'); django.setup(); from smart_agri.core.models import CropMaterial; print('fields:', [f.name for f in CropMaterial._meta.get_fields()])  

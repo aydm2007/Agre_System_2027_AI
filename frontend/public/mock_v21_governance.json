@@ -1,0 +1,62 @@
+{
+  "system_status": "100_percent_v21",
+  "governance_profile": {
+    "tier": "LARGE",
+    "mode": "STRICT",
+    "cost_visibility": "FULL",
+    "approval_profile": "STRICT_FINANCE",
+    "treasury_visibility": "VISIBLE",
+    "remote_site": false
+  },
+  "active_farm": {
+    "id": "f8a9e4d1-c2b3-4f51-a7e8-b9c0d1e2f3a4",
+    "slug": "sardood-farm",
+    "name": "مزرعة سردود",
+    "region": "وادي سردود - تهامة",
+    "area_ha": 250.00
+  },
+  "roles_and_permissions": [
+    {
+      "user": "sardood_admin",
+      "role": "Farm_Admin",
+      "can_override": true,
+      "access_level": "Global_Superuser"
+    },
+    {
+      "user": "sardood_manager",
+      "role": "Farm_Manager",
+      "can_override": false,
+      "access_level": "Operations_Management"
+    },
+    {
+      "user": "evidence_finance_director",
+      "role": "Finance_Director",
+      "can_override": false,
+      "access_level": "Strict_Finance_Approver"
+    }
+  ],
+  "pending_approvals_demo": [
+    {
+      "id": "A-10023",
+      "action": "contract_payment_posting",
+      "amount": "2200000.0000",
+      "currency": "YER",
+      "current_stage": "sector_accountant",
+      "escalation_status": "normal"
+    },
+    {
+      "id": "A-10024",
+      "action": "fuel_reconciliation",
+      "amount": "650000.0000",
+      "currency": "YER",
+      "current_stage": "finance_director",
+      "escalation_status": "overdue",
+      "overdue_days": 4
+    }
+  ],
+  "attachment_lifecycle": {
+    "requires_malware_scan": true,
+    "archive_after_days": 90,
+    "legal_hold_supported": true
+  }
+}

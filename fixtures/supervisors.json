@@ -1,0 +1,107 @@
+[
+  {
+    "farm_slug": "sardood",
+    "name": "مشرف 1",
+    "code": "sa-S01"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "مشرف 2",
+    "code": "sa-S02"
+  },
+  {
+    "farm_slug": "sardood",
+    "name": "مشرف 3",
+    "code": "sa-S03"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "مشرف 1",
+    "code": "al-S01"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "مشرف 2",
+    "code": "al-S02"
+  },
+  {
+    "farm_slug": "aljaruba",
+    "name": "مشرف 3",
+    "code": "al-S03"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "مشرف 1",
+    "code": "al-S01"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "مشرف 2",
+    "code": "al-S02"
+  },
+  {
+    "farm_slug": "almakaymaniyah",
+    "name": "مشرف 3",
+    "code": "al-S03"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "مشرف 1",
+    "code": "sa-S01"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "مشرف 2",
+    "code": "sa-S02"
+  },
+  {
+    "farm_slug": "sanwan",
+    "name": "مشرف 3",
+    "code": "sa-S03"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "مشرف 1",
+    "code": "al-S01"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "مشرف 2",
+    "code": "al-S02"
+  },
+  {
+    "farm_slug": "alnaemaniyah",
+    "name": "مشرف 3",
+    "code": "al-S03"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "مشرف 1",
+    "code": "ma-S01"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "مشرف 2",
+    "code": "ma-S02"
+  },
+  {
+    "farm_slug": "maabar",
+    "name": "مشرف 3",
+    "code": "ma-S03"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "مشرف 1",
+    "code": "al-S01"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "مشرف 2",
+    "code": "al-S02"
+  },
+  {
+    "farm_slug": "alusra",
+    "name": "مشرف 3",
+    "code": "al-S03"
+  }
+]

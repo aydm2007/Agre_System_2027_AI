@@ -1,0 +1,136 @@
+version: "21.0"
+status: active
+purpose: attachment_classification_retention_and_authority_matrix
+
+classes:
+  transient:
+    description: temporary duplicates, preview caches, upload staging remnants
+    authoritative: false
+    scan_required: true
+    archive_required: false
+    purge_eligible: true
+    legal_hold_allowed: false
+    retention_hint: short_ttl
+
+  operational:
+    description: lightweight operational attachments that support field execution without becoming final financial evidence
+    authoritative: false
+    scan_required: true
+    archive_required: conditional
+    purge_eligible: conditional
+    legal_hold_allowed: true
+    retention_hint: medium_term
+
+  financial_record:
+    description: approved financial or documentary evidence used in settlement close or audit trace
+    authoritative: true
+    scan_required: true
+    clean_scan_required_before_authoritative: true
+    archive_required: true
+    purge_eligible: false
+    legal_hold_allowed: true
+    retention_hint: long_term
+
+  legal_hold:
+    description: evidence under investigation litigation audit hold or regulatory freeze
+    authoritative: true
+    scan_required: true
+    archive_required: true
+    purge_eligible: false
+    legal_hold_allowed: true
+    retention_hint: indefinite_until_release
+
+metadata_required:
+  - attachment_class
+  - retention_class
+  - archive_state
+  - scan_state
+  - quarantine_state
+  - uploaded_by
+  - farm_id_or_document_scope
+  - related_document_type
+  - content_hash
+  - mime_type_detected
+  - filename_original
+  - size_bytes
+  - created_at
+  - authoritative_at_when_applicable
+
+hardening_rules:
+  - block_or_quarantine_double_extension_executables
+  - block_or_quarantine_pdf_javascript_openaction_patterns
+  - block_or_quarantine_macro_enabled_xlsx_patterns_when_policy_requires
+  - detect_zip_bomb_or_oversized_container_payloads
+  - do_not_mark_authoritative_before_clean_scan
+
+state_transitions:
+  - uploaded_to_staging
+  - scanned_clean_or_quarantined
+  - restored_if_false_positive_and_policy_allows
+  - authoritative_if_policy_and_workflow_require
+  - archived_if_final_record
+  - purged_only_if_class_allows_and_no_hold
+
+release_requirements:
+  - no_real_media_evidence_bundled_in_release_zip
+  - archive_and_purge_workers_defined
+  - retention_policy_documented
+  - test_coverage_for_authoritative_and_purge_paths
+
+scenarios:
+  clean:
+    allowed_classes:
+      - transient
+      - operational
+      - financial_record
+    authoritative_allowed: conditional
+    required_events:
+      - uploaded_to_staging
+      - scanned_clean
+    purge_guard: policy_and_class_only
+  quarantine:
+    allowed_classes:
+      - transient
+      - operational
+      - financial_record
+    authoritative_allowed: false
+    required_events:
+      - uploaded_to_staging
+      - quarantined
+    purge_guard: no_purge_until_resolution
+  archive:
+    allowed_classes:
+      - financial_record
+      - legal_hold
+    authoritative_allowed: true
+    required_events:
+      - authoritative_marked
+      - archived
+    purge_guard: archive_copy_must_remain
+  legal_hold:
+    allowed_classes:
+      - operational
+      - financial_record
+      - legal_hold
+    authoritative_allowed: true
+    required_events:
+      - hold_applied
+    purge_guard: explicit_release_required
+  restore:
+    allowed_classes:
+      - operational
+      - financial_record
+      - legal_hold
+    authoritative_allowed: conditional
+    required_events:
+      - restored
+    purge_guard: no_purge_until_post_restore_policy_pass
+  purge_eligible:
+    allowed_classes:
+      - transient
+      - operational
+    authoritative_allowed: false
+    required_events:
+      - purge_eligibility_confirmed
+      - purged
+    purge_guard: forbidden_for_authoritative_or_held_records

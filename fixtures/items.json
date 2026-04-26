@@ -1,0 +1,27 @@
+[
+  {
+    "name": "سماد يوريا",
+    "group": "Fertilizer",
+    "uom": "كيس"
+  },
+  {
+    "name": "مبيد حشري عام",
+    "group": "Pesticide",
+    "uom": "لتر"
+  },
+  {
+    "name": "ديزل",
+    "group": "Fuel",
+    "uom": "لتر"
+  },
+  {
+    "name": "كرتون مانجو درجة أولى",
+    "group": "Harvested Product",
+    "uom": "كرتون"
+  },
+  {
+    "name": "قمح",
+    "group": "Harvested Product",
+    "uom": "كجم"
+  }
+]

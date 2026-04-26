@@ -1,0 +1,151 @@
+# Pre-commit configuration for AgriAsset 2025
+# AGRI-GUARDIAN: Development Workflow Enforcement
+#
+# Install: pip install pre-commit && pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+
+  # Python linting
+  - repo: https://github.com/astral-sh/ruff
+    rev: v0.1.9
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  # Local hooks for AgriAsset-specific checks
+  - repo: local
+    hooks:
+      # Forbidden file patterns (Trash Policy)
+      - id: no-forbidden-files
+        name: Check for forbidden file patterns
+        entry: python -c "
+import sys
+import pathlib
+forbidden = ['reproduce_*.py', 'temp_*.py']
+for pattern in forbidden:
+    matches = list(pathlib.Path('.').rglob(pattern))
+    # Exclude venv and node_modules
+    matches = [m for m in matches if 'venv' not in str(m) and 'node_modules' not in str(m)]
+    if matches:
+        print(f'AGRI-GUARDIAN: Forbidden pattern {pattern} found: {matches}')
+        sys.exit(1)
+"
+        language: system
+        types: [python]
+        pass_filenames: false
+
+      # Check for float usage with money
+      - id: no-float-money
+        name: Check for float usage with financial values
+        entry: python -c "
+import sys
+import re
+import pathlib
+errors = []
+for f in pathlib.Path('backend/smart_agri').rglob('*.py'):
+    content = f.read_text(encoding='utf-8', errors='ignore')
+    # Look for float() with money-related variable names
+    if re.search(r'float\s*\(\s*(price|cost|amount|total|rate|salary)', content, re.I):
+        errors.append(str(f))
+if errors:
+    print('AGRI-GUARDIAN: float() used with financial values in:', errors[:5])
+    print('Use Decimal instead!')
+    sys.exit(1)
+"
+        language: system
+        pass_filenames: false
+
+      # Check for silent exception swallowing
+      - id: no-silent-exceptions
+        name: Check for silent exception swallowing
+        entry: python -c "
+import sys
+import pathlib
+import re
+errors = []
+for f in pathlib.Path('backend/smart_agri').rglob('*.py'):
+    content = f.read_text(encoding='utf-8', errors='ignore')
+    # Look for except: pass or broad except without raise/log
+    lines = content.split('\n')
+    for i, line in enumerate(lines):
+        if 'except' in line and i+1 < len(lines):
+            next_line = lines[i+1].strip()
+            if next_line == 'pass' or next_line == '...':
+                if 'DatabaseError' in line or 'Exception' in line:
+                    errors.append(f'{f}:{i+1}')
+if errors:
+    print('AGRI-GUARDIAN: Silent exception swallowing detected:', errors[:5])
+    sys.exit(1)
+"
+        language: system
+        pass_filenames: false
+
+      # Check for direct model access in views (bypass service layer)
+      - id: no-bypass-service-layer
+        name: Check for service layer bypass
+        entry: python -c "
+import sys
+import pathlib
+import re
+warnings = []
+for f in pathlib.Path('backend/smart_agri/core/views').rglob('*.py'):
+    content = f.read_text(encoding='utf-8', errors='ignore')
+    # Check for direct .objects.create() or .objects.update()
+    if re.search(r'(LocationTreeStock|ItemInventory|FinancialLedger)\.objects\.(create|update)', content):
+        warnings.append(str(f))
+if warnings:
+    print('AGRI-GUARDIAN WARNING: Possible service layer bypass in:', warnings[:5])
+    print('Use service layer methods instead of direct model access!')
+    # Warning only, not blocking
+"
+        language: system
+        pass_filenames: false
+
+      - id: idempotency-action-check
+        name: Enforce idempotency on critical POST actions
+        entry: python scripts/check_idempotency_actions.py
+        language: system
+        pass_filenames: false
+
+      - id: no-float-mutations
+        name: Block float in mutation-sensitive paths
+        entry: python scripts/check_no_float_mutations.py
+        language: system
+        pass_filenames: false
+
+      - id: farm-scope-guards
+        name: Enforce farm-scope guards in mutable viewsets
+        entry: python scripts/check_farm_scope_guards.py
+        language: system
+        pass_filenames: false
+
+      - id: no-float-in-finance
+        name: Prevent float() in finance paths
+        language: pygrep
+        entry: 'float\('
+        files: 'backend/smart_agri/(finance|core/services/(ledger|cost|decimal|financial)).*\.py$'
+        types: [python]
+
+  # Frontend checks
+  - repo: local
+    hooks:
+      - id: eslint-check
+        name: ESLint check
+        entry: npm run lint --prefix frontend
+        language: system
+        types: [javascript, jsx, ts, tsx]
+        pass_filenames: false

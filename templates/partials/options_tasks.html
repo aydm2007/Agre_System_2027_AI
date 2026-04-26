@@ -1,0 +1,5 @@
+
+<select id="task" class="border rounded p-2 w-full" {% if tasks %}{% else %}disabled{% endif %}>
+  <option value="">{% if tasks %}-- اختر --{% else %}لا توجد مهام{% endif %}</option>
+  {% for t in tasks %}<option value="{{ t.id }}">{{ t.stage }} — {{ t.name }}</option>{% endfor %}
+</select>

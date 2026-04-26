@@ -1,0 +1,92 @@
+Traceback (most recent call last):
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/backends/base/base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/backends/base/base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/backends/postgresql/base.py", line 333, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/data/v40work/backend/manage.py", line 24, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/data/v40work/backend/manage.py", line 20, in main
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 443, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 437, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+    self.execute(*args, **cmd_options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+    output = self.handle(*args, **options)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/core/management/commands/showmigrations.py", line 65, in handle
+    return self.show_plan(connection, options["app_label"])
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/core/management/commands/showmigrations.py", line 141, in show_plan
+    loader = MigrationLoader(connection)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/migrations/loader.py", line 59, in __init__
+    self.build_graph()
+    ~~~~~~~~~~~~~~~~^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/migrations/loader.py", line 288, in build_graph
+    self.applied_migrations = recorder.applied_migrations()
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/migrations/recorder.py", line 89, in applied_migrations
+    if self.has_table():
+       ~~~~~~~~~~~~~~^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/migrations/recorder.py", line 63, in has_table
+    with self.connection.cursor() as cursor:
+         ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/backends/base/base.py", line 320, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/backends/base/base.py", line 296, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/backends/base/base.py", line 278, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/backends/base/base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/backends/base/base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/django/db/backends/postgresql/base.py", line 333, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/mnt/data/v40work/.venv/lib/python3.13/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+

@@ -1,0 +1,5 @@
+
+<select id="location" class="border rounded p-2 w-full" {% if locations %}{% else %}disabled{% endif %}>
+  <option value="">{% if locations %}-- اختر --{% else %}لا توجد مواقع{% endif %}</option>
+  {% for l in locations %}<option value="{{ l.id }}">{{ l.name }} — {{ l.type }}</option>{% endfor %}
+</select>
