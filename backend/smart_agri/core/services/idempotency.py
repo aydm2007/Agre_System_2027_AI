@@ -104,7 +104,13 @@ class IdempotencyService:
 
         # 3. Validation: Check Hash Mismatch
         if record.request_hash and record.request_hash != request_hash:
-             raise IdempotencyMismatch(f"تم استخدام المفتاح '{key}' مسبقاً مع بيانات مختلفة.")
+             # Allow hash update if the previous attempt explicitly failed, so users can fix validation errors.
+             if record.status == IdempotencyRecord.STATUS_FAILED:
+                 logger.info(f"Idempotency retry with modified data for failed key {key}. Updating hash.")
+                 record.request_hash = request_hash
+                 record.save(update_fields=['request_hash'])
+             else:
+                 raise IdempotencyMismatch(f"تم استخدام المفتاح '{key}' مسبقاً مع بيانات مختلفة.")
 
         # 4. Legacy compatibility:
         # Some older callers persisted response fields without flipping status to SUCCEEDED.

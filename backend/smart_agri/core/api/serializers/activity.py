@@ -663,6 +663,13 @@ class ActivitySerializer(serializers.ModelSerializer):
             payload = data.copy()
         else:
             payload = data.copy() if hasattr(data, 'copy') else data
+
+        # [ZENITH 11.5 — CRITICAL FIX] Strip backend-owned cost fields before validation.
+        # These are computed by ActivityService/CostingService and must NEVER be accepted
+        # from the frontend. Failure to strip them causes DecimalField(decimal_places=4)
+        # ValidationError when the frontend sends values with more than 4 decimal places.
+        for field_name in self.BACKEND_OWNED_COST_FIELDS:
+            payload.pop(field_name, None)
             
         # [AGRI-GUARDIAN] Strictness Enforced: Aliases removed.
         # Frontend must send accurate _id fields.

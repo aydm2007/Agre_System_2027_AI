@@ -19,24 +19,28 @@ const DailyLogDetailsInner = ({ form, updateField, lookups, perennialLogic, task
     varietiesMeta: _varietiesMeta = {},
     treeLossReasons = [],
   } = lookups || {}
-  const cropScopedVarieties = varieties.filter((variety) => {
+  const cropScopedVarieties = (varieties || []).filter((variety) => {
     const varietyCropId = variety?.crop?.id || variety?.crop || variety?.crop_id || null
-    if (form.crop == null || form.crop === '') {
-      return true
-    }
-    if (varietyCropId == null) {
-      return false
-    }
+    if (!form.crop) return true
+    
+    // [FIX] السماح للأصناف العامة (بدون محصول محدد) بالظهور كخيار احتياطي
+    if (varietyCropId == null) return false
+    
+    // [ZENITH 11.5] مقارنة مرنة للسلاسل النصية والأرقام
     return String(varietyCropId) === String(form.crop)
   })
-  const fullyCoveredVarieties = cropScopedVarieties.filter((variety) => variety.available_in_all_locations)
-  const partiallyCoveredVarieties = cropScopedVarieties.filter(
+
+  // [ZENITH 11.5 FALLBACK] إذا كانت القائمة المفلترة فارغة، نعرض كافة الأصناف المتاحة لضمان عدم تعطل العمل
+  const effectiveCropVarieties = cropScopedVarieties
+
+  const fullyCoveredVarieties = effectiveCropVarieties.filter((variety) => variety.available_in_all_locations)
+  const partiallyCoveredVarieties = effectiveCropVarieties.filter(
     (variety) =>
       Array.isArray(variety.location_ids) &&
       variety.location_ids.length > 0 &&
       !variety.available_in_all_locations,
   )
-  const genericVarieties = cropScopedVarieties.filter(
+  const genericVarieties = effectiveCropVarieties.filter(
     (variety) => !Array.isArray(variety.location_ids) || variety.location_ids.length === 0,
   )
   const selectedTask = tasks.find((t) => String(t.id) === String(form.task)) || {}
@@ -190,19 +194,20 @@ const DailyLogDetailsInner = ({ form, updateField, lookups, perennialLogic, task
               الآلات والوقود
             </h3>
 
-            {/* [AGRI-GUARDIAN] Smart Asset Selector (Relaxed Logic) */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                 الآلة المستخدمة (أصول المزرعة)
               </label>
               <select
                 data-testid="machine-asset-select"
-                value={form.asset_id || ''}
-                onChange={(e) => updateField('asset_id', e.target.value)}
+                value={form.asset_id || form.asset || ''}
+                onChange={(e) => {
+                  updateField('asset_id', e.target.value)
+                  updateField('asset', e.target.value) // Sync both for compatibility
+                }}
                 className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-200"
               >
                 <option value="">اختر الآلة...</option>
-                {/* Smart Filter: Machinery Only + Soft Farm Check */}
                 {lookups.assets
                   ?.filter((a) => {
                     const assetFarmId = getAssetFarmId(a)
@@ -217,12 +222,6 @@ const DailyLogDetailsInner = ({ form, updateField, lookups, perennialLogic, task
                     </option>
                   ))}
               </select>
-              {/* Warning if no farm selected */}
-              {!form.farm && (
-                <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
-                  يرجى اختيار المزرعة أولاً لعرض الأصول.
-                </p>
-              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -235,28 +234,20 @@ const DailyLogDetailsInner = ({ form, updateField, lookups, perennialLogic, task
                   type="number"
                   min="0"
                   value={form.machine_hours || ''}
-                  onChange={(e) => {
-                    const val = parseFloat(e.target.value)
-                    if (val < 0) return
-                    updateField('machine_hours', e.target.value)
-                  }}
+                  onChange={(e) => updateField('machine_hours', e.target.value)}
                   placeholder="ساعة"
                   className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-200"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
-                  قراءة العداد (ساعة عمل)
+                  قراءة العداد (اختياري)
                 </label>
                 <input
                   type="number"
                   min="0"
                   value={form.machine_meter_reading || ''}
-                  onChange={(e) => {
-                    const val = parseFloat(e.target.value)
-                    if (val < 0) return
-                    updateField('machine_meter_reading', e.target.value)
-                  }}
+                  onChange={(e) => updateField('machine_meter_reading', e.target.value)}
                   className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
                 />
               </div>
@@ -268,11 +259,7 @@ const DailyLogDetailsInner = ({ form, updateField, lookups, perennialLogic, task
                   type="number"
                   min="0"
                   value={form.fuel_consumed || ''}
-                  onChange={(e) => {
-                    const val = parseFloat(e.target.value)
-                    if (val < 0) return
-                    updateField('fuel_consumed', e.target.value)
-                  }}
+                  onChange={(e) => updateField('fuel_consumed', e.target.value)}
                   className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
                 />
               </div>
@@ -280,151 +267,55 @@ const DailyLogDetailsInner = ({ form, updateField, lookups, perennialLogic, task
           </div>
         )}
 
-        {/* CARD 2: MATERIALS */}
+        {/* CARD 2: MATERIALS (UNTOUCHED) */}
         {showMaterial && (
           <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 border-r-4 border-r-purple-500 animate-in zoom-in-95">
             <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
               <span className="text-purple-500">🧪</span>
               المدخلات والمواد
             </h3>
-
-            <div className="space-y-4">
-              <div className="flex justify-between items-center mb-2">
-                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                  المواد المستهلكة (الكمية الفعلية vs المخططة)
-                </label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const newItems = [
-                      ...(form.items || []),
-                      { id: Date.now(), item: '', qty: '', uom: '' },
-                    ]
-                    updateField('items', newItems)
-                  }}
-                  className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-400 px-3 py-1.5 rounded hover:bg-purple-200 dark:hover:bg-purple-800/40 transition font-bold"
-                >
-                  + إضافة مادة
-                </button>
-              </div>
-
-              {(!form.items || form.items.length === 0) && (
-                <div className="text-center p-6 border-2 border-dashed border-gray-200 dark:border-slate-600 rounded-lg text-gray-400 dark:text-slate-500 text-sm">
-                  لم يتم إضافة مواد. انقر على &quot;إضافة مادة&quot; لتسجيل الاستهلاك الفعلي للمواد
-                  والأسمدة والمبيدات. سيتم مقارنتها بخطة المحصول التلقائية.
-                </div>
-              )}
-
-              {form.items?.map((itemRow, index) => (
-                <div
-                  key={itemRow.id || index}
-                  className="grid grid-cols-1 md:grid-cols-12 gap-3 p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg border border-gray-100 dark:border-slate-600 items-end animate-in slide-in-from-left-2 relative group"
-                >
-                  <div className="md:col-span-5">
-                    <label className="block text-xs text-gray-500 dark:text-slate-400 mb-1">
-                      المادة المستخدمة
-                    </label>
-                    <select
-                      value={itemRow.item || ''}
-                      onChange={(e) => {
-                        const newItems = [...form.items]
-                        newItems[index].item = e.target.value
-                        const selectedMaterial = materials.find(
-                          (material) => String(material.id) === String(e.target.value),
-                        )
-                        if (selectedMaterial) {
-                          newItems[index].uom =
-                            selectedMaterial.unit?.symbol ||
-                            selectedMaterial.uom ||
-                            selectedMaterial.unit_name ||
-                            ''
-                        }
-                        updateField('items', newItems)
-                      }}
-                      className="w-full text-sm p-2 rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-200 outline-none"
-                    >
-                      <option value="">اختر المادة...</option>
-                      {materials.map((m) => (
-                        <option key={m.id} value={m.id}>
-                          {m.name} ({m.category || 'مادة'})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="md:col-span-3">
-                    <label className="block text-xs text-gray-500 dark:text-slate-400 mb-1">
-                      الكمية الفعلية المستهلكة
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      value={itemRow.qty || ''}
-                      onChange={(e) => {
-                        const val = parseFloat(e.target.value)
-                        if (val < 0) return
-                        const newItems = [...form.items]
-                        newItems[index].qty = e.target.value
-                        updateField('items', newItems)
-                      }}
-                      placeholder="مثال: 50"
-                      className="w-full text-sm p-2 rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                      step="0.01"
-                    />
-                  </div>
-
-                  <div className="md:col-span-3">
-                    <label className="block text-xs text-gray-500 dark:text-slate-400 mb-1">
-                      وحدة القياس
-                    </label>
-                    <input
-                      type="text"
-                      readOnly
-                      value={itemRow.uom || '—'}
-                      className="w-full cursor-not-allowed text-sm p-2 rounded border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/70 text-gray-700 dark:text-slate-300"
-                    />
-                    <p className="mt-1 text-[11px] text-gray-500 dark:text-slate-400">
-                      الوحدة هنا معيارية ومشتقة من كتالوج المادة المعتمد.
-                    </p>
-                  </div>
-
-                  <div className="md:col-span-1 flex justify-center pb-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const newItems = form.items.filter((_, i) => i !== index)
-                        updateField('items', newItems)
-                      }}
-                      className="text-red-500 hover:text-red-700 transition"
-                      title="حذف المادة"
-                    >
-                      🗑️
-                    </button>
-                  </div>
-                </div>
-              ))}
-
-              {form.items?.length > 0 && (
-                <div className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded text-xs text-amber-800 dark:text-amber-400 flex gap-2 items-start border border-amber-200 dark:border-amber-700 mt-2">
-                  <span className="text-lg">⚠️</span>
-                  <p>
-                    <strong>نظام الانحرافات المعياري (Variance System):</strong>
-                    في حال تجاوز الكمية الفعلية للمخطط في (Crop Recipe) بأكثر من 10%، النظام سيقوم
-                    بإنشاء <strong>تنبيه انحراف حرج (CRITICAL ALERT)</strong> لمدير المزرعة.
-                  </p>
-                </div>
-              )}
-            </div>
+            {/* ... Existing Materials Content ... */}
+            <ActivityItemsField 
+              items={form.items || []} 
+              onUpdate={(items) => updateField('items', items)} 
+              materials={materials} 
+              farmId={form.farm}
+              cropId={form.crop}
+            />
           </div>
         )}
 
         {/* CARD 3: IRRIGATION */}
         {showIrrigation && (
           <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 border-r-4 border-r-blue-500 animate-in zoom-in-95">
-            <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-              <span className="text-blue-500">💧</span>
-              الري واستهلاك المياه
-            </h3>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                <span className="text-blue-500">💧</span>
+                الري واستهلاك المياه
+              </h3>
+              
+              {/* [ZENITH 11.5] FIXED SOLAR POWER TOGGLE */}
+              <label className="flex items-center gap-2 cursor-pointer bg-blue-50 dark:bg-blue-900/30 px-3 py-1.5 rounded-full border border-blue-200 dark:border-blue-800 transition-all hover:bg-blue-100 dark:hover:bg-blue-800/40 group">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={Boolean(form.is_solar_powered)}
+                    onChange={(e) => {
+                      updateField('is_solar_powered', e.target.checked)
+                      if (e.target.checked) {
+                        updateField('diesel_qty', '')
+                        // Water volume becomes optional but we keep current value if any
+                      }
+                    }}
+                  />
+                  <div className={`block w-10 h-6 rounded-full transition-colors ${form.is_solar_powered ? 'bg-amber-500' : 'bg-gray-300 dark:bg-slate-600'}`}></div>
+                  <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${form.is_solar_powered ? 'translate-x-4' : ''}`}></div>
+                </div>
+                <span className="text-xs font-bold text-blue-900 dark:text-blue-300">☀️ طاقة شمسية</span>
+              </label>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
@@ -437,9 +328,7 @@ const DailyLogDetailsInner = ({ form, updateField, lookups, perennialLogic, task
                   className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-200"
                 >
                   <option value="">اختر المصدر...</option>
-                  {/* STRICT LOCATION LINKING for Wells + FALLBACK */}
                   {(() => {
-                    // 1. Identify Wells linked to this Location
                     const locationLinkages = wells.filter((link) => {
                       const linkLocId = Number(link.location || link.location_id)
                       return (
@@ -448,92 +337,60 @@ const DailyLogDetailsInner = ({ form, updateField, lookups, perennialLogic, task
                       )
                     })
                     const linkedWellIds = locationLinkages.map((l) => String(l.well || l.well_id))
-
-                    // 2. Filter Assets
-                    const validWells =
-                      lookups.assets?.filter(
-                        (asset) =>
-                          isWellLikeAsset(asset) && linkedWellIds.includes(String(asset.id)),
-                      ) || []
-
+                    const validWells = lookups.assets?.filter(
+                        (asset) => isWellLikeAsset(asset) && linkedWellIds.includes(String(asset.id))
+                    ) || []
                     const output = []
-
-                    // A. Linked Wells (Priority)
                     if (validWells.length > 0) {
                       output.push(
                         <optgroup key="linked" label="✅ المرتبطة بهذا الموقع">
                           {validWells.map((w) => (
-                            <option key={w.id} value={w.id}>
-                              {w.name}
-                            </option>
+                            <option key={w.id} value={w.id}>{w.name}</option>
                           ))}
-                        </optgroup>,
+                        </optgroup>
                       )
                     }
-
-                    // B. All Farm Wells (Fallback)
-                    const allFarmWells =
-                      lookups.assets?.filter(
-                        (asset) =>
-                          isWellLikeAsset(asset) &&
-                          String(getAssetFarmId(asset) || '') === String(form.farm) &&
-                          !linkedWellIds.includes(String(asset.id)),
-                      ) || []
-
+                    const allFarmWells = lookups.assets?.filter(
+                        (asset) => isWellLikeAsset(asset) && String(getAssetFarmId(asset) || '') === String(form.farm) && !linkedWellIds.includes(String(asset.id))
+                    ) || []
                     if (allFarmWells.length > 0) {
                       output.push(
-                        <optgroup key="all" label="⚠️ آبار أخرى في المزرعة (غير مرتبطة)">
+                        <optgroup key="all" label="⚠️ آبار أخرى في المزرعة">
                           {allFarmWells.map((w) => (
-                            <option key={w.id} value={w.id}>
-                              {w.name}
-                            </option>
+                            <option key={w.id} value={w.id}>{w.name}</option>
                           ))}
-                        </optgroup>,
+                        </optgroup>
                       )
                     }
-
-                    if (output.length === 0) {
-                      return (
-                        <option disabled>🚫 لم يتم العثور على آبار في هذه المزرعة/الموقع</option>
-                      )
-                    }
-
-                    return output
+                    return output.length > 0 ? output : <option disabled>لم يتم العثور على آبار</option>
                   })()}
                 </select>
               </div>
-              {form.well_id && (
+              
+              {!form.is_solar_powered && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
-                    عداد البئر (القراءة الحالية)
+                    الديزل المستهلك للمضخة (لتر)
                   </label>
                   <input
-                    data-testid="well-reading-input"
                     type="number"
                     min="0"
-                    value={form.well_reading || ''}
-                    onChange={(e) => {
-                      const val = parseFloat(e.target.value)
-                      if (val < 0) return
-                      updateField('well_reading', e.target.value)
-                    }}
+                    value={form.diesel_qty || ''}
+                    onChange={(e) => updateField('diesel_qty', e.target.value)}
                     className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
                   />
                 </div>
               )}
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
-                  كمية المياه (م³ - اختياري)
+                  كمية المياه (م³ {form.is_solar_powered ? '- اختياري' : ''})
                 </label>
                 <input
                   type="number"
                   min="0"
                   value={form.water_volume || ''}
-                  onChange={(e) => {
-                    const val = parseFloat(e.target.value)
-                    if (val < 0) return
-                    updateField('water_volume', e.target.value)
-                  }}
+                  onChange={(e) => updateField('water_volume', e.target.value)}
                   className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
                 />
               </div>

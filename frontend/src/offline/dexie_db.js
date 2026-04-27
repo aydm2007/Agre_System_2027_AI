@@ -122,7 +122,7 @@ db.version(10).stores({
   lookup_cache: 'key, cached_at',
 })
 
-db.version(2000).stores({
+db.version(2022).stores({
   customers: 'id, name, phone, farm_id',
   items: 'id, name, category, farm_id',
   crop_materials: 'id, crop_id, item_id, farm_id, [farm_id+crop_id]',
@@ -141,6 +141,7 @@ db.version(2000).stores({
     '++id, queue_id, uuid, payload_uuid, category, status, dead_letter, farm_id, owner_key, supervisor_id, created_at, next_attempt_at',
   attachments_queue:
     '++id, queue_id, uuid, payload_uuid, category, attachment_class, status, dead_letter, farm_id, owner_key, created_at, next_attempt_at',
+  audit_logs: 'id, timestamp, agent, action, public_key',
   userData: 'key',
   lookup_cache: 'key, cached_at',
 })
@@ -435,6 +436,7 @@ export async function requeueHarvestFailures(ownerKey = null) {
 }
 
 export async function seedLookupCache(key, data) {
+  if (typeof indexedDB === 'undefined') return
   try {
     await db.lookup_cache.put({
       key,
@@ -465,6 +467,7 @@ export async function seedLookupCacheWithMeta(key, data, metadata = {}) {
 }
 
 export async function getLookupCache(key, maxAgeMs = 24 * 60 * 60 * 1000) {
+  if (typeof indexedDB === 'undefined') return null
   try {
     const record = await db.lookup_cache.get(key)
     if (!record) return null
@@ -478,6 +481,7 @@ export async function getLookupCache(key, maxAgeMs = 24 * 60 * 60 * 1000) {
 }
 
 export async function getLookupCacheEntry(key) {
+  if (typeof indexedDB === 'undefined') return null
   try {
     return (await db.lookup_cache.get(key)) || null
   } catch (err) {

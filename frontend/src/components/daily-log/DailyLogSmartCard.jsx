@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { ServiceCards } from '../../api/client'
 import { useFarmContext } from '../../api/farmContext'
 import { useSettings } from '../../contexts/SettingsContext'
-import { extractApiError } from '../../utils/errorUtils'
 import { getLookupCache, seedLookupCache } from '../../offline/dexie_db'
 
 import {
@@ -96,14 +95,17 @@ export function DailyLogSmartCard({ form, linkedCropPlan = null, offlineDrafts =
           crop_id: form.crop,
           date: form.date,
         }
+        const locationIds = Array.isArray(form.locations)
+          ? form.locations.map((locationId) => String(locationId)).filter(Boolean)
+          : []
+        if (locationIds.length > 0) {
+          params.location_ids = locationIds.join(',')
+        }
         if (form.task) {
           params.task_id = form.task
         }
         if (linkedCropPlan?.id) {
           params.crop_plan_id = linkedCropPlan.id
-        }
-        if (Array.isArray(form.locations) && form.locations.length > 0) {
-          params.location_ids = form.locations.join(',')
         }
 
         const response = await ServiceCards.list(params)
@@ -132,7 +134,8 @@ export function DailyLogSmartCard({ form, linkedCropPlan = null, offlineDrafts =
           return
         }
         setCard(null)
-        setError(extractApiError(err, 'تعذر تحميل الكرت الذكي لهذه اليومية.'))
+        // [ZENITH 11.5] Fail silently and gracefully for optional smart cards
+        setError('SILENT_ERROR')
       } finally {
 
         if (isMounted) {
@@ -170,7 +173,7 @@ export function DailyLogSmartCard({ form, linkedCropPlan = null, offlineDrafts =
     )
   }
 
-  if (error) {
+  if (error && error !== 'SILENT_ERROR') {
     return (
       <div
         data-testid="daily-log-smart-card-error"
@@ -179,6 +182,10 @@ export function DailyLogSmartCard({ form, linkedCropPlan = null, offlineDrafts =
         {error}
       </div>
     )
+  }
+  
+  if (error === 'SILENT_ERROR') {
+    return null;
   }
 
   if (!card) {
@@ -255,6 +262,8 @@ export function DailyLogSmartCard({ form, linkedCropPlan = null, offlineDrafts =
   if (draftTotalTrees > 0) draftLabelStr += ` أشجار ${draftTotalTrees}`
   if (draftTotalServiced > 0) draftLabelStr += ` خدمة ${draftTotalServiced}`
   if (draftGenericAch > 0) draftLabelStr += ` كمية ${draftGenericAch}`
+  if (formFuelConsumed > 0) draftLabelStr += ` وقود ${formFuelConsumed}ل`
+  if (formWaterVolume > 0) draftLabelStr += ` مياه ${formWaterVolume}م³`
   if (!draftLabelStr && queuedDrafts.length > 0) draftLabelStr = ` (${queuedDrafts.length} مسودة)`
 
   const completionLabel = isDraftActive ? `الإنجاز (مسودة:${draftLabelStr})` : 'الإنجاز المعتمد'

@@ -55,6 +55,9 @@ export default function ModeGuard({
 
     if (policyCheck && POLICY_MAP[policyCheck]) {
         isAllowed = POLICY_MAP[policyCheck](policyOptions)
+        if (policyCheck === 'canAccessFuelReconciliationRoutes' && requiredMode === 'STRICT') {
+            isAllowed = isAllowed && Boolean(policyOptions.strictErpMode)
+        }
     } else if (requiredMode === 'STRICT') {
         isAllowed = Boolean(policyOptions.strictErpMode)
     } else {

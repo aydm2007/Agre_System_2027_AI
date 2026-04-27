@@ -45,14 +45,14 @@ const resolveSyncStateLabel = (offlineSignals) => {
   }
   return {
     label: 'جاهز للمزامنة',
-    tone: 'emerald',
+    tone: 'blue',
     helper: 'لا توجد عناصر معلّقة في الطوابير التشغيلية.',
   }
 }
 
 const toneClasses = {
-  emerald:
-    'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-200',
+  blue:
+    'border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-200',
   amber:
     'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200',
   rose:
@@ -84,7 +84,7 @@ function HubCard({
             <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">{description}</p>
           </div>
           <span
-            className={`rounded-full border px-3 py-1 text-xs font-semibold ${toneClasses.sky}`}
+            className={`rounded-full border px-3 py-1 text-xs font-semibold ${toneClasses.blue}`}
           >
             {statusLabel}
           </span>
@@ -107,7 +107,7 @@ function HubCard({
             to={to}
             state={state}
             data-testid={`${testId}-cta`}
-            className="inline-flex items-center rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary/90"
+            className="inline-flex items-center rounded-xl bg-blue-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-800 shadow-md"
           >
             {ctaLabel}
           </Link>
@@ -274,7 +274,7 @@ export default function SimpleOperationsHub() {
             <div className="flex flex-wrap gap-2">
               <span
                 data-testid="simple-hub-mode-badge"
-                className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-200"
+                className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-200"
               >
                 الوضع الحالي: {modeLabel}
               </span>
@@ -321,9 +321,6 @@ export default function SimpleOperationsHub() {
               <div className="text-xs text-slate-500 dark:text-slate-400">آخر مزامنة تشغيلية</div>
               <div className="mt-1 font-semibold text-slate-900 dark:text-white">
                 {lastSyncLabel}
-              </div>
-              <div className="mt-2 text-xs leading-6 text-slate-500 dark:text-slate-400">
-                {syncState.helper}
               </div>
             </div>
           </div>

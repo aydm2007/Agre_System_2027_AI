@@ -1,13 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Landmark, TrendingUp, PieChart, FileText, Download, ArrowRightLeft, Lock } from 'lucide-react';
 import { useSettings } from '../../contexts/SettingsContext';
-import { useFarmContext } from '../../api/farmContext';
+import { FarmContext } from '../../api/farmContext';
+import LedgerList from './LedgerList';
 
 const FinancialExplorer = () => {
   const [activeReport, setActiveReport] = useState('pl');
   const { isStrictMode } = useSettings();
-  const { farms, selectedFarmId, selectFarm } = useFarmContext();
+  const farmContext = useContext(FarmContext) || { farms: [], selectedFarmId: '', selectFarm: () => {} };
+  const { farms, selectedFarmId, selectFarm } = farmContext;
+  const ledgerEndpoint = isStrictMode ? '/finance/ledger/' : '/shadow-ledger/';
 
   const formatValue = (val, isMoney = true) => {
     if (!isStrictMode && isMoney) return '--- % ---';
@@ -16,6 +19,7 @@ const FinancialExplorer = () => {
 
   return (
     <div className="app-page bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 p-6 rtl" dir="rtl">
+      <LedgerList endpoint={ledgerEndpoint} />
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>

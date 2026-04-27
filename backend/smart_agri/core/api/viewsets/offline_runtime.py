@@ -210,7 +210,7 @@ class HardenedOfflineDailyLogReplayViewSet(IdempotentCreateMixin, viewsets.ViewS
     http_method_names = ["post", "head", "options"]
 
     def create(self, request):
-        farm_id = request.data.get("farm_id") if isinstance(request.data, dict) else None
+        farm_id = request.data.get("farm_id") or request.data.get("farm") if isinstance(request.data, dict) else None
         key, error_response = self._enforce_action_idempotency(request, farm_id=farm_id)
         if error_response:
             return error_response
@@ -225,7 +225,7 @@ class HardenedOfflineDailyLogReplayViewSet(IdempotentCreateMixin, viewsets.ViewS
         data = request.data or {}
         payload_uuid = data.get("uuid")
         idempotency_key = data.get("idempotency_key")
-        farm_id = data.get("farm_id")
+        farm_id = data.get("farm_id") or data.get("farm")
         supervisor_id = data.get("supervisor_id")
         client_seq = data.get("client_seq")
         draft_uuid = data.get("draft_uuid")

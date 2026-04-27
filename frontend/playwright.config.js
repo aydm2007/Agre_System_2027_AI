@@ -75,6 +75,8 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    // [ZENITH 11.5] Sovereign Silent Protocol: Headless by default
+    headless: process.env.HEADED !== 'true',
     serviceWorkers: 'block',
   },
 

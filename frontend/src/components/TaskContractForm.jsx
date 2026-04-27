@@ -184,20 +184,20 @@ export default function TaskContractForm({ initialData = {}, onSubmit, onCancel,
           </div>
         )}
         <div>
-          <label className="mb-2 block text-sm font-bold text-gray-700 dark:text-zinc-400">{TEXT.stage}</label>
-          <input required list="stages-list" className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-gray-900 focus:border-emerald-500/50 focus:outline-none dark:border-white/10 dark:bg-black/20 dark:text-white" value={formData.stage} onChange={(e) => setFormData((prev) => ({ ...prev, stage: e.target.value }))} placeholder="مثال: الزراعة" />
+          <label htmlFor="crop-task-stage" className="mb-2 block text-sm font-bold text-gray-700 dark:text-zinc-400">{TEXT.stage}</label>
+          <input id="crop-task-stage" required list="stages-list" className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-gray-900 focus:border-emerald-500/50 focus:outline-none dark:border-white/10 dark:bg-black/20 dark:text-white" value={formData.stage} onChange={(e) => setFormData((prev) => ({ ...prev, stage: e.target.value }))} placeholder="مثال: الزراعة" />
           <datalist id="stages-list">{Object.values(STAGES).map((stage) => <option key={stage} value={stage} />)}</datalist>
         </div>
         <div>
-          <label className="mb-2 block text-sm font-bold text-gray-700 dark:text-zinc-400">{TEXT.name}</label>
-          <input required className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-gray-900 focus:border-emerald-500/50 focus:outline-none dark:border-white/10 dark:bg-black/20 dark:text-white" value={formData.name} onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))} placeholder="مثال: تسميد أشجار المانجو" />
+          <label htmlFor="crop-task-name" className="mb-2 block text-sm font-bold text-gray-700 dark:text-zinc-400">{TEXT.name}</label>
+          <input id="crop-task-name" aria-label="اسم المهمة" required className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-gray-900 focus:border-emerald-500/50 focus:outline-none dark:border-white/10 dark:bg-black/20 dark:text-white" value={formData.name} onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))} placeholder="مثال: تسميد أشجار المانجو" />
         </div>
       </div>
 
       <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-5 dark:border-emerald-800/50 dark:bg-emerald-900/10">
         <label className="mb-2 block text-sm font-bold text-emerald-800 dark:text-emerald-300">{TEXT.preset}</label>
         <p className="mb-4 text-xs text-emerald-600 dark:text-emerald-500">{TEXT.presetHint}</p>
-        <select className="w-full rounded-xl border border-emerald-200 bg-white p-3 text-sm text-gray-900 focus:border-emerald-500/50 focus:outline-none dark:border-white/10 dark:bg-black/20 dark:text-white" value={formData.presetKey} onChange={(e) => applyPreset(e.target.value)}>
+        <select data-testid="crop-task-preset" className="w-full rounded-xl border border-emerald-200 bg-white p-3 text-sm text-gray-900 focus:border-emerald-500/50 focus:outline-none dark:border-white/10 dark:bg-black/20 dark:text-white" value={formData.presetKey} onChange={(e) => applyPreset(e.target.value)}>
           {Object.entries(PRESET_OPTIONS).map(([key, preset]) => <option key={key} value={key}>{preset.label}</option>)}
           <option value="CUSTOM">{TEXT.customLabel}</option>
         </select>
@@ -232,7 +232,7 @@ export default function TaskContractForm({ initialData = {}, onSubmit, onCancel,
                     <div className="font-bold text-gray-900 dark:text-white">{CARD_LABELS[cardKey]}</div>
                     <p className="mt-1 text-xs text-gray-500 dark:text-zinc-500">{CARD_DESCRIPTIONS[cardKey]}</p>
                   </div>
-                  <input type="checkbox" checked={checked} disabled={isMandatory || isPreviewOnly} onChange={() => setFormData((prev) => ({ ...prev, presetKey: 'CUSTOM', selectedCards: { ...prev.selectedCards, [cardKey]: !prev.selectedCards[cardKey] } }))} />
+                  <input data-testid={`crop-task-card-${cardKey}`} type="checkbox" checked={checked} disabled={isMandatory || isPreviewOnly} onChange={() => setFormData((prev) => ({ ...prev, presetKey: 'CUSTOM', selectedCards: { ...prev.selectedCards, [cardKey]: !prev.selectedCards[cardKey] } }))} />
                 </div>
               </label>
             )
@@ -260,7 +260,7 @@ export default function TaskContractForm({ initialData = {}, onSubmit, onCancel,
         )}
         <div className="mt-4">
           <div className="mb-2 text-xs font-bold text-gray-600 dark:text-zinc-400">{TEXT.derivedFlags}</div>
-          <div className="flex flex-wrap gap-2">
+          <div data-testid="crop-task-derived-flags" className="flex flex-wrap gap-2">
             {derivedFlags.map((flag) => <Badge key={flag} label={flag} color="slate" />)}
             {derivedFlags.length === 0 && <span className="text-xs text-gray-400 dark:text-zinc-600">لا توجد متطلبات مشتقة إضافية.</span>}
           </div>
@@ -272,11 +272,11 @@ export default function TaskContractForm({ initialData = {}, onSubmit, onCancel,
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           <div className="rounded-2xl border border-white/30 bg-white p-4 dark:border-white/10 dark:bg-black/20">
             <div className="mb-3 text-xs font-bold text-emerald-700 dark:text-emerald-400">{TEXT.previewSimple}</div>
-            <div className="flex flex-wrap gap-2">{previewContract.presentation.simple_preview.map((cardKey) => <CardBadge key={`simple-${cardKey}`} cardKey={cardKey} />)}</div>
+            <div className="flex flex-wrap gap-2">{previewContract.presentation.simple_preview.map((cardKey) => <CardBadge key={`simple-${cardKey}`} testId={`crop-task-preview-simple-${cardKey}`} cardKey={cardKey} />)}</div>
           </div>
           <div className="rounded-2xl border border-white/30 bg-white p-4 dark:border-white/10 dark:bg-black/20">
             <div className="mb-3 text-xs font-bold text-amber-700 dark:text-amber-400">{TEXT.previewStrict}</div>
-            <div className="flex flex-wrap gap-2">{previewContract.presentation.strict_preview.map((cardKey) => <CardBadge key={`strict-${cardKey}`} cardKey={cardKey} />)}</div>
+            <div className="flex flex-wrap gap-2">{previewContract.presentation.strict_preview.map((cardKey) => <CardBadge key={`strict-${cardKey}`} testId={`crop-task-preview-strict-${cardKey}`} cardKey={cardKey} />)}</div>
           </div>
           <div className="rounded-2xl border border-white/30 bg-white p-4 dark:border-white/10 dark:bg-black/20">
             <div className="mb-3 text-xs font-bold text-slate-700 dark:text-slate-300">{TEXT.requiredInputs}</div>
@@ -289,7 +289,7 @@ export default function TaskContractForm({ initialData = {}, onSubmit, onCancel,
       </div>
 
       <div className="flex gap-3 pt-4">
-        <button type="submit" className="flex-1 rounded-xl bg-emerald-600 py-3.5 font-bold text-white transition-all hover:bg-emerald-500">{TEXT.save}</button>
+        <button data-testid="crop-task-submit" type="submit" className="flex-1 rounded-xl bg-emerald-600 py-3.5 font-bold text-white transition-all hover:bg-emerald-500">{TEXT.save}</button>
         {onCancel && <button type="button" onClick={onCancel} className="rounded-xl border border-black/10 bg-black/5 dark:border-white/10 dark:bg-white/5 px-6 dark:text-white transition-all hover:bg-black/10 dark:hover:bg-white/10">{TEXT.cancel}</button>}
       </div>
     </form>

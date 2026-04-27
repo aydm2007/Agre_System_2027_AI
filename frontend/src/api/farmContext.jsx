@@ -18,11 +18,11 @@ export const resolvePageFarmStorageKey = (pathname) => {
 }
 
 const readPageFarm = (pathname) => {
-  const legacy = localStorage.getItem(LEGACY_SELECTED_FARM_KEY)
-  if (legacy) return legacy
   const pageKey = resolvePageFarmStorageKey(pathname)
   const pageScoped = localStorage.getItem(pageKey)
-  return pageScoped || ''
+  if (pageScoped) return pageScoped
+  const legacy = localStorage.getItem(LEGACY_SELECTED_FARM_KEY)
+  return legacy || ''
 }
 
 const writePageFarm = (pathname, farmId) => {
@@ -71,18 +71,18 @@ const resolveNextSelection = (pathname, farmList, currentSelectedFarmId) => {
     return { selectedFarmId: '', shouldPersist: false, shouldClear: true }
   }
 
-  if (fallbackId && hasCurrentFarm) {
-    return {
-      selectedFarmId: fallbackId,
-      shouldPersist: true,
-      shouldClear: false,
-    }
-  }
-
   if (pageFarmId && hasStoredFarm) {
     return {
       selectedFarmId: pageFarmId,
       shouldPersist: false,
+      shouldClear: false,
+    }
+  }
+
+  if (fallbackId && hasCurrentFarm) {
+    return {
+      selectedFarmId: fallbackId,
+      shouldPersist: true,
       shouldClear: false,
     }
   }
@@ -107,7 +107,7 @@ const applyFarmSelection = (pathname, farmList, currentSelectedFarmId, setSelect
 }
 
 // [AGRI-GUARDIAN] Farm Context Implementation (per-page scope)
-const FarmContext = createContext()
+export const FarmContext = createContext()
 
 export const FarmProvider = ({ children }) => {
   const location = useLocation()

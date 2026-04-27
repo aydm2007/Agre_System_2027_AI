@@ -150,11 +150,28 @@ class Command(BaseCommand):
     def _ensure_strict_farm(self, users):
         farm, _ = Farm.objects.get_or_create(
             slug="strict-evidence-farm",
-            defaults={"name": "Strict Evidence Farm", "region": "Sanaa", "tier": Farm.TIER_MEDIUM},
+            defaults={
+                "name": "Strict Evidence Farm",
+                "region": "Sanaa",
+                "tier": Farm.TIER_MEDIUM,
+                "is_organization": False,
+                "operational_mode": FarmSettings.MODE_STRICT,
+                "sensing_mode": "MANUAL",
+                "organization_id": None,
+            },
         )
+        farm_update_fields = []
         if farm.tier != Farm.TIER_MEDIUM:
             farm.tier = Farm.TIER_MEDIUM
-            farm.save(update_fields=["tier"])
+            farm_update_fields.append("tier")
+        if farm.operational_mode != FarmSettings.MODE_STRICT:
+            farm.operational_mode = FarmSettings.MODE_STRICT
+            farm_update_fields.append("operational_mode")
+        if farm.sensing_mode != "MANUAL":
+            farm.sensing_mode = "MANUAL"
+            farm_update_fields.append("sensing_mode")
+        if farm_update_fields:
+            farm.save(update_fields=[*farm_update_fields, "updated_at"])
         settings_obj, _ = FarmSettings.objects.get_or_create(farm=farm)
         settings_obj.mode = FarmSettings.MODE_STRICT
         settings_obj.cost_visibility = FarmSettings.COST_VISIBILITY_FULL
@@ -181,11 +198,28 @@ class Command(BaseCommand):
     def _ensure_remote_small_farm(self, users):
         farm, _ = Farm.objects.get_or_create(
             slug="remote-review-farm",
-            defaults={"name": "Remote Review Farm", "region": "Saada", "tier": Farm.TIER_SMALL},
+            defaults={
+                "name": "Remote Review Farm",
+                "region": "Saada",
+                "tier": Farm.TIER_SMALL,
+                "is_organization": False,
+                "operational_mode": FarmSettings.MODE_SIMPLE,
+                "sensing_mode": "MANUAL",
+                "organization_id": None,
+            },
         )
+        farm_update_fields = []
         if farm.tier != Farm.TIER_SMALL:
             farm.tier = Farm.TIER_SMALL
-            farm.save(update_fields=["tier"])
+            farm_update_fields.append("tier")
+        if farm.operational_mode != FarmSettings.MODE_SIMPLE:
+            farm.operational_mode = FarmSettings.MODE_SIMPLE
+            farm_update_fields.append("operational_mode")
+        if farm.sensing_mode != "MANUAL":
+            farm.sensing_mode = "MANUAL"
+            farm_update_fields.append("sensing_mode")
+        if farm_update_fields:
+            farm.save(update_fields=[*farm_update_fields, "updated_at"])
         settings_obj, _ = FarmSettings.objects.get_or_create(farm=farm)
         settings_obj.mode = FarmSettings.MODE_SIMPLE
         settings_obj.remote_site = True

@@ -390,19 +390,13 @@ export function usePerennialLogic(
         serviceRows: (prev.serviceRows || []).map((row) => {
           if (row.key !== rowKey) return row
           const nextRow = { ...row, [field]: value }
-          if (
-            field === 'locationId' &&
-            nextRow.varietyId &&
-            value &&
-            !isVarietyAvailableInLocation(nextRow.varietyId, value)
-          ) {
-            nextRow.varietyId = ''
-          }
+          // [ZENITH 11.5] RELAXED POLICY: Do not wipe varietyId automatically if location changes.
+          // Let validation handle it with a visible error instead of silent data loss.
           return nextRow
         }),
       }))
     },
-    [isVarietyAvailableInLocation, setForm],
+    [setForm],
   )
 
   useEffect(() => {
@@ -425,9 +419,6 @@ export function usePerennialLogic(
           nextRow = { ...nextRow, locationId: '' }
           changed = true
         }
-
-        const effectiveLocationId = singleLocationId || String(nextRow.locationId || '')
-        const hasLoadedVarieties = (lookups?.varieties?.length > 0) || (lookups?.treeVarietySummary?.length > 0)
 
         // [AGRI-GUARDIAN] Self-Healing is dangerous during re-hydration or lookup race conditions.
         // We will rely on validatePerennialCompliance to show visible errors instead of silent wiping.
@@ -503,7 +494,7 @@ export function usePerennialLogic(
         if (row.varietyId && effectiveLocationId) {
           const current = getVarietyCount(row.varietyId, effectiveLocationId)
           const mappedCount = getMappedCount(row.varietyId, effectiveLocationId)
-          const delta = Number(row.delta || 0)
+          const delta = Number(row.delta || form?.tree_count_delta || 0)
 
           if (current !== '?' && mappedCount > current && delta <= 0) {
             errors[`serviceRows[${idx}].variety`] =

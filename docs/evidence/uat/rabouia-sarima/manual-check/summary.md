@@ -2,7 +2,7 @@
 
 ## الحالة العامة
 
-- تاريخ التوليد: `2026-04-26T13:01:40.580152+00:00`
+- تاريخ التوليد: `2026-04-26T12:29:04.861409+00:00`
 - الحالة العامة: `PASS`
 - التقييم الصارم: `100.0` / 100
 - المزرعتان:
@@ -29,7 +29,7 @@
 ### simple_bootstrap_validation
 - الحالة: `PASS`
 - الفئة: `governance_reference_defect`
-- المدة: `0.01` ثانية
+- المدة: `0.02` ثانية
 - التشخيص: تم التحقق من أن الربوعية تعمل في SIMPLE مع smart_card_stack كعقد القراءة اليومي ومنع أي surface مالي حوكمي مباشر.
 - الإجراء المقترح: لا يوجد.
 - النتيجة: `{"mode": "SIMPLE", "cost_visibility": "summarized_amounts", "smart_card_contract": true, "card_keys": ["execution", "materials", "labor", "well", "machinery", "fuel", "perennial", "harvest", "control", "variance", "financial_trace"]}`
@@ -41,10 +41,10 @@
 ### custody_handshake_cycle
 - الحالة: `PASS`
 - الفئة: `service_layer_defect`
-- المدة: `0.5` ثانية
+- المدة: `0.59` ثانية
 - التشخيص: تمت المصافحة الرقمية للعهدة بنجاح: صرف -> قبول -> استهلاك جزئي -> إرجاع متبقٍ مع منع top-up غير المحكوم.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"transfer_id": 56, "accepted_qty": "50.000", "returned_qty": "10.000", "final_status": "partially_consumed", "custody_balance": "0.000", "top_up_blocked": true}`
+- النتيجة: `{"transfer_id": 35, "accepted_qty": "50.000", "returned_qty": "10.000", "final_status": "partially_consumed", "custody_balance": "0.000", "top_up_blocked": true}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -53,10 +53,10 @@
 ### seasonal_corn_cycle
 - الحالة: `PASS`
 - الفئة: `service_layer_defect`
-- المدة: `0.41` ثانية
+- المدة: `0.49` ثانية
 - التشخيص: تمت خدمة الذرة مع machine hours وفصل wastage cost عن applied cost مع بقاء التكلفة backend-only.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"daily_log_id": 229, "activity_id": 221, "variance_status": "OK", "cost_materials": "47500.0000", "cost_wastage": "4750.0000", "cost_machinery": "6000.0000"}`
+- النتيجة: `{"daily_log_id": 180, "activity_id": 171, "variance_status": "OK", "cost_materials": "47500.0000", "cost_wastage": "4750.0000", "cost_machinery": "6000.0000"}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -65,10 +65,10 @@
 ### mango_perennial_cycle
 - الحالة: `PASS`
 - الفئة: `service_layer_defect`
-- المدة: `0.15` ثانية
+- المدة: `0.19` ثانية
 - التشخيص: تم إثبات أن الفقد الروتيني للأشجار يبقى variance تشغيليًا على LocationTreeStock ولا يتحول إلى impairment shortcut.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"daily_log_id": 230, "activity_id": 222, "tree_delta": -4, "tree_loss_reason": "جفاف طبيعي", "current_tree_count": 420}`
+- النتيجة: `{"daily_log_id": 181, "activity_id": 172, "tree_delta": -4, "tree_loss_reason": "جفاف طبيعي", "current_tree_count": 420}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -77,10 +77,10 @@
 ### banana_perennial_cycle
 - الحالة: `PASS`
 - الفئة: `service_layer_defect`
-- المدة: `0.15` ثانية
+- المدة: `0.25` ثانية
 - التشخيص: تمت خدمة الموز على أكثر من موقع مع بقاء service coverage row-location-specific وعدم collapse إلى موقع واحد.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"daily_log_id": 231, "activity_id": 223, "coverage_rows": 2, "activity_locations": 2, "distribution_mode": "exception_weighted"}`
+- النتيجة: `{"daily_log_id": 182, "activity_id": 173, "coverage_rows": 2, "activity_locations": 2, "distribution_mode": "exception_weighted"}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -89,10 +89,10 @@
 ### offline_replay_cycle
 - الحالة: `PASS`
 - الفئة: `runtime_environment_defect`
-- المدة: `0.4` ثانية
+- المدة: `0.44` ثانية
 - التشخيص: تمت مزامنة payload ذرية بنجاح ودخل التسلسل الخارج عن client_seq إلى DLQ دون كسر بقية المزامنة.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"sync_status": "synced", "conflict_status_code": 400, "dlq_count": 10}`
+- النتيجة: `{"sync_status": "synced", "conflict_status_code": 400, "dlq_count": 3}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -101,7 +101,7 @@
 ### simple_finance_posture_only
 - الحالة: `PASS`
 - الفئة: `governance_reference_defect`
-- المدة: `0.03` ثانية
+- المدة: `0.12` ثانية
 - التشخيص: تم إثبات أن SIMPLE يبقى posture-only في المالية مع audit إلزامي لمحاولات route breach.
 - الإجراء المقترح: لا يوجد.
 - النتيجة: `{"petty_cash_blocked": true, "supplier_blocked": true, "route_breach_status": 403, "route_breach_audits": 0}`
@@ -113,7 +113,7 @@
 ### simple_reports_cycle
 - الحالة: `PASS`
 - الفئة: `api_contract_defect`
-- المدة: `0.13` ثانية
+- المدة: `0.14` ثانية
 - التشخيص: تم تحميل تقارير الربوعية في SIMPLE مع بقاء السطح تقنيًا وعدم تسرب القيم المالية الصريحة المحظورة.
 - الإجراء المقترح: لا يوجد.
 - النتيجة: `{"reports_status": 200, "advanced_status": 200, "has_details": false, "forbidden_finance_keys": []}`
@@ -125,7 +125,7 @@
 ### strict_bootstrap_validation
 - الحالة: `PASS`
 - الفئة: `governance_reference_defect`
-- المدة: `0.0` ثانية
+- المدة: `0.01` ثانية
 - التشخيص: تم التحقق من أن الصارمة تعمل في STRICT مع strict_finance وتعيين المدير المالي للمزرعة كشرط حاكم.
 - الإجراء المقترح: لا يوجد.
 - النتيجة: `{"mode": "STRICT", "approval_profile": "strict_finance", "treasury_visibility": "visible", "has_farm_finance_manager": true}`
@@ -137,10 +137,10 @@
 ### inventory_procurement_cycle
 - الحالة: `PASS`
 - الفئة: `service_layer_defect`
-- المدة: `0.03` ثانية
+- المدة: `0.07` ثانية
 - التشخيص: تم إثبات دورة procurement -> receipt -> issue ضمن نفس truth chain للمخزون في STRICT.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"purchase_order_id": 29, "receipt_movement_id": "618", "issue_movement_id": "619", "remaining_qty": "180.000"}`
+- النتيجة: `{"purchase_order_id": 8, "receipt_movement_id": "394", "issue_movement_id": "395", "remaining_qty": "180.000"}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -149,10 +149,10 @@
 ### petty_cash_cycle
 - الحالة: `PASS`
 - الفئة: `service_layer_defect`
-- المدة: `0.31` ثانية
+- المدة: `0.62` ثانية
 - التشخيص: تمت دورة صندوق النثرية الكاملة في الصارمة: طلب -> اعتماد -> صرف -> تسوية -> مرفق authoritative.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"request_id": 9, "request_status": "DISBURSED", "settlement_id": 9, "settlement_status": "APPROVED"}`
+- النتيجة: `{"request_id": 2, "request_status": "DISBURSED", "settlement_id": 2, "settlement_status": "APPROVED"}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -161,7 +161,7 @@
 ### receipts_and_deposit_cycle
 - الحالة: `PASS`
 - الفئة: `service_layer_defect`
-- المدة: `0.03` ثانية
+- المدة: `0.1` ثانية
 - التشخيص: تمت دورة التحصيل والإيداع والمطابقة بالـ idempotency المطلوبة في STRICT.
 - الإجراء المقترح: لا يوجد.
 - النتيجة: `{"collection_status": "COLLECTED", "deposit_status": "DEPOSITED", "reconcile_status": "RECONCILED"}`
@@ -173,10 +173,10 @@
 ### supplier_settlement_cycle
 - الحالة: `PASS`
 - الفئة: `service_layer_defect`
-- المدة: `0.26` ثانية
+- المدة: `0.33` ثانية
 - التشخيص: تمت دورة تسوية المورد بالاعتماد الحوكمي والمرفق authoritative وترحيل الدفع النهائي.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"supplier_settlement_id": 9, "status": "PAID", "paid_amount": "47500.0000"}`
+- النتيجة: `{"supplier_settlement_id": 2, "status": "PAID", "paid_amount": "47500.0000"}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -188,7 +188,7 @@
 - المدة: `0.06` ثانية
 - التشخيص: تم إثبات رسملة الأصل الثابت مع trace محاسبي append-only في STRICT.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"status": "posted", "asset_id": 44, "ledger_rows": 16}`
+- النتيجة: `{"status": "posted", "asset_id": 44, "ledger_rows": 2}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -209,10 +209,10 @@
 ### harvest_and_sales_cycle
 - الحالة: `PASS`
 - الفئة: `service_layer_defect`
-- المدة: `0.3` ثانية
+- المدة: `0.55` ثانية
 - التشخيص: تم إثبات دورة الحصاد والبيع لذرة الصارمة مع HarvestLot وفاتورة بيع على نفس truth chain.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"harvest_activity_id": 225, "harvest_lot_id": 84, "invoice_id": 11, "invoice_status": "draft"}`
+- النتيجة: `{"harvest_activity_id": 175, "harvest_lot_id": 77, "invoice_id": 4, "invoice_status": "draft"}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -221,10 +221,10 @@
 ### contract_operations_cycle
 - الحالة: `PASS`
 - الفئة: `governance_reference_defect`
-- المدة: `0.08` ثانية
+- المدة: `0.2` ثانية
 - التشخيص: تمت دورة العقود مع فصل touring كـ assessment-only وبقاء التسويات الاقتصادية داخل STRICT فقط.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"share_contract_id": 17, "rental_contract_id": 18, "touring_id": 9, "rent_status": "posted", "dashboard_rows": 2}`
+- النتيجة: `{"share_contract_id": 3, "rental_contract_id": 4, "touring_id": 2, "rent_status": "posted", "dashboard_rows": 2}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -233,10 +233,10 @@
 ### governance_workbench_cycle
 - الحالة: `PASS`
 - الفئة: `governance_reference_defect`
-- المدة: `0.19` ثانية
+- المدة: `0.24` ثانية
 - التشخيص: تمت دورة workbench كاملة مع ApprovalStageEvent append-only ومنع collapse إلى actor واحد عبر السلسلة القطاعية.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"approval_request_id": 19, "approval_status": "APPROVED", "stage_events": 7, "workbench_rows": 3, "final_required_role": "SECTOR_DIRECTOR"}`
+- النتيجة: `{"approval_request_id": 12, "approval_status": "APPROVED", "stage_events": 7, "workbench_rows": 3, "final_required_role": "SECTOR_DIRECTOR"}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``
@@ -245,10 +245,10 @@
 ### attachments_and_evidence_cycle
 - الحالة: `PASS`
 - الفئة: `api_contract_defect`
-- المدة: `0.08` ثانية
+- المدة: `0.09` ثانية
 - التشخيص: تم التحقق من archive/quarantine lifecycle للمرفقات مع evidence-safe retention في STRICT.
 - الإجراء المقترح: لا يوجد.
-- النتيجة: `{"authoritative_archive_state": "hot", "quarantine_state": "quarantined", "financial_records": 24}`
+- النتيجة: `{"authoritative_archive_state": "hot", "quarantine_state": "quarantined", "financial_records": 3}`
 - code anchor: ``
 - test anchor: ``
 - gate anchor: ``

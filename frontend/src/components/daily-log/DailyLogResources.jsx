@@ -66,18 +66,15 @@ const DailyLogResourcesInner = ({ form, updateField, lookups: _lookups, errors, 
 
   useEffect(() => {
     const farmId = Number(form.farm)
-    const surrah = Number(form.surrah_count)
+    const surrahMode = form.surrah_mode !== false
+    const surrah = Number(form.surrah_count) || (surrahMode ? 1 : 0)
     const mode = form.labor_entry_mode || 'REGISTERED'
     const workers = Number(form.casual_workers_count || 0)
 
     const hasRegisteredInput = mode === 'REGISTERED' && normalizedTeam.length > 0
     const hasCasualInput = mode === 'CASUAL_BATCH' && workers > 0
 
-    const shouldFetch =
-      Boolean(farmId) &&
-      Number.isFinite(surrah) &&
-      surrah > 0 &&
-      (hasRegisteredInput || hasCasualInput)
+    const shouldFetch = Boolean(farmId) && (hasRegisteredInput || hasCasualInput)
 
     if (!shouldFetch) {
       setEstimate(null)
@@ -85,10 +82,43 @@ const DailyLogResourcesInner = ({ form, updateField, lookups: _lookups, errors, 
       return
     }
 
+    const workerCount = mode === 'CASUAL_BATCH' ? workers : normalizedTeam.length
+
+    // [ZENITH 11.5 OMEGA-Z] Direct Override for Fixed Amount
+    if (form.fixed_wage_cost && Number(form.fixed_wage_cost) > 0) {
+      const fixedCost = Number(form.fixed_wage_cost)
+      const eqHours = form.hours_worked ? Number(form.hours_worked) : (surrahMode ? surrah * 8 : 8)
+      
+      setEstimate({
+        equivalent_hours_per_worker: eqHours,
+        equivalent_hours_total: eqHours * workerCount,
+        estimated_labor_cost: fixedCost,
+        currency: 'YER'
+      })
+      setEstimateError('')
+      return
+    }
+
+    // [ZENITH 11.5 OMEGA-Z] Local Hourly Mode Calculation
+    if (!surrahMode) {
+      const hrs = Number(form.hours_worked) || 0
+      const rate = Number(form.hourly_rate) || 0
+      
+      setEstimate({
+        equivalent_hours_per_worker: hrs,
+        equivalent_hours_total: hrs * workerCount,
+        estimated_labor_cost: (hrs * rate) * workerCount,
+        currency: 'YER'
+      })
+      setEstimateError('')
+      return
+    }
+
+    // Backend fallback for Surrah mode (Dynamic computation based on region standard policies)
     const payload = {
       farm_id: farmId,
       labor_entry_mode: mode,
-      surrah_count: String(form.surrah_count),
+      surrah_count: String(surrah),
       period_hours: '8.0000',
     }
 
@@ -119,6 +149,10 @@ const DailyLogResourcesInner = ({ form, updateField, lookups: _lookups, errors, 
     form.surrah_count,
     form.casual_workers_count,
     form.labor_entry_mode,
+    form.surrah_mode,
+    form.hours_worked,
+    form.hourly_rate,
+    form.fixed_wage_cost,
     normalizedTeam,
   ])
 
@@ -344,6 +378,9 @@ const DailyLogResourcesInner = ({ form, updateField, lookups: _lookups, errors, 
                       صرة
                     </span>
                   </div>
+                  <p className="text-xs text-gray-500 dark:text-slate-400">
+                    الفترة الواحدة = 8 ساعات
+                  </p>
                 </div>
               ) : (
                 <>

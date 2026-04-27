@@ -2,6 +2,7 @@ import { Suspense, lazy, useMemo } from 'react'
 import { Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom'
 import { Activity } from 'lucide-react'
 import Nav from './components/Nav.jsx'
+import FarmSelector from './components/FarmSelector.jsx'
 import PrivateRoute from './components/PrivateRoute.jsx'
 import { AuthProvider, useAuth } from './auth/AuthContext.js'
 import { FarmProvider } from './api/farmContext.jsx'
@@ -125,12 +126,15 @@ function AppLayout() {
               </p>
             </div>
           </div>
-          <button 
-            onClick={() => navigate('/daily-log')}
-            className="btn-premium text-xs"
-          >
-            <Activity size={16} /> السجل اليومي السريع
-          </button>
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+            <FarmSelector />
+            <button
+              onClick={() => navigate('/daily-log')}
+              className="btn-premium text-xs"
+            >
+              <Activity size={16} /> السجل اليومي السريع
+            </button>
+          </div>
         </div>
         <Nav />
       </header>

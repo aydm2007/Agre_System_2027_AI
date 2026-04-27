@@ -15,6 +15,11 @@ Verifies that:
 """
 from django.test import TestCase
 from unittest.mock import patch, MagicMock
+from pathlib import Path
+import inspect
+
+
+REPO_ROOT = Path(__file__).resolve().parents[4]
 
 
 class AttachmentClassificationTests(TestCase):
@@ -42,12 +47,7 @@ class AttachmentClassificationTests(TestCase):
     def test_financial_record_class_is_not_purge_eligible(self):
         """[ATTACHMENT_POLICY_MATRIX §financial_record] financial_record must NOT be purge-eligible."""
         from smart_agri.core.services.attachment_policy_service import AttachmentPolicyService
-        # Either constant-based or method-based validation must exist
-        service_source = open(
-            AttachmentPolicyService.__module__.replace('.', '/').replace(
-                'smart_agri', 'c:/tools/workspace/AgriAsset_v44/backend/smart_agri'
-            ) + '.py', encoding='utf-8'
-        ).read()
+        service_source = inspect.getsource(AttachmentPolicyService)
         # Must reference financial_record non-purge logic
         self.assertIn('financial_record', service_source,
                       "AttachmentPolicyService must handle financial_record class.")
@@ -99,23 +99,17 @@ class AttachmentMetadataRequirementsTests(TestCase):
 
     def test_runtime_proof_checklist_exists(self):
         """[RUNTIME_PROOF_CHECKLIST_V21] Checklist file must be present."""
-        import os
-        checklist_path = (
-            'c:/tools/workspace/AgriAsset_v44/docs/reference/RUNTIME_PROOF_CHECKLIST_V21.md'
-        )
+        checklist_path = REPO_ROOT / 'docs' / 'reference' / 'RUNTIME_PROOF_CHECKLIST_V21.md'
         self.assertTrue(
-            os.path.exists(checklist_path),
+            checklist_path.exists(),
             "RUNTIME_PROOF_CHECKLIST_V21.md must exist as the runtime evidence reference."
         )
 
     def test_attachment_policy_matrix_exists(self):
         """[REFERENCE_MANIFEST] ATTACHMENT_POLICY_MATRIX_V21.yaml must be present."""
-        import os
-        matrix_path = (
-            'c:/tools/workspace/AgriAsset_v44/docs/reference/ATTACHMENT_POLICY_MATRIX_V21.yaml'
-        )
+        matrix_path = REPO_ROOT / 'docs' / 'reference' / 'ATTACHMENT_POLICY_MATRIX_V21.yaml'
         self.assertTrue(
-            os.path.exists(matrix_path),
+            matrix_path.exists(),
             "ATTACHMENT_POLICY_MATRIX_V21.yaml must exist as canonical reference."
         )
 

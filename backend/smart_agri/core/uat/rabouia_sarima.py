@@ -427,6 +427,10 @@ def _seed_farm(*, name: str, slug: str, prefix: str, mode: str, tier: str, appro
             "region": "تهامة",
             "area": Decimal("140.00") if mode == FarmSettings.MODE_SIMPLE else Decimal("420.00"),
             "description": f"حزمة UAT عربية للمزرعة {name}.",
+            "is_organization": False,
+            "operational_mode": mode,
+            "sensing_mode": "MANUAL",
+            "organization_id": None,
         },
     )
     governance, _ = FarmGovernanceProfile.objects.update_or_create(

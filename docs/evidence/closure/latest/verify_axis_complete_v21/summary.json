@@ -1,14 +1,14 @@
 {
   "command_name": "verify_axis_complete_v21",
   "title": "V21 Axis-Complete Verification",
-  "generated_at": "2026-04-25T01:29:03.595817-07:00",
-  "overall_status": "FAIL",
+  "generated_at": "2026-04-26T13:59:36.318560-07:00",
+  "overall_status": "PASS",
   "repo_root": "C:\\tools\\workspace\\AgriAsset_v445",
-  "suite_dir": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21",
+  "suite_dir": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21",
   "latest_dir": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21",
   "counts": {
-    "pass": 37,
-    "fail": 17,
+    "pass": 54,
+    "fail": 0,
     "blocked": 0,
     "total": 54
   },
@@ -23,7 +23,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\bootstrap_contract.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\bootstrap_contract.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\bootstrap_contract.log"
     },
     {
@@ -36,7 +36,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\postgres_foundation.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\postgres_foundation.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\postgres_foundation.log"
     },
     {
@@ -49,7 +49,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\bare_exceptions.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\bare_exceptions.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\bare_exceptions.log"
     },
     {
@@ -62,7 +62,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\docx_traceability.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\docx_traceability.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\docx_traceability.log"
     },
     {
@@ -75,7 +75,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\release_hygiene.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\release_hygiene.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\release_hygiene.log"
     },
     {
@@ -88,7 +88,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\decimal_mutations.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\decimal_mutations.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\decimal_mutations.log"
     },
     {
@@ -101,7 +101,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\idempotency_actions.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\idempotency_actions.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\idempotency_actions.log"
     },
     {
@@ -114,7 +114,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\farm_scope_guards.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\farm_scope_guards.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\farm_scope_guards.log"
     },
     {
@@ -127,7 +127,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\service_layer_writes.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\service_layer_writes.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\service_layer_writes.log"
     },
     {
@@ -140,7 +140,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\compliance_docs.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\compliance_docs.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\compliance_docs.log"
     },
     {
@@ -153,7 +153,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\xlsx_gate_check.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\xlsx_gate_check.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\xlsx_gate_check.log"
     },
     {
@@ -166,7 +166,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\float_guard_strict.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\float_guard_strict.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\float_guard_strict.log"
     },
     {
@@ -177,9 +177,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\backend_smart_card_mode_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\backend_smart_card_mode_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_smart_card_mode_tests.log"
     },
     {
@@ -190,9 +190,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\backend_approval_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\backend_approval_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_approval_tests.log"
     },
     {
@@ -203,9 +203,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\backend_attachment_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\backend_attachment_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_attachment_tests.log"
     },
     {
@@ -216,9 +216,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\backend_supplier_mode_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\backend_supplier_mode_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_supplier_mode_tests.log"
     },
     {
@@ -229,9 +229,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.log"
     },
     {
@@ -244,7 +244,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\frontend_lint.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\frontend_lint.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_lint.log"
     },
     {
@@ -257,7 +257,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\frontend_focused_vitest.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\frontend_focused_vitest.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_focused_vitest.log"
     },
     {
@@ -270,7 +270,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\frontend_build.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\frontend_build.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\frontend_build.log"
     },
     {
@@ -283,7 +283,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\django_check.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\django_check.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\django_check.log"
     },
     {
@@ -294,9 +294,9 @@
       "cwd": ".",
       "timeout_seconds": null,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\seed_runtime_evidence.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\seed_runtime_evidence.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\seed_runtime_evidence.log"
     },
     {
@@ -309,7 +309,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\showmigrations_plan.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\showmigrations_plan.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\showmigrations_plan.log"
     },
     {
@@ -322,7 +322,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\migrate_plan.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\migrate_plan.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\migrate_plan.log"
     },
     {
@@ -335,7 +335,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
     },
     {
@@ -348,7 +348,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
     },
     {
@@ -361,7 +361,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\scan_pending_attachments.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\scan_pending_attachments.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\scan_pending_attachments.log"
     },
     {
@@ -374,7 +374,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\report_due_remote_reviews.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\report_due_remote_reviews.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\report_due_remote_reviews.log"
     },
     {
@@ -387,7 +387,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\dispatch_outbox.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\dispatch_outbox.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\dispatch_outbox.log"
     },
     {
@@ -400,7 +400,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\retry_dead_letters.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\retry_dead_letters.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\retry_dead_letters.log"
     },
     {
@@ -413,7 +413,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\purge_dispatched_outbox.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\purge_dispatched_outbox.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\purge_dispatched_outbox.log"
     },
     {
@@ -424,9 +424,9 @@
       "cwd": ".",
       "timeout_seconds": 60,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\schema_detect_zombies.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\schema_detect_zombies.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\schema_detect_zombies.log"
     },
     {
@@ -439,7 +439,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.log"
     },
     {
@@ -452,7 +452,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\backup_freshness.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\backup_freshness.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\backup_freshness.log"
     },
     {
@@ -465,7 +465,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\fiscal_period_gates.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\fiscal_period_gates.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\fiscal_period_gates.log"
     },
     {
@@ -478,7 +478,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log"
     },
     {
@@ -491,7 +491,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.log"
     },
     {
@@ -504,7 +504,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\accounts_service_layer_writes.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\accounts_service_layer_writes.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\accounts_service_layer_writes.log"
     },
     {
@@ -517,7 +517,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\auth_service_layer_writes.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\auth_service_layer_writes.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\auth_service_layer_writes.log"
     },
     {
@@ -528,9 +528,9 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.log"
     },
     {
@@ -541,9 +541,9 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log"
     },
     {
@@ -554,9 +554,9 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
     },
     {
@@ -567,9 +567,9 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.log"
     },
     {
@@ -580,9 +580,9 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
     },
     {
@@ -593,9 +593,9 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
     },
     {
@@ -606,9 +606,9 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log"
     },
     {
@@ -621,7 +621,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.log"
     },
     {
@@ -632,9 +632,9 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_integration_accounts_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_integration_accounts_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_integration_accounts_tests.log"
     },
     {
@@ -647,7 +647,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_prepare_e2e_auth.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_prepare_e2e_auth.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_prepare_e2e_auth.log"
     },
     {
@@ -658,11 +658,11 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {
-        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\runtime\\axis_playwright_daily_log"
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\runtime\\axis_playwright_daily_log"
       },
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
     },
     {
@@ -673,11 +673,11 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {
-        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\runtime\\axis_playwright_supplier"
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\runtime\\axis_playwright_supplier"
       },
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_playwright_supplier.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_playwright_supplier.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_supplier.log"
     },
     {
@@ -688,11 +688,11 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {
-        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\runtime\\axis_playwright_contract"
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\runtime\\axis_playwright_contract"
       },
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_playwright_contract.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_playwright_contract.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_contract.log"
     },
     {
@@ -703,11 +703,11 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {
-        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\runtime\\axis_playwright_fixed_assets"
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\runtime\\axis_playwright_fixed_assets"
       },
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_playwright_fixed_assets.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_playwright_fixed_assets.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_fixed_assets.log"
     },
     {
@@ -718,28 +718,28 @@
       "cwd": ".",
       "timeout_seconds": 900,
       "env_overrides": {
-        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\runtime\\axis_playwright_fuel"
+        "PLAYWRIGHT_ARTIFACT_ROOT": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\runtime\\axis_playwright_fuel"
       },
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_playwright_fuel.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_playwright_fuel.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\logs\\axis_playwright_fuel.log"
     }
   ],
   "artifacts": [
     {
       "source": "C:\\tools\\workspace\\AgriAsset_v445\\backend\\release_readiness_snapshot.json",
-      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.json",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.json",
       "latest_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.json"
     },
     {
       "source": "C:\\tools\\workspace\\AgriAsset_v445\\backend\\release_readiness_snapshot.md",
-      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.md",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.md",
       "latest_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_readiness_snapshot.md"
     },
     {
       "source": "C:\\tools\\workspace\\AgriAsset_v445\\backend\\scripts\\release_gate_float_check.txt",
-      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\artifacts\\release_gate_float_check.txt",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\artifacts\\release_gate_float_check.txt",
       "latest_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_axis_complete_v21\\artifacts\\release_gate_float_check.txt"
     }
   ],
@@ -748,7 +748,7 @@
       "number": 1,
       "key": "schema_parity",
       "title": "Schema Parity",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/core/migrations/, backend/smart_agri/finance/migrations/",
       "test_anchor": "backend/smart_agri/core/tests/test_schema_parity_runtime.py",
       "gate_anchor": "python scripts/verification/detect_zombies.py ; python scripts/verification/detect_ghost_triggers.py",
@@ -766,31 +766,31 @@
           "key": "postgres_foundation",
           "status": "PASS",
           "label": "PostgreSQL foundation contract",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\postgres_foundation.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\postgres_foundation.log"
         },
         {
           "key": "showmigrations_plan",
           "status": "PASS",
           "label": "Django migrations status",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\showmigrations_plan.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\showmigrations_plan.log"
         },
         {
           "key": "migrate_plan",
           "status": "PASS",
           "label": "Django migration plan",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\migrate_plan.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\migrate_plan.log"
         },
         {
           "key": "schema_detect_zombies",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Schema zombie detection",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\schema_detect_zombies.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\schema_detect_zombies.log"
         },
         {
           "key": "schema_detect_ghost_triggers",
           "status": "PASS",
           "label": "Schema ghost trigger detection",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\schema_detect_ghost_triggers.log"
         }
       ]
     },
@@ -798,7 +798,7 @@
       "number": 2,
       "key": "idempotency_v2",
       "title": "Idempotency V2",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend idempotency middleware and financial mutation services",
       "test_anchor": "backend/smart_agri/core/tests/test_idempotency_middleware.py ; backend/smart_agri/finance/tests/test_fiscal_year_rollover_idempotency.py",
       "gate_anchor": "python scripts/check_idempotency_actions.py",
@@ -813,13 +813,13 @@
           "key": "idempotency_actions",
           "status": "PASS",
           "label": "Idempotency action contract",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\idempotency_actions.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\idempotency_actions.log"
         },
         {
           "key": "axis_idempotency_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis idempotency backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_idempotency_tests.log"
         }
       ]
     },
@@ -827,7 +827,7 @@
       "number": 3,
       "key": "fiscal_lifecycle",
       "title": "Fiscal Lifecycle",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/finance/services/fiscal_*",
       "test_anchor": "backend/smart_agri/finance/tests/test_fiscal_lifecycle.py ; backend/smart_agri/core/tests/test_fiscal_close_e2e.py",
       "gate_anchor": "python scripts/check_fiscal_period_gates.py",
@@ -843,19 +843,19 @@
           "key": "fiscal_period_gates",
           "status": "PASS",
           "label": "Fiscal period gate contract",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\fiscal_period_gates.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\fiscal_period_gates.log"
         },
         {
           "key": "axis_fiscal_fund_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis fiscal and fund backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log"
         },
         {
           "key": "release_readiness_snapshot",
           "status": "PASS",
           "label": "Release readiness snapshot",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
         }
       ]
     },
@@ -863,7 +863,7 @@
       "number": 4,
       "key": "fund_accounting",
       "title": "Fund Accounting",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/core/services/financial_governance.py ; backend/smart_agri/finance/services/fiscal_fund_governance_service.py",
       "test_anchor": "backend/smart_agri/core/tests/test_financial_governance.py ; backend/smart_agri/finance/tests/test_financial_integrity_governance.py",
       "gate_anchor": "python backend/manage.py verify_release_gate_v21",
@@ -876,15 +876,15 @@
       "step_results": [
         {
           "key": "axis_fiscal_fund_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis fiscal and fund backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_fiscal_fund_tests.log"
         },
         {
           "key": "release_readiness_snapshot",
           "status": "PASS",
           "label": "Release readiness snapshot",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
         }
       ]
     },
@@ -892,7 +892,7 @@
       "number": 5,
       "key": "decimal_and_surra",
       "title": "Decimal and Surra",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/core/services/costing.py ; finance/api_ledger_support.py",
       "test_anchor": "backend/smart_agri/core/tests/test_strict_decimals.py ; backend/smart_agri/core/tests/test_labor_estimation_api.py",
       "gate_anchor": "python scripts/check_no_float_mutations.py ; python backend/scripts/float_guard.py --strict",
@@ -908,19 +908,19 @@
           "key": "decimal_mutations",
           "status": "PASS",
           "label": "Decimal mutation guard",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\decimal_mutations.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\decimal_mutations.log"
         },
         {
           "key": "float_guard_strict",
           "status": "PASS",
           "label": "Float guard strict scan",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\float_guard_strict.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\float_guard_strict.log"
         },
         {
           "key": "axis_single_crop_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis single-crop costing backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log"
         }
       ]
     },
@@ -928,7 +928,7 @@
       "number": 6,
       "key": "tenant_isolation",
       "title": "Tenant Isolation",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend farm scope middleware and PostgreSQL RLS policies",
       "test_anchor": "backend/smart_agri/finance/tests/test_tenant_isolation.py ; backend/smart_agri/core/tests/test_rls_authorization.py",
       "gate_anchor": "python scripts/check_farm_scope_guards.py",
@@ -944,19 +944,19 @@
           "key": "farm_scope_guards",
           "status": "PASS",
           "label": "Farm scope guard contract",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\farm_scope_guards.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\farm_scope_guards.log"
         },
         {
           "key": "axis_tenant_audit_variance_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis tenant, audit, and variance backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
         },
         {
           "key": "runtime_probe_v21",
           "status": "PASS",
           "label": "Runtime probe V21",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
         }
       ]
     },
@@ -964,7 +964,7 @@
       "number": 7,
       "key": "auditability",
       "title": "Auditability",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/core/models/log.py::AuditLog ; append-only ledger flows",
       "test_anchor": "backend/smart_agri/core/tests/test_phase7_audit_append_only.py ; backend/smart_agri/core/tests/test_route_breach_middleware.py",
       "gate_anchor": "python scripts/verification/check_service_layer_writes.py",
@@ -979,13 +979,13 @@
           "key": "service_layer_writes",
           "status": "PASS",
           "label": "Service-layer write contract",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\service_layer_writes.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\service_layer_writes.log"
         },
         {
           "key": "axis_tenant_audit_variance_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis tenant, audit, and variance backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
         }
       ]
     },
@@ -993,7 +993,7 @@
       "number": 8,
       "key": "variance_and_bom",
       "title": "Variance and BOM",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/core/services/schedule_variance_service.py ; DailyLog governance services",
       "test_anchor": "backend/smart_agri/core/tests/test_schedule_variance.py ; backend/smart_agri/core/tests/test_phase5_variance_workflow.py",
       "gate_anchor": "python backend/manage.py verify_release_gate_v21",
@@ -1007,21 +1007,21 @@
       "step_results": [
         {
           "key": "axis_tenant_audit_variance_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis tenant, audit, and variance backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
         },
         {
           "key": "runtime_probe_v21",
           "status": "PASS",
           "label": "Runtime probe V21",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
         },
         {
           "key": "axis_playwright_daily_log",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis Playwright daily smart-card proof",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
         }
       ]
     },
@@ -1029,7 +1029,7 @@
       "number": 9,
       "key": "sovereign_and_zakat",
       "title": "Sovereign and Zakat",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/core/services/zakat_policy.py ; sovereign_zakat_service.py",
       "test_anchor": "backend/smart_agri/core/tests/test_phase6_zakat_solar.py ; backend/smart_agri/core/tests/test_zakat_policy_v2.py ; backend/smart_agri/sales/tests/test_sale_service.py",
       "gate_anchor": "python backend/scripts/check_zakat_harvest_triggers.py ; python backend/scripts/check_solar_depreciation_logic.py",
@@ -1046,25 +1046,25 @@
           "key": "zakat_harvest_triggers",
           "status": "PASS",
           "label": "Harvest zakat trigger contract",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log"
         },
         {
           "key": "solar_depreciation_logic",
           "status": "PASS",
           "label": "Solar depreciation contract",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\solar_depreciation_logic.log"
         },
         {
           "key": "axis_biological_harvest_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis biological and harvest backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
         },
         {
           "key": "runtime_probe_v21",
           "status": "PASS",
           "label": "Runtime probe V21",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\runtime_probe_v21.log"
         }
       ]
     },
@@ -1072,7 +1072,7 @@
       "number": 10,
       "key": "farm_tiering",
       "title": "Farm Tiering",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend farm-size governance services and accounts delegation services",
       "test_anchor": "backend/smart_agri/core/tests/test_farm_size_governance.py ; backend/smart_agri/core/tests/test_v21_governance_comprehensive.py ; backend/smart_agri/accounts/tests/test_role_delegation.py",
       "gate_anchor": "python scripts/verification/check_compliance_docs.py",
@@ -1088,19 +1088,19 @@
           "key": "compliance_docs",
           "status": "PASS",
           "label": "Compliance docs contract",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\compliance_docs.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\compliance_docs.log"
         },
         {
           "key": "axis_tiering_workbench_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis farm tiering and workbench backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_tiering_workbench_tests.log"
         },
         {
           "key": "axis_governance_maintenance_dry_run",
           "status": "PASS",
           "label": "Axis governance maintenance dry run",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_governance_maintenance_dry_run.log"
         }
       ]
     },
@@ -1108,7 +1108,7 @@
       "number": 11,
       "key": "biological_assets",
       "title": "Biological Assets",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend tree inventory and impairment services",
       "test_anchor": "backend/smart_agri/core/tests/test_biological_asset_impairment.py ; backend/smart_agri/core/tests/test_tree_inventory.py",
       "gate_anchor": "python backend/manage.py verify_release_gate_v21",
@@ -1121,15 +1121,15 @@
       "step_results": [
         {
           "key": "axis_biological_harvest_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis biological and harvest backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
         },
         {
           "key": "release_readiness_snapshot",
           "status": "PASS",
           "label": "Release readiness snapshot",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
         }
       ]
     },
@@ -1137,7 +1137,7 @@
       "number": 12,
       "key": "harvest_compliance",
       "title": "Harvest Compliance",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend harvest services and sales integration",
       "test_anchor": "backend/smart_agri/core/tests/test_harvest_products.py ; backend/smart_agri/core/tests/test_activity_requirements.py ; backend/smart_agri/core/tests/test_zakat_policy_v2.py",
       "gate_anchor": "python backend/scripts/check_zakat_harvest_triggers.py",
@@ -1152,13 +1152,13 @@
           "key": "zakat_harvest_triggers",
           "status": "PASS",
           "label": "Harvest zakat trigger contract",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\zakat_harvest_triggers.log"
         },
         {
           "key": "axis_biological_harvest_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis biological and harvest backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_biological_harvest_tests.log"
         }
       ]
     },
@@ -1166,7 +1166,7 @@
       "number": 13,
       "key": "seasonal_settlement",
       "title": "Seasonal Settlement",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/core/services/seasonal_settlement_service.py",
       "test_anchor": "backend/smart_agri/core/tests/test_seasonal_settlement.py",
       "gate_anchor": "python backend/manage.py verify_release_gate_v21",
@@ -1179,15 +1179,15 @@
       "step_results": [
         {
           "key": "axis_settlement_contract_mass_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis settlement, contract, and mass-casualty backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
         },
         {
           "key": "release_readiness_snapshot",
           "status": "PASS",
           "label": "Release readiness snapshot",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
         }
       ]
     },
@@ -1195,7 +1195,7 @@
       "number": 14,
       "key": "schedule_variance",
       "title": "Schedule Variance",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/core/services/schedule_variance_service.py",
       "test_anchor": "backend/smart_agri/core/tests/test_schedule_variance.py",
       "gate_anchor": "python backend/manage.py verify_release_gate_v21",
@@ -1208,15 +1208,15 @@
       "step_results": [
         {
           "key": "axis_tenant_audit_variance_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis tenant, audit, and variance backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_tenant_audit_variance_tests.log"
         },
         {
           "key": "axis_playwright_daily_log",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis Playwright daily smart-card proof",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
         }
       ]
     },
@@ -1224,7 +1224,7 @@
       "number": 15,
       "key": "sharecropping",
       "title": "Sharecropping",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend sharecropping services and contract operations service",
       "test_anchor": "backend/smart_agri/core/tests/test_operational_contracts.py ; backend/smart_agri/core/tests/test_sharecropping_posting_service.py",
       "gate_anchor": "python backend/manage.py verify_release_gate_v21",
@@ -1237,15 +1237,15 @@
       "step_results": [
         {
           "key": "axis_settlement_contract_mass_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis settlement, contract, and mass-casualty backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
         },
         {
           "key": "axis_playwright_contract",
           "status": "PASS",
           "label": "Axis Playwright contract operations proof",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_playwright_contract.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_playwright_contract.log"
         }
       ]
     },
@@ -1253,7 +1253,7 @@
       "number": 16,
       "key": "single_crop_costing",
       "title": "Single-Crop Costing",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend activity cost snapshot and smart-card contract",
       "test_anchor": "backend/smart_agri/core/tests/test_activity_cost_snapshot_integrity.py ; backend/smart_agri/core/tests/test_v21_e2e_cycle.py",
       "gate_anchor": "python scripts/check_no_float_mutations.py",
@@ -1266,15 +1266,15 @@
       "step_results": [
         {
           "key": "axis_single_crop_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis single-crop costing backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_single_crop_tests.log"
         },
         {
           "key": "axis_playwright_daily_log",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis Playwright daily smart-card proof",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_playwright_daily_log.log"
         }
       ]
     },
@@ -1282,7 +1282,7 @@
       "number": 17,
       "key": "petty_cash_settlement",
       "title": "Petty Cash Settlement",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/finance/services/petty_cash_service.py",
       "test_anchor": "backend/smart_agri/finance/tests/test_petty_cash_service.py ; backend/smart_agri/finance/tests/test_petty_cash_settlement.py",
       "gate_anchor": "python backend/manage.py verify_release_gate_v21",
@@ -1295,15 +1295,15 @@
       "step_results": [
         {
           "key": "backend_contract_asset_fuel_cash_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Backend contract, assets, fuel, and petty-cash tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\backend_contract_asset_fuel_cash_tests.log"
         },
         {
           "key": "release_readiness_snapshot",
           "status": "PASS",
           "label": "Release readiness snapshot",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
         }
       ]
     },
@@ -1311,7 +1311,7 @@
       "number": 18,
       "key": "mass_exterminations",
       "title": "Mass Exterminations",
-      "status": "FAIL",
+      "status": "PASS",
       "code_anchor": "backend/smart_agri/core/services/mass_casualty_service.py",
       "test_anchor": "backend/smart_agri/core/tests/test_sardood_scenarios.py",
       "gate_anchor": "python backend/manage.py verify_release_gate_v21",
@@ -1324,24 +1324,24 @@
       "step_results": [
         {
           "key": "axis_settlement_contract_mass_tests",
-          "status": "FAIL",
+          "status": "PASS",
           "label": "Axis settlement, contract, and mass-casualty backend tests",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\axis_settlement_contract_mass_tests.log"
         },
         {
           "key": "release_readiness_snapshot",
           "status": "PASS",
           "label": "Release readiness snapshot",
-          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012048\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
+          "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_135005\\verify_axis_complete_v21\\logs\\release_readiness_snapshot.log"
         }
       ]
     }
   ],
   "axis_counts": {
-    "pass": 0,
-    "fail": 18,
+    "pass": 18,
+    "fail": 0,
     "blocked": 0,
     "total": 18
   },
-  "axis_overall_status": "FAIL"
+  "axis_overall_status": "PASS"
 }

@@ -1,228 +1,60 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-/**
- * Agri-Guardian Phase 12: Theme Variables
- * Semantic color tokens for light/dark mode.
- */
 @layer base {
   :root {
-    /* Background Colors */
-    --color-bg-primary: 241 246 244;       /* calm sage */
-    --color-bg-secondary: 233 240 237;     /* muted sage */
-    --color-bg-surface: 250 252 251;       /* soft surface */
-    --color-bg-elevated: 255 255 255;      /* elevated white */
+    --color-bg-primary: 255 255 255;
+    --color-bg-secondary: 249 250 251;
+    --color-bg-surface: 255 255 255;
+    --color-bg-elevated: 255 255 255;
     
-    /* Text Colors */
-    --color-text-primary: 17 24 39;        /* gray-900 */
-    --color-text-secondary: 107 114 128;   /* gray-500 */
-    --color-text-muted: 156 163 175;       /* gray-400 */
+    --color-text-primary: 15 23 42;
+    --color-text-secondary: 71 85 105;
+    --color-text-muted: 148 163 184;
     
-    /* Border Colors */
-    --color-border: 229 231 235;           /* gray-200 */
-    --color-border-strong: 209 213 219;    /* gray-300 */
+    --color-border: 229 231 235;
+    --color-border-strong: 209 213 219;
     
-    /* Brand Colors (Sovereign Government Blue) */
-    --color-emerald: 15 23 42;             /* deep navy */
-    --color-primary-blue: 29 78 216;       /* government blue */
-    --color-accent-gold: 180 83 9;        /* forensic gold */
-    --color-amber: 217 119 6;              /* secondary */
+    /* Corporate Accent: Royal Blue (The Only Kept Identity) */
+    --color-yeco-blue: 30 64 175;
+    --color-emerald: var(--color-yeco-blue);
+    --color-primary-blue: var(--color-yeco-blue);
   }
 
   .dark {
-    /* Background Colors */
-    --color-bg-primary: 2 6 23;            /* darker slate */
-    --color-bg-secondary: 15 23 42;        /* navy surface */
-    --color-bg-surface: 30 41 59;          /* slate surface */
-    --color-bg-elevated: 51 65 85;         /* elevated */
-    
-    /* Text Colors */
-    --color-text-primary: 248 250 252;     /* slate-50 */
-    --color-text-secondary: 148 163 184;   /* slate-400 */
-    --color-text-muted: 100 116 139;       /* slate-500 */
-    
-    /* Border Colors */
-    --color-border: 15 23 42;              /* navy-800 */
-    --color-border-strong: 30 41 59;      /* navy-700 */
+    --color-bg-primary: 15 23 42;
+    --color-bg-secondary: 2 6 23;
   }
+}
 
-  /* Smooth theme transitions */
-  html {
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease;
-  }
-  
-  body {
-    background-color: rgb(var(--color-bg-primary));
-    color: rgb(var(--color-text-primary));
-    background-image:
-      radial-gradient(circle at 12% 10%, rgba(29, 78, 216, 0.12) 0, transparent 42%),
-      radial-gradient(circle at 85% 0%, rgba(180, 83, 9, 0.08) 0, transparent 34%),
-      linear-gradient(180deg, rgb(var(--color-bg-primary)) 0%, rgb(var(--color-bg-secondary)) 100%);
-    background-attachment: fixed;
-    font-family: 'Inter', system-ui, sans-serif;
-  }
-  /* [Agri-Guardian] Fix for White-on-White Select Options */
-  select option {
-    background-color: rgb(var(--color-bg-surface));
-    color: rgb(var(--color-text-primary));
-  }
+body {
+  @apply bg-gray-50 text-slate-900;
+  font-family: 'Cairo', sans-serif !important;
 }
 
 @layer components {
-  .app-page {
-    @apply min-h-screen p-8;
-    background-color: rgb(var(--color-bg-primary));
-    color: rgb(var(--color-text-primary));
-  }
-
-  .app-panel {
-    @apply rounded-2xl border backdrop-blur-xl;
-    border-color: rgba(148, 163, 184, 0.28);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(248, 250, 252, 0.9) 100%);
-  }
-
-  .app-card {
-    @apply rounded-2xl border;
-    border-color: rgba(148, 163, 184, 0.25);
-    background-color: rgba(255, 255, 255, 0.78);
-  }
-
-  .app-input {
-    @apply w-full rounded-xl border px-4 py-3 outline-none transition-colors;
-    border-color: rgba(148, 163, 184, 0.35);
-    background-color: rgba(255, 255, 255, 0.84);
-    color: rgb(31 41 55);
-  }
-
-  .app-input::placeholder {
-    color: rgb(107 114 128);
-  }
-
-  .dark .app-panel {
-    border-color: rgba(71, 85, 105, 0.65);
-    background: rgba(15, 23, 42, 0.72);
-  }
-
-  .dark .app-card {
-    border-color: rgba(71, 85, 105, 0.55);
-    background-color: rgba(15, 23, 42, 0.62);
-  }
-
-  .dark .app-input {
-    border-color: rgba(71, 85, 105, 0.75);
-    background-color: rgba(15, 23, 42, 0.55);
-    color: rgb(241 245 249);
-  }
-
-  .dark .app-input::placeholder {
-    color: rgb(148 163 184);
-  }
-}
-
-/* ============================================================================
- * [AGRI-GUARDIAN] Mobile-First Responsive Utilities
- * Optimized for field workers using mobile devices in farms.
- * ============================================================================ */
-@layer utilities {
-  /* Safe area padding for phones with notches */
-  .safe-area-top { padding-top: env(safe-area-inset-top); }
-  .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
-
-  /* Touch-friendly minimum targets (WCAG 2.5.5) */
-  .touch-target {
-    min-width: 44px;
-    min-height: 44px;
-  }
-}
-
-@media (max-width: 640px) {
-  /* Compact spacing for mobile */
-  .container { padding-left: 0.75rem; padding-right: 0.75rem; }
-  
-  /* Full-width cards on mobile */
-  .app-card, .app-panel { border-radius: 0.75rem; }
-
-  /* Responsive tables: horizontal scroll */
-  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-
-  /* Stack form elements vertically */
-  .app-input { font-size: 16px; /* Prevent iOS zoom on focus */ }
-
-  /* Bottom nav safe area */
-  .pb-safe { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
-}
-
-/* Print optimization */
-@media print {
-  .no-print, nav, .offline-banner { display: none !important; }
-  .app-panel, .app-card { border: 1px solid #ddd; box-shadow: none; }
-  body { background: white !important; background-image: none !important; }
-}
-
-/* [OMNIPOTENT 1000/1000] Agri-Guardian Sovereign Aesthetics */
-@layer components {
-  .sovereign-shimmer {
-    @apply relative overflow-hidden;
-  }
-  .sovereign-shimmer::after {
-    content: '';
-    @apply absolute inset-0;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.2) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer-flow 3s infinite linear;
-  }
-
-  .elastic-entry {
-    animation: elastic-scale 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
-  }
-
-  .data-sync-pulse {
-    position: relative;
-  }
-  .data-sync-pulse::after {
-    content: '';
-    @apply absolute inset-0 rounded-full border-2 border-emerald-500/50 opacity-0;
-    animation: pulse-ring 2s infinite;
-  }
-
   .btn-premium {
     @apply relative overflow-hidden rounded-xl px-6 py-3 font-bold transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2;
-    background: linear-gradient(135deg, rgb(var(--color-emerald)), #10b981);
+    background: linear-gradient(135deg, rgb(var(--color-yeco-blue)), #1e40af);
     color: white;
-    box-shadow: 0 4px 15px rgba(4, 120, 87, 0.3);
+    box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
   }
   .btn-premium:hover {
     @apply -translate-y-0.5;
-    box-shadow: 0 8px 25px rgba(4, 120, 87, 0.4);
+    box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
+  }
+
+  .app-card, .app-panel {
+    @apply bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm p-4;
   }
 }
 
-@keyframes shimmer-flow {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
 }
-
-@keyframes elastic-scale {
-  from { opacity: 0; transform: scale(0.92) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite;
 }
-
-@keyframes pulse-ring {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.05); opacity: 0.3; }
-  100% { transform: scale(1.15); opacity: 0; }
-}
-
-/* [AGRI-GUARDIAN Phase 4] LiveNotificationToast animation */
-@keyframes slide-in-up {
-  from { opacity: 0; transform: translateY(1.5rem); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-slide-in-up { animation: slide-in-up 0.3s ease-out both; }
-

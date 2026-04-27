@@ -11,7 +11,6 @@ import {
   listDailyLogDrafts,
   deleteDailyLogDraft,
 } from '../offline/dexie_db'
-import { sanitizeDailyLogActivityPayload } from '../utils/dailyLogPayload'
 import { getQueueOwnerKey } from '../api/offlineQueueStore'
 
 const LEGACY_DRAFT_KEY = 'daily-log-draft-v1'
@@ -53,15 +52,54 @@ export function useDailyLogOffline() {
         const failed = queue.filter(i => i.status === 'failed').length
         setQueueCount(pending)
         setQueueSummary({ pending, failed })
-        
-        if (pending > 0) {
-           await AuditLedger.signAndLog('offline_sync', 'QUEUE_HEALTH_CHECK', { pending, failed });
-        }
       }
     } catch (e) {
-      console.error("[OMEGA-X] Sync Health Error:", e);
+      console.error("[OMEGA-X] Sync Health Error:", e)
     }
   }, [])
+
+  const loadDraft = useCallback(async ({ draftUuid = null, farmId = null, logDate = null } = {}) => {
+      if (draftUuid) return await getDailyLogDraft(draftUuid);
+      return await getLatestDailyLogDraft({ 
+          status: 'draft', 
+          ...(farmId ? { farm_id: String(farmId) } : {}),
+          ...(logDate ? { created_at: logDate } : {})
+      });
+  }, []);
+
+  const loadDrafts = useCallback(async (filters = {}) => {
+      return await listDailyLogDrafts(filters);
+  }, []);
+
+  const saveDraft = useCallback(async (formData, overrides = {}) => {
+      const draft = coerceDraftPayload(formData, overrides);
+      await upsertDailyLogDraft(draft);
+      return draft;
+  }, []);
+
+  const clearDraft = useCallback(async (draftUuid) => {
+      if (!draftUuid) return;
+      await deleteDailyLogDraft(draftUuid);
+  }, []);
+
+  const queueLogSubmission = useCallback(async (payload) => {
+      const ownerKey = await getQueueOwnerKey();
+      const entry = {
+          uuid: uuidv4(),
+          category: 'daily_log',
+          owner_key: ownerKey,
+          farm_id: payload.farm_id,
+          data: payload,
+          status: 'pending',
+          created_at: nowIso()
+      };
+      if (db.daily_log_queue) {
+          await db.daily_log_queue.add(entry);
+          await AuditLedger.signAndLog('DAILY_LOG', 'QUEUE_SUBMISSION', { uuid: entry.uuid });
+          await checkQueueSize();
+      }
+      return entry;
+  }, [checkQueueSize]);
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true)
@@ -69,12 +107,22 @@ export function useDailyLogOffline() {
     window.addEventListener('online', handleOnline)
     window.addEventListener('offline', handleOffline)
     migrateLegacyDraftIfPresent().catch(() => {})
-    checkQueueSize();
+    checkQueueSize()
     return () => {
       window.removeEventListener('online', handleOnline)
       window.removeEventListener('offline', handleOffline)
     }
   }, [checkQueueSize])
 
-  return { isOnline, queueCount, queueSummary, checkQueueSize }
+  return { 
+      isOnline, 
+      queueCount, 
+      queueSummary, 
+      checkQueueSize, 
+      loadDraft, 
+      loadDrafts,
+      saveDraft, 
+      clearDraft,
+      queueLogSubmission 
+  }
 }

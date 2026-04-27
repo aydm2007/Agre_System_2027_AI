@@ -166,6 +166,7 @@ export function AuthProvider({ children }) {
         const { data } = await Auth.login(username, password)
         Auth.setTokens(data.access, data.refresh)
         await fetchProfile()
+        return true
       } finally {
         setIsLoading(false)
       }

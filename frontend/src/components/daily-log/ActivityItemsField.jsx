@@ -6,12 +6,15 @@ import { MATERIAL_TYPES } from '../../pages/daily-log/constants.js'
 
 export const ActivityItemsField = ({
   items = [],
-  onChange,
+  onUpdate, // Rename to match DailyLogDetails usage
+  onChange: legacyOnChange,
   farmId = null,
   cropId = null,
+  materials = [], // New prop for external lookup
   sourceHint = '',
 }) => {
-  const [availableItems, setAvailableItems] = useState([])
+  const onChange = onUpdate || legacyOnChange || (() => {}) // Bridge
+  const [availableItems, setAvailableItems] = useState(materials)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -23,16 +26,16 @@ export const ActivityItemsField = ({
 
         if (farmId && cropId) {
           try {
-            // [FIX] استخدام CropMaterial catalog مفلتر بالمحصول
+            // [ZENITH 11.5 FIX] Reverting back to farm_id and crop_id for MaterialCatalog which requires exact ID routing
             const res = await MaterialCatalog.list({ farm_id: farmId, crop_id: cropId })
-            // MaterialCatalog يُرجع: { item_id, item_name, recommended_qty, recommended_uom, on_hand_qty, item_material_type }
+            // MaterialCatalog يُرجع: { item_id, item_name, ... }
             data = (res.data || []).map((cm) => ({
               id: cm.item_id,
               name: cm.item_name,
               group: cm.item_group,
               material_type: cm.item_material_type || '',
-              uom: cm.recommended_uom || cm.on_hand_uom,
-              unit: cm.recommended_unit,
+              uom: cm.recommended_uom || cm.on_hand_uom || cm.uom || '',
+              unit: cm.recommended_unit || cm.unit,
               recommended_qty: cm.recommended_qty,
               on_hand_qty: cm.on_hand_qty,
               low_stock: cm.low_stock,
@@ -86,7 +89,7 @@ export const ActivityItemsField = ({
         } else if (farmId) {
           try {
             // Fallback: جميع مواد المزرعة إن لم يكن محصول محدد
-            const res = await Items.list({ farm: farmId, limit: 500, exclude_group: 'Produce,Fuel' })
+            const res = await Items.list({ limit: 500, exclude_group: 'Produce,Fuel' })
             data = res.data?.results || res.data || []
           } catch (err) {
             console.warn('Items request failed. Searching offline DB as fallback...', err)
@@ -211,21 +214,23 @@ export const ActivityItemsField = ({
                   onChange={(e) => updateItem(idx, 'qty', e.target.value)}
                   className="p-2 border border-gray-300 rounded w-28 text-sm dark:bg-slate-800 focus:ring-2 focus:ring-emerald-200"
                 />
-                <input
-                  data-testid={`activity-item-uom-${idx}`}
-                  type="text" readOnly
-                  value={it.uom || selectedMeta?.uom || ''}
-                  title="وحدة القياس"
-                  className="p-2 border border-gray-200 rounded w-16 text-sm bg-gray-50 cursor-not-allowed dark:bg-slate-800/50"
-                />
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-gray-400 mb-0.5">وحدة</span>
+                  <input
+                    data-testid={`activity-item-uom-${idx}`}
+                    type="text" readOnly
+                    value={it.uom || selectedMeta?.uom || ''}
+                    className="p-2 border border-emerald-200 dark:border-emerald-800 rounded w-16 text-[11px] font-extrabold bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 shadow-inner"
+                  />
+                </div>
                 {selectedMeta && selectedMeta.on_hand_qty !== undefined && (
-                  <div className="flex flex-col text-xs space-y-1">
-                    <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-100">
-                      المتاح: {selectedMeta.on_hand_qty}
+                  <div className="flex flex-col text-[10px] space-y-1">
+                    <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-100 flex items-center gap-1">
+                      📦 {selectedMeta.on_hand_qty}
                     </span>
                     {selectedMeta.low_stock && (
-                      <span className="bg-amber-100 text-amber-700 px-2 py-0.5 rounded border border-amber-200">
-                        مخزون منخفض
+                      <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded border border-amber-200 flex items-center gap-1 font-bold animate-pulse">
+                        ⚠️ منخفض
                       </span>
                     )}
                   </div>

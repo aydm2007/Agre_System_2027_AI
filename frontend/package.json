@@ -10,6 +10,8 @@
     "test": "vitest",
     "test:ci": "node scripts/run-vitest-batches.mjs",
     "test:e2e": "playwright test",
+    "test:e2e:headed": "set HEADED=true&& playwright test",
+    "test:e2e:all": "playwright test tests/e2e/all_pages.spec.js",
     "test:e2e:finance": "playwright test tests/e2e/financial_workflow.spec.js tests/e2e/sales_financial_lifecycle.spec.js",
     "test:e2e:finance:smoke": "playwright test tests/e2e/financial_workflow.spec.js",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",

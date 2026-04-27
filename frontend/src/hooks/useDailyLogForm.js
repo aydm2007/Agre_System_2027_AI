@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   locations: [],
   well_id: '',
   asset: '',
+  asset_id: '',
   crop: '',
   task: '',
   variety: '',
@@ -128,6 +129,52 @@ const TASK_CHANGE_RESETS = {
   ...CONTEXTUAL_DETAIL_RESETS,
 }
 
+const hydratePayloadToForm = (rawData) => {
+  if (!rawData) return rawData;
+  const hydrated = { ...rawData };
+
+  if (Array.isArray(hydrated.employees_payload) && hydrated.employees_payload.length > 0) {
+    const firstEmp = hydrated.employees_payload[0];
+    if (firstEmp.labor_type === 'CASUAL_BATCH') {
+      hydrated.labor_entry_mode = 'CASUAL_BATCH';
+      hydrated.casual_workers_count = String(firstEmp.workers_count || '');
+      hydrated.casual_batch_label = firstEmp.labor_batch_label || 'عمالة يومية غير مسجلة';
+      hydrated.surrah_count = String(firstEmp.surrah_share || '1.0');
+    } else {
+      hydrated.labor_entry_mode = 'REGISTERED';
+      hydrated.team = hydrated.employees_payload.map(emp => String(emp.employee_id));
+      hydrated.surrah_count = String(firstEmp.surrah_share || '1.0');
+    }
+  }
+
+  if (Array.isArray(hydrated.items_payload) && hydrated.items_payload.length > 0) {
+    hydrated.items = hydrated.items_payload.map((it) => ({
+      item_id: String(it.item_id || it.item || ''),
+      qty: String(it.qty || ''),
+      uom: it.uom || ''
+    }));
+  } else if (Array.isArray(hydrated.items)) {
+    hydrated.items = hydrated.items.map((it) => ({
+      item_id: String(it.item_id || it.item || ''),
+      qty: String(it.qty || ''),
+      uom: it.uom || ''
+    }));
+  }
+
+  if (Array.isArray(hydrated.service_counts_payload) && hydrated.service_counts_payload.length > 0) {
+    const defaultLocation = Array.isArray(hydrated.locations) && hydrated.locations.length > 0 ? String(hydrated.locations[0]) : '';
+    hydrated.serviceRows = hydrated.service_counts_payload.map((row) => ({
+      key: uuidv4(),
+      varietyId: String(row.variety_id || ''),
+      locationId: String(row.location_id || defaultLocation),
+      serviceCount: String(row.service_count || ''),
+      notes: row.notes || ''
+    }));
+  }
+
+  return hydrated;
+};
+
 export function useDailyLogForm(initialOverrides = {}, options = {}) {
   const [form, setForm] = useState({
     ...INITIAL_STATE,
@@ -137,6 +184,7 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
   const [errors, setErrors] = useState({})
   const [isSubmitting] = useState(false)
   const [step, setStep] = useState(1)
+  const [, setIsRestoring] = useState(false) // [ZENITH 11.5 FIX]
   const [validationPolicy, setValidationPolicy] = useState(buildValidationPolicy(options))
   const [drafts, setDrafts] = useState([])
 
@@ -145,6 +193,7 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
 
   useEffect(() => {
     const restoreDraftUuid = options.restoreDraftUuid || null
+    setIsRestoring(true)
     loadDraft({
       draftUuid: restoreDraftUuid,
       farmId: initialOverrides.farm || null,
@@ -152,22 +201,24 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
     }).then((draft) => {
       if (draft?.data) {
         const draftData = { ...draft.data, draft_uuid: draft.draft_uuid }
-        // [FIX]: تصحيح التاريخ الفاسد من المسودة المخزنة — مثال: 60404-02-20
+        // [FIX]: تصحيح التاريخ الفاسد من المسودة المخزنة
         if (draftData.date) {
           const dateStr = String(draftData.date).split('T')[0]
           const [y, m, d] = dateStr.split('-').map(Number)
           if (!y || !m || !d || y < 2020 || y > 2099 || m < 1 || m > 12 || d < 1 || d > 31) {
-            console.warn('[Draft] تاريخ فاسد في المسودة المخزنة:', draftData.date, '→ تم استبداله بتاريخ اليوم')
             draftData.date = new Date().toISOString().slice(0, 10)
           }
         }
-        setForm((prev) => ({ ...prev, ...draftData }))
+        
+        const hydratedData = hydratePayloadToForm(draftData);
+        setForm((prev) => ({ ...prev, ...hydratedData }))
       } else {
         setForm((prev) => ({
           ...prev,
           draft_uuid: prev.draft_uuid || uuidv4(),
         }))
       }
+      setIsRestoring(false)
     })
   }, [initialOverrides.date, initialOverrides.farm, loadDraft, options.restoreDraftUuid])
 
@@ -186,7 +237,6 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
   useEffect(() => {
     refreshDrafts().catch(() => {})
   }, [form.farm, form.date, refreshDrafts])
-
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -244,10 +294,9 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
       if (!form.date) {
         newErrors.date = 'ادخل التاريخ'
       } else {
-        // [FIX]: التحقق من صحة صيغة التاريخ لمنع إرسال تواريخ فاسدة مثل 60404-02-20
         const [y, m, d] = String(form.date).split('T')[0].split('-').map(Number)
         if (!y || !m || !d || y < 2020 || y > 2099) {
-          newErrors.date = 'تاريخ غير صالح — يرجى إعادة اختيار التاريخ'
+          newErrors.date = 'تاريخ غير صالح'
         }
       }
       if (!form.farm) newErrors.farm = 'اختر المزرعة'
@@ -255,23 +304,23 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
       if (!form.task) newErrors.task = 'اختر المهمة'
     }
 
-    if (currentStep === 2) {
-      if (!requireLaborStep) {
-        // Labor is disabled by task contract.
-      } else if (!laborPolicy.registeredAllowed && !laborPolicy.casualBatchAllowed) {
-        // Defensive fallback when task policy blocks both entry modes.
-      } else if (form.labor_entry_mode === 'CASUAL_BATCH') {
-        if (!laborPolicy.casualBatchAllowed) {
-          newErrors.labor_entry_mode = 'هذه المهمة لا تسمح بإدخال عمالة يومية.'
-        }
+    if (
+      currentStep === 2 &&
+      requireLaborStep &&
+      (laborPolicy.registeredAllowed || laborPolicy.casualBatchAllowed)
+    ) {
+      if (form.labor_entry_mode === 'REGISTERED' && !laborPolicy.registeredAllowed) {
+        newErrors.labor_entry_mode = 'هذه المهمة لا تسمح بإدخال عمالة مسجلة.'
+      }
+      if (form.labor_entry_mode === 'CASUAL_BATCH' && !laborPolicy.casualBatchAllowed) {
+        newErrors.labor_entry_mode = 'هذه المهمة لا تسمح بإدخال عمالة يومية.'
+      }
+      if (form.labor_entry_mode === 'CASUAL_BATCH') {
         const workers = Number(form.casual_workers_count)
-        if (!workers || Number.isNaN(workers) || workers <= 0) {
+        if (!workers || workers <= 0) {
           newErrors.casual_workers_count = 'حدد عدد العمالة اليومية'
         }
       } else {
-        if (!laborPolicy.registeredAllowed) {
-          newErrors.labor_entry_mode = 'هذه المهمة لا تسمح بإدخال عمالة مسجلة.'
-        }
         if (!form.team || form.team.length === 0) {
           newErrors.team = 'حدد فريق العمل'
         }
@@ -337,9 +386,11 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
       if (!draft?.data) {
         return null
       }
+      
+      const hydratedData = hydratePayloadToForm(draft.data);
       setForm((prev) => ({
         ...prev,
-        ...draft.data,
+        ...hydratedData,
         draft_uuid: draft.draft_uuid,
       }))
       setStep(1)
@@ -361,178 +412,112 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
   const scrubPayload = (rawData) => {
     const cleaned = { ...rawData }
     const draft_uuid = rawData.draft_uuid || null
-
-    const requireLaborStep = validationPolicy.requireLaborStep
-    const laborPolicy = validationPolicy.laborPolicy
+    const laborStepEnabled =
+      validationPolicy.requireLaborStep &&
+      (validationPolicy.laborPolicy.registeredAllowed || validationPolicy.laborPolicy.casualBatchAllowed)
 
     if (!cleaned.variance_note) cleaned.variance_note = ''
 
     cleaned.locations = Array.isArray(cleaned.locations)
       ? cleaned.locations.map((loc) => Number(loc)).filter((id) => !isNaN(id))
       : []
-    delete cleaned.location
 
-    const nullableFKs = ['well_id', 'asset', 'service_provider_id', 'crop', 'farm']
+    const nullableFKs = ['well_id', 'asset', 'service_provider_id', 'crop', 'farm', 'variety']
     nullableFKs.forEach((key) => {
       if (cleaned[key] === '') cleaned[key] = null
     })
 
     const normalizeNum = (val) => {
       if (val === null || val === undefined || val === '') return null
-      if (typeof val === 'number') return isNaN(val) ? null : val
-      const englishStr = String(val).replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
-      const parsed = Number(englishStr)
-      return isNaN(parsed) ? null : parsed
+      return Number(val)
     }
 
     const numericFields = [
-      'surrah_count',
-      'machine_hours',
-      'fuel_consumed',
-      'well_reading',
-      'machine_meter_reading',
-      'harvested_qty',
-      'harvest_quantity',
-      'water_volume',
-      'fertilizer_quantity',
-      'planted_area',
-      'activity_tree_count',
-      'tree_count_delta',
-      'diesel_qty',
-      'fixed_wage_cost',
+      'surrah_count', 'machine_hours', 'fuel_consumed', 'well_reading', 
+      'machine_meter_reading', 'harvested_qty', 'harvest_quantity', 
+      'water_volume', 'planted_area', 'activity_tree_count', 
+      'tree_count_delta', 'diesel_qty', 'fixed_wage_cost'
     ]
 
     numericFields.forEach((key) => {
       cleaned[key] = normalizeNum(cleaned[key])
     })
 
-    // V445: Solar power scrubbing (Force boolean to avoid NULL constraint violation)
     cleaned.is_solar_powered = Boolean(cleaned.is_solar_powered)
     if (cleaned.is_solar_powered) {
       cleaned.diesel_qty = null
     }
 
-    // [AGRI-GUARDIAN] Per-Row Aggregation for Delta & Harvest
     if (cleaned.serviceRows && cleaned.serviceRows.length > 0) {
       let aggregatedDelta = 0
       let aggregatedHarvest = 0
-      let lossReasonId = null
-
       cleaned.serviceRows.forEach((row) => {
-        const rowDelta = normalizeNum(row.delta) || 0
-        const rowHarvest = normalizeNum(row.harvestQty) || 0
-        aggregatedDelta += rowDelta
-        aggregatedHarvest += rowHarvest
-        if (rowDelta < 0 && row.lossReasonId && !lossReasonId) {
-          lossReasonId = row.lossReasonId
-        }
+        aggregatedDelta += Number(row.delta || 0)
+        aggregatedHarvest += Number(row.harvestQty || 0)
       })
-
       if (aggregatedDelta !== 0) cleaned.tree_count_delta = aggregatedDelta
       if (aggregatedHarvest !== 0) cleaned.harvest_quantity = aggregatedHarvest
-      if (lossReasonId) cleaned.tree_loss_reason_id = lossReasonId
     }
 
-    if (!cleaned.team) cleaned.team = []
-
-    if (!requireLaborStep || (!laborPolicy.registeredAllowed && !laborPolicy.casualBatchAllowed)) {
+    if (!laborStepEnabled) {
       cleaned.team = []
       cleaned.employees = []
       cleaned.employees_payload = []
       cleaned.casual_workers_count = ''
+      cleaned.casual_batch_label = ''
     } else if (cleaned.labor_entry_mode === 'CASUAL_BATCH') {
-      if (!laborPolicy.casualBatchAllowed) {
-        cleaned.labor_entry_mode = laborPolicy.registeredAllowed ? 'REGISTERED' : 'CASUAL_BATCH'
-        cleaned.casual_workers_count = ''
-      }
-    } else if (!laborPolicy.registeredAllowed && laborPolicy.casualBatchAllowed) {
-      cleaned.labor_entry_mode = 'CASUAL_BATCH'
-      cleaned.team = []
-    }
-
-    const normalizeLaborRow = (row) => ({
-      ...row,
-      is_hourly: !!cleaned.is_hourly,
-      hours_worked: normalizeNum(cleaned.hours_worked || 0),
-      hourly_rate: normalizeNum(cleaned.hourly_rate || 0),
-      fixed_wage_cost: normalizeNum(cleaned.fixed_wage_cost || 0),
-      achievement_qty: normalizeNum(cleaned.achievement_qty || 0),
-      achievement_uom: cleaned.achievement_uom || '',
-    })
-
-    if (cleaned.labor_entry_mode === 'CASUAL_BATCH') {
-      cleaned.team = []
-      cleaned.employees = []
-      cleaned.employees_payload = [
-        normalizeLaborRow({
-          labor_type: 'CASUAL_BATCH',
-          workers_count: Number(cleaned.casual_workers_count || 0),
-          surrah_share: Number(cleaned.surrah_count || 0),
-          labor_batch_label: cleaned.casual_batch_label || 'دفعة عمالة يومية',
-        }),
-      ]
+      cleaned.employees_payload = [{
+        labor_type: 'CASUAL_BATCH',
+        workers_count: String(cleaned.casual_workers_count || 0),
+        surrah_share: String(cleaned.surrah_count || 1.0),
+        labor_batch_label: cleaned.casual_batch_label
+      }]
     } else if (Array.isArray(cleaned.team) && cleaned.team.length > 0) {
-      cleaned.employees = cleaned.team
-      cleaned.employees_payload = cleaned.team.map((employeeId) =>
-        normalizeLaborRow({
-          labor_type: 'REGISTERED',
-          employee_id: Number(employeeId),
-          surrah_share: Number(cleaned.surrah_count || 0),
-        }),
-      )
-    } else {
-      cleaned.employees = []
-      cleaned.employees_payload = []
+      cleaned.employees = [...cleaned.team]
+      cleaned.employees_payload = cleaned.team.map(id => ({
+        labor_type: 'REGISTERED',
+        employee_id: Number(id),
+        surrah_share: String(cleaned.surrah_count || 1.0)
+      }))
     }
 
-
-    // [FIX] Normalize items array for submission
-      if (Array.isArray(cleaned.items) && cleaned.items.length > 0) {
-        cleaned.items_payload = cleaned.items
-        .filter((it) => (it.item_id || it.item) && it.qty)
-        .map((it) => ({
+    if (Array.isArray(cleaned.items) && cleaned.items.length > 0) {
+      cleaned.items_payload = cleaned.items
+        .filter(it => (it.item_id || it.item) && it.qty)
+        .map(it => ({
           item_id: Number(it.item_id || it.item),
-          qty: Number(it.qty),
-          applied_qty:
-            it.applied_qty === '' || it.applied_qty === undefined || it.applied_qty === null
-              ? Number(it.qty)
-              : Number(it.applied_qty),
-          waste_qty:
-            it.waste_qty === '' || it.waste_qty === undefined || it.waste_qty === null
-              ? 0
-              : Number(it.waste_qty),
-          waste_reason: it.waste_reason || '',
-          uom: it.uom || '',
-          batch_number: it.batch_number || undefined,
+          qty: String(it.qty),
+          applied_qty: it.applied_qty,
+          waste_qty: it.waste_qty,
+          waste_reason: it.waste_reason,
+          uom: String(it.uom || '').toLowerCase(),
+          batch_number: it.batch_number,
         }))
-      } else {
-        cleaned.items_payload = []
-      }
-
-      if (Array.isArray(cleaned.serviceRows) && cleaned.serviceRows.length > 0) {
-        cleaned.service_counts_payload = cleaned.serviceRows.map((row) => ({
-          variety_id: Number(row.varietyId || row.variety_id),
-          location_id: row.locationId || row.location_id ? Number(row.locationId || row.location_id) : null,
-          service_count: Number(row.serviceCount || row.service_count || 0),
-          service_type: row.serviceType || row.service_type || 'general',
-          service_scope: row.serviceScope || row.service_scope || 'location',
-          distribution_mode: row.distributionMode || row.distribution_mode || 'uniform',
-          distribution_factor:
-            row.distributionFactor === '' || row.distributionFactor === undefined || row.distributionFactor === null
-              ? null
-              : Number(row.distributionFactor),
-          notes: row.notes || '',
-        }))
-      }
-
-    if (draft_uuid) {
-      cleaned.draft_uuid = draft_uuid
     }
 
+    if (Array.isArray(cleaned.serviceRows) && cleaned.serviceRows.length > 0) {
+      cleaned.service_counts_payload = cleaned.serviceRows.map(row => ({
+        variety_id: Number(row.varietyId),
+        location_id: row.locationId ? Number(row.locationId) : null,
+        service_count: String(row.serviceCount || 0),
+        service_type: row.serviceType || 'general',
+        service_scope: row.serviceScope || 'location',
+        distribution_mode: row.distributionMode || 'equal',
+        distribution_factor: row.distributionFactor || '',
+        notes: row.notes || ''
+      }))
+    }
 
-    return sanitizeDailyLogActivityPayload(cleaned)
+    if (draft_uuid) cleaned.draft_uuid = draft_uuid
+    const sanitized = sanitizeDailyLogActivityPayload(cleaned)
+    if (Array.isArray(cleaned.items_payload)) {
+      sanitized.items_payload = cleaned.items_payload
+    }
+    if (Array.isArray(cleaned.service_counts_payload)) {
+      sanitized.service_counts_payload = cleaned.service_counts_payload
+    }
+    return sanitized
   }
-
 
   const submitLog = async (payloadOverride = null, queueOptions = {}) => {
     const payload = payloadOverride || scrubPayload(form)
@@ -542,23 +527,9 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
   }
 
   return {
-    form,
-    errors,
-    step,
-    setStep,
-    isSubmitting,
-    isOnline,
-    updateField,
-    setForm,
-    nextStep,
-    prevStep,
-    resetForm,
-    startNewDraft,
-    resumeDraft,
-    drafts,
-    refreshDrafts,
-    queueLogSubmission: submitLog,
-    scrubPayload,
-    setValidationPolicy,
+    form, errors, step, setStep, isSubmitting, isOnline, updateField,
+    setForm, nextStep, prevStep, resetForm, startNewDraft, resumeDraft,
+    drafts, refreshDrafts, queueLogSubmission: submitLog, scrubPayload,
+    setValidationPolicy
   }
 }

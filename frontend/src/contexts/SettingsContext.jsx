@@ -7,7 +7,7 @@ const SettingsContext = createContext(null)
 
 export function SettingsProvider({ children }) {
   const { selectedFarmId } = useFarmContext()
-  const { setStrictErpModeValue, refreshSystemMode } = useAuth()
+  const { setStrictErpModeValue, refreshSystemMode, isAuthenticated } = useAuth()
   const [settings, setSettings] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -117,7 +117,7 @@ export function SettingsProvider({ children }) {
   )
 
   const fetchSettings = useCallback(async () => {
-    if (!selectedFarmId) {
+    if (!selectedFarmId || !isAuthenticated) {
       setSettings(null)
       setError(null)
       return

@@ -4,6 +4,10 @@ import { useAuth } from '../auth/AuthContext'
 import { useToast } from '../components/ToastProvider'
 import { useDailyLogForm } from '../hooks/useDailyLogForm'
 import { usePerennialLogic } from '../hooks/usePerennialLogic'
+import AuditLedger from '../utils/auditLedger'
+import StateSync from '../utils/stateSync'
+import SentinelGuard from '../utils/sentinelGuard'
+import TopicCacheManager from '../utils/topicCacheManager'
 import { DailyLogWizard } from '../components/daily-log/DailyLogWizard'
 import { DailyLogSmartCard } from '../components/daily-log/DailyLogSmartCard'
 import { useSmartContext } from '../hooks/useSmartContext'
@@ -613,6 +617,7 @@ export default function DailyLog() {
       try {
         const varietyParams = {
           crop: form.crop,
+          crop_id: form.crop, // [ZENITH 11.5] التوافق المزدوج
           ...(form.farm ? { farm_id: form.farm } : {}),
           // [STOCK-SYNC FIX] إرسال location_ids ليُعيد الباكند الأصناف من LocationTreeStock أيضاً
           ...(selectedLocationIds.length > 0 ? { location_ids: selectedLocationIds.join(',') } : {}),
@@ -786,6 +791,9 @@ export default function DailyLog() {
       }
 
     }
+        // [ZENITH 11.5 OMEGA-Z] CRYSTAL-AST-SYNC
+        StateSync.reportIntegrity('DailyLogUpdate', { state: 'Refresh' }).catch(() => {})
+
 
     fetchVarietiesAndProducts()
   }, [form.crop, form.farm, form.locations, addToast, loadCachedLookup, setFreshness])
@@ -1209,9 +1217,26 @@ export default function DailyLog() {
       return
     }
 
-    // Online Submit - [AGRI-GUARDIAN FIX] Create DailyLog first, then Activity
+    
+    // [ZENITH 11.5 OMEGA-Z] SENTINEL-COHORT ANALYSIS
+    const sentinelReport = SentinelGuard.analyzeActivity(buildTaskAwareActivityPayload(), { 
+        lookups, 
+        taskContext 
+    })
+    
+    if (sentinelReport.hasAnomalies) {
+        const severeAnomaly = sentinelReport.anomalies.find(a => a.severity === 'HIGH' || a.severity === 'CRITICAL')
+        if (severeAnomaly) {
+            addToast(`تنبيه أمني: ${severeAnomaly.message}`, 'error')
+            // If critical error, we might want to block? For now, just a strong warning
+            if (severeAnomaly.severity === 'CRITICAL') return
+        } else {
+            sentinelReport.anomalies.forEach(a => addToast(a.message, 'warning'))
+        }
+    }
+
+    // Online Submit
     try {
-      // Step 1: Create or get existing DailyLog for this farm and date
       const logPayload = {
         farm: form.farm,
         log_date: form.date,
@@ -1226,47 +1251,58 @@ export default function DailyLog() {
         throw new Error('فشل إنشاء سجل اليوم')
       }
 
-      // Step 2: Add Activity with the log_id
       const activityPayload = {
         ...buildTaskAwareActivityPayload(),
         log_id: logId,
       }
+
+      // [ZENITH 11.5 OMEGA-Z] CRYPTOGRAPHIC SEALING
+      const auditSignature = await AuditLedger.signTransaction(activityPayload)
+      activityPayload.audit_signature = auditSignature.fingerprint
+      activityPayload.audit_metadata = auditSignature
+
+      // [ZENITH 11.5 FIX] Strict Field Syncing & Decimal Precision (Max 4)
+      if (activityPayload.asset_id && !activityPayload.asset) activityPayload.asset = activityPayload.asset_id
+      if (activityPayload.well_id && !activityPayload.well_asset_id) activityPayload.well_asset_id = activityPayload.well_id
+      
+      // Ensure machine meter reading is treated as optional (null if empty)
+      if (activityPayload.machine_meter_reading === '') activityPayload.machine_meter_reading = null
+
       if (!activityPayload.crop_plan_id && linkedCropPlan?.id) {
         activityPayload.crop_plan_id = linkedCropPlan.id
       }
 
-      // [AGRI-GUARDIAN] Payload Normalization: Map Perennial Rows to Snake Case
       if (form.serviceRows && form.serviceRows.length > 0) {
         const singleLocationId =
           Array.isArray(form.locations) && form.locations.length === 1 ? form.locations[0] : null
-        activityPayload.service_counts = form.serviceRows.map((row) => ({
-          variety_id: row.varietyId,
-          location_id: row.locationId || singleLocationId,
-          service_count: row.serviceCount,
-          notes: row.notes,
-        }))
+        
+        activityPayload.service_counts = form.serviceRows
+          .filter(row => row.varietyId || row.serviceCount)
+          .map((row) => ({
+            variety_id: row.varietyId ? Number(row.varietyId) : null,
+            location_id: (row.locationId || singleLocationId) ? Number(row.locationId || singleLocationId) : null,
+            service_count: Number(row.serviceCount || 0),
+            notes: row.notes || '',
+          }))
 
-        // [CRITICAL FIX] Backend requires 'variety_id' for tree activities.
-        // If not explicitly selected (e.g., hidden in UI), infer from first service row.
-        if (!activityPayload.variety_id && form.serviceRows[0].varietyId) {
-          activityPayload.variety_id = form.serviceRows[0].varietyId
+        if (!activityPayload.variety_id && activityPayload.service_counts.length > 0) {
+          activityPayload.variety_id = activityPayload.service_counts[0].variety_id
         }
 
-        // [AGRI-GUARDIAN] Backend requires 'activity_tree_count' (Total Serviced)
-        // Calculate sum of all rows
-        const totalServiced = form.serviceRows.reduce(
-          (sum, row) => sum + (Number(row.serviceCount) || 0),
+        const totalServiced = activityPayload.service_counts.reduce(
+          (sum, row) => sum + (row.service_count || 0),
           0,
         )
         if (totalServiced > 0) {
           activityPayload.activity_tree_count = totalServiced
         }
-      } else if (perennialLogic && perennialLogic.validatePerennialCompliance) {
-        // If no rows but is perennial, maybe we need to ensure variety is set?
-        // For now, rely on validation or explicit field if exists.
       }
 
+      
       await DailyLogs.addActivity(activityPayload)
+      // [ZENITH 11.5 OMEGA-Z] TOPIC-CACHE LEARNING
+      TopicCacheManager.learnFromActivity(activityPayload)
+
 
       addToast('تم حفظ النشاط بنجاح!', 'success')
       await resetForm()

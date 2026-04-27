@@ -42,6 +42,18 @@ def calculate_identityless_casual_cost(activity: Any) -> None:
     overhead_cost = Decimal('0.0000')
     total_cost = labor_cost + material_cost + machinery_cost + overhead_cost
 
+    # [ZENITH 11.5 — CRITICAL FIX] Quantize ALL cost fields to 4 decimal places
+    # to comply with DecimalField(max_digits=19, decimal_places=4) on Activity model.
+    # Without this, Decimal multiplication (e.g. hours * rate) can produce values
+    # with >4 dp, causing Django ValidationError on save.
+    from decimal import ROUND_HALF_UP
+    _4dp = Decimal('0.0001')
+    labor_cost = labor_cost.quantize(_4dp, rounding=ROUND_HALF_UP)
+    material_cost = material_cost.quantize(_4dp, rounding=ROUND_HALF_UP)
+    machinery_cost = machinery_cost.quantize(_4dp, rounding=ROUND_HALF_UP)
+    overhead_cost = overhead_cost.quantize(_4dp, rounding=ROUND_HALF_UP)
+    total_cost = (labor_cost + material_cost + machinery_cost + overhead_cost).quantize(_4dp, rounding=ROUND_HALF_UP)
+
     activity.cost_labor = labor_cost
     activity.cost_materials = material_cost
     activity.cost_machinery = machinery_cost

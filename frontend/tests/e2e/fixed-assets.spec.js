@@ -63,40 +63,59 @@ async function ensureLoggedIn(page, request, username) {
   await expect(page.locator('body')).toBeVisible()
 }
 
+async function persistFarmSelection(page, farmId) {
+  await page.evaluate((targetFarmId) => {
+    const value = String(targetFarmId)
+    window.localStorage.setItem('selected_farm_id', value)
+    window.localStorage.setItem('page_farm.dashboard', value)
+    window.localStorage.setItem('page_farm.fixed-assets', value)
+  }, farmId)
+}
+
 async function selectFarmOnSurface(page, farmId, farmName) {
   const globalSelector = page.getByTestId('farm-selector-button')
   if (await globalSelector.isVisible().catch(() => false)) {
     await globalSelector.click()
     await page.getByTestId(`farm-option-${farmId}`).click()
+    await persistFarmSelection(page, farmId)
+    await expect(globalSelector).toContainText(farmName, { timeout: 10000 })
     return
   }
 
   const namedFarmCombobox = page.getByRole('combobox', { name: 'المزرعة' })
   if (await namedFarmCombobox.isVisible().catch(() => false)) {
     await namedFarmCombobox.selectOption({ label: farmName })
+    await persistFarmSelection(page, farmId)
     return
   }
 
   const pageFarmFilter = page.getByTestId('page-farm-filter')
   if (await pageFarmFilter.isVisible().catch(() => false)) {
     await pageFarmFilter.selectOption(String(farmId))
+    await persistFarmSelection(page, farmId)
   }
 }
 
 async function gotoFixedAssets(page, farmId, farmName) {
+  await persistFarmSelection(page, farmId)
   await page.goto(`${BASE_URL}/dashboard`)
   await selectFarmOnSurface(page, farmId, farmName)
+  await persistFarmSelection(page, farmId)
   await page.goto(`${BASE_URL}/fixed-assets`)
   await page.waitForURL(/\/fixed-assets(\/|$)|\/dashboard(\/|$)/, { timeout: 30000 })
   await selectFarmOnSurface(page, farmId, farmName)
+  await persistFarmSelection(page, farmId)
 
   const banner = page.getByTestId('fixed-assets-policy-banner')
   if (!(await banner.isVisible().catch(() => false))) {
+    await persistFarmSelection(page, farmId)
     await page.goto(`${BASE_URL}/dashboard`)
     await selectFarmOnSurface(page, farmId, farmName)
+    await persistFarmSelection(page, farmId)
     await page.goto(`${BASE_URL}/fixed-assets`)
     await page.waitForURL(/\/fixed-assets(\/|$)|\/dashboard(\/|$)/, { timeout: 30000 })
     await selectFarmOnSurface(page, farmId, farmName)
+    await persistFarmSelection(page, farmId)
   }
 }
 

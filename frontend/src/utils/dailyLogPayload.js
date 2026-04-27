@@ -90,22 +90,71 @@ const DECIMAL_FIELD_SCALE = {
   diesel_qty: 3,
 }
 
+const UOM_ARABIC_TO_EN = {
+  'كجم': 'kg',
+  'كيلوجرام': 'kg',
+  'جرام': 'g',
+  'غرام': 'g',
+  'لتر': 'L',
+  'مل': 'ml',
+  'مليلتر': 'ml',
+  'حبة': 'pcs',
+  'قطعة': 'pcs',
+  'كيس': 'pack',
+  'عبوة': 'pack',
+  'طن': 'ton',
+  'متر': 'm',
+  'متر مربع': 'm2',
+  'متر مكعب': 'm3',
+  'kg': 'kg',
+  'KG': 'kg',
+  'Kg': 'kg',
+  'l': 'L',
+  'L': 'L',
+  'ltr': 'L',
+  'g': 'g',
+  'G': 'g',
+  'm3': 'm3',
+  'M3': 'm3',
+  'pack': 'pack',
+  'pcs': 'pcs',
+  'ton': 'ton',
+}
+
+const normalizeUOM = (uom) => {
+  if (!uom) return uom;
+  const raw = String(uom).trim();
+  const match = UOM_ARABIC_TO_EN[raw] || UOM_ARABIC_TO_EN[raw.toLowerCase()];
+  return match || raw;
+}
+
 const normalizeNestedOperationalDecimals = (payload) => {
   if (Array.isArray(payload.items)) {
-    payload.items = payload.items.map((item) => ({
-      ...item,
-      qty: normalizeDecimalString(item.qty, 3),
-      applied_qty: normalizeDecimalString(item.applied_qty, 3),
-      waste_qty: normalizeDecimalString(item.waste_qty, 3),
-    }))
+    payload.items = payload.items.map((itemObj) => {
+      const { item_id, item, uom, out_uom, ...rest } = itemObj;
+      return {
+        ...rest,
+        // [ZENITH 11.5 FIX] Backend explicitly expects 'item' instead of 'item_id'
+        item: item ?? item_id,
+        uom: normalizeUOM(uom),
+        qty: normalizeDecimalString(itemObj.qty, 3),
+        applied_qty: normalizeDecimalString(itemObj.applied_qty, 3),
+        waste_qty: normalizeDecimalString(itemObj.waste_qty, 3),
+      }
+    })
   }
   if (Array.isArray(payload.items_payload)) {
-    payload.items_payload = payload.items_payload.map((item) => ({
-      ...item,
-      qty: normalizeDecimalString(item.qty, 3),
-      applied_qty: normalizeDecimalString(item.applied_qty, 3),
-      waste_qty: normalizeDecimalString(item.waste_qty, 3),
-    }))
+    payload.items_payload = payload.items_payload.map((itemObj) => {
+      const { item_id, item, uom, out_uom, ...rest } = itemObj;
+      return {
+        ...rest,
+        item: item ?? item_id,
+        uom: normalizeUOM(uom),
+        qty: normalizeDecimalString(itemObj.qty, 3),
+        applied_qty: normalizeDecimalString(itemObj.applied_qty, 3),
+        waste_qty: normalizeDecimalString(itemObj.waste_qty, 3),
+      }
+    })
   }
   if (Array.isArray(payload.employees_payload)) {
     payload.employees_payload = payload.employees_payload.map((row) => ({
@@ -157,6 +206,10 @@ export const sanitizeDailyLogActivityPayload = (payload = {}) => {
       cleaned[field] = normalizeDecimalString(cleaned[field], scale)
     }
   })
+
+  // [ZENITH 11.5 — BACKEND OWNED] cost_* حقول مالية تُحسب على الـ backend حصراً.
+  // تم حذفها في الأعلى عبر BACKEND_OWNED_COST_FIELDS — لا إجراء إضافي.
+
   normalizeNestedOperationalDecimals(cleaned)
 
   return cleaned
