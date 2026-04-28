@@ -1257,7 +1257,10 @@ class ServiceCardViewSet(viewsets.ViewSet):
                 if task and task.crop_id:
                     from smart_agri.core.models import CropProduct
                     products = CropProduct.objects.filter(crop_id=task.crop_id, deleted_at__isnull=True)
-                    product_selection = [{'id': p.id, 'name': p.name, 'uom': p.uom} for p in products]
+                    product_selection = [
+                        {'id': p.id, 'name': p.name, 'uom': getattr(p, 'uom', None) or getattr(p, 'pack_uom', '')}
+                        for p in products
+                    ]
 
                 stack.append(
                     self._build_card_entry(

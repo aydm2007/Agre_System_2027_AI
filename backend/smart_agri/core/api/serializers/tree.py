@@ -348,6 +348,24 @@ class ActivityTreeServiceCoverageInputSerializer(serializers.Serializer):
     total_after = serializers.IntegerField(required=False, allow_null=True)
     notes = serializers.CharField(required=False, allow_blank=True, allow_null=True)
 
+    @staticmethod
+    def _normalize_distribution_mode(value):
+        if not isinstance(value, str):
+            return value
+        aliases = {
+            "equal": TreeServiceCoverage.DISTRIBUTION_UNIFORM,
+            "equally": TreeServiceCoverage.DISTRIBUTION_UNIFORM,
+            "weighted": TreeServiceCoverage.DISTRIBUTION_EXCEPTION_WEIGHTED,
+        }
+        return aliases.get(value.strip().lower(), value)
+
+    def to_internal_value(self, data):
+        if hasattr(data, "copy"):
+            data = data.copy()
+            if "distribution_mode" in data:
+                data["distribution_mode"] = self._normalize_distribution_mode(data.get("distribution_mode"))
+        return super().to_internal_value(data)
+
     def validate(self, attrs):
         service_count = attrs.get("service_count")
         if service_count is None or service_count < 0:

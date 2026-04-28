@@ -270,6 +270,39 @@ describe('DailyLogSmartCard', () => {
     ).toBeNull()
   })
 
+  it('uses a valid success tone for draft achievement stats', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    serviceCardsList.mockResolvedValueOnce({
+      data: [buildCard()],
+    })
+
+    render(
+      <DailyLogSmartCard
+        form={{
+          farm: '1',
+          crop: '11',
+          task: '8',
+          date: '2026-03-13',
+          locations: ['4'],
+          serviceRows: [{ serviceCount: '5' }],
+        }}
+        linkedCropPlan={{ id: 77 }}
+      />,
+    )
+
+    expect(await screen.findByTestId('daily-log-smart-card')).toBeTruthy()
+    expect(screen.getByTestId('daily-log-smart-card-stat-completion').textContent).toContain('+')
+    expect(consoleErrorSpy).not.toHaveBeenCalledWith(
+      expect.stringContaining('Invalid prop `tone`'),
+      expect.anything(),
+      expect.anything(),
+      expect.anything(),
+      expect.anything(),
+      expect.anything(),
+    )
+    consoleErrorSpy.mockRestore()
+  })
+
 
 
   it('stays hidden until farm and crop are selected', () => {

@@ -10,8 +10,10 @@ import {
   getLatestDailyLogDraft,
   listDailyLogDrafts,
   deleteDailyLogDraft,
+  nextOfflineClientSeq,
 } from '../offline/dexie_db'
 import { getQueueOwnerKey } from '../api/offlineQueueStore'
+import { normalizeServiceCountsList } from '../utils/serviceCoveragePayload'
 
 const LEGACY_DRAFT_KEY = 'daily-log-draft-v1'
 const nowIso = () => new Date().toISOString()
@@ -82,19 +84,56 @@ export function useDailyLogOffline() {
       await deleteDailyLogDraft(draftUuid);
   }, []);
 
-  const queueLogSubmission = useCallback(async (payload) => {
+  const queueLogSubmission = useCallback(async (payload, queueOptions = {}) => {
       const ownerKey = await getQueueOwnerKey();
+      const farmId = payload?.farm_id ?? payload?.farm ?? queueOptions?.meta?.farmId ?? null
+      const draftUuid = payload?.draft_uuid || queueOptions?.meta?.draft_uuid || uuidv4()
+      const payloadUuid = payload?.uuid || payload?.payload_uuid || uuidv4()
+      const scope = farmId ? `farm:${farmId}` : 'global'
+      const clientSeq = await nextOfflineClientSeq(ownerKey, 'daily_log', scope)
+      const createdAt = nowIso()
+      const activityPayload = {
+          ...payload,
+          service_counts_payload: normalizeServiceCountsList(payload?.service_counts_payload || []),
+      }
+      if (Array.isArray(payload?.service_counts)) {
+          activityPayload.service_counts = normalizeServiceCountsList(payload.service_counts)
+      }
+      const logPayload = {
+          farm: farmId,
+          log_date: payload?.log_date || payload?.date || createdAt.slice(0, 10),
+          notes: payload?.notes || '',
+      }
+      if (payload?.variance_note) {
+          logPayload.variance_note = payload.variance_note
+      }
       const entry = {
-          uuid: uuidv4(),
+          queue_id: payloadUuid,
+          payload_uuid: payloadUuid,
+          uuid: payloadUuid,
           category: 'daily_log',
           owner_key: ownerKey,
-          farm_id: payload.farm_id,
-          data: payload,
+          farm_id: farmId,
+          draft_uuid: draftUuid,
+          device_id: queueOptions?.meta?.device_id || 'web-client',
+          client_seq: clientSeq,
+          idempotency_key: payload?.idempotency_key || uuidv4(),
+          logPayload,
+          activityPayload,
+          meta: queueOptions?.meta ? { ...queueOptions.meta } : null,
+          lookup_snapshot_version: queueOptions?.meta?.lookup_snapshot_version || null,
+          task_contract_snapshot: queueOptions?.meta?.task_contract_snapshot || null,
+          data: activityPayload,
           status: 'pending',
-          created_at: nowIso()
+          dead_letter: false,
+          retry_count: 0,
+          created_at: createdAt,
+          updated_at: createdAt,
+          next_attempt_at: createdAt,
+          queuedAt: createdAt,
       };
       if (db.daily_log_queue) {
-          await db.daily_log_queue.add(entry);
+          await db.daily_log_queue.put(entry);
           await AuditLedger.signAndLog('DAILY_LOG', 'QUEUE_SUBMISSION', { uuid: entry.uuid });
           await checkQueueSize();
       }

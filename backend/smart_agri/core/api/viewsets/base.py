@@ -123,7 +123,10 @@ class IdempotentCreateMixin:
                  raise
 
         except (IdempotencyLocked, IdempotencyMismatch) as e:
-            return Response({'detail': str(e.detail)}, status=e.status_code)
+            payload = {'detail': str(e.detail)}
+            if isinstance(e, IdempotencyMismatch):
+                payload['code'] = 'IDEMPOTENCY_MISMATCH'
+            return Response(payload, status=e.status_code)
         except (ValidationError, OperationalError, PermissionDenied) as e:
             logger.error(f"Idempotency internal error: {e}", exc_info=True)
             raise
@@ -168,7 +171,10 @@ class IdempotentCreateMixin:
             return key, record, None
             
         except (IdempotencyLocked, IdempotencyMismatch) as e:
-            return None, None, Response({'detail': str(e.detail)}, status=e.status_code)
+            payload = {'detail': str(e.detail)}
+            if isinstance(e, IdempotencyMismatch):
+                payload['code'] = 'IDEMPOTENCY_MISMATCH'
+            return None, None, Response(payload, status=e.status_code)
 
     def commit_action_idempotency(self, record, response, object_id=''):
         if not record:

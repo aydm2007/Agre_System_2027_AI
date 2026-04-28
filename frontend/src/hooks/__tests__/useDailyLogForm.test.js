@@ -233,6 +233,25 @@ describe('useDailyLogForm', () => {
     ])
   })
 
+  it('defaults service coverage distribution mode to uniform', () => {
+    const { result } = renderHook(() =>
+      useDailyLogForm({
+        serviceRows: [
+          {
+            varietyId: '4',
+            locationId: '6',
+            serviceCount: '10',
+          },
+        ],
+      }),
+    )
+
+    const payload = result.current.scrubPayload(result.current.form)
+
+    expect(payload.service_counts_payload[0].distribution_mode).toBe('uniform')
+    expect(payload.service_counts_payload[0].distribution_factor).toBeNull()
+  })
+
   it('starts a new draft while preserving core daily context', async () => {
     const { result } = renderHook(() =>
       useDailyLogForm({

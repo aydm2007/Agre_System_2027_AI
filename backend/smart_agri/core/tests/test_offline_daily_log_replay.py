@@ -8,6 +8,7 @@ from smart_agri.accounts.models import FarmMembership
 from smart_agri.core.models import (
     Activity,
     Crop,
+    CropVariety,
     DailyLog,
     Farm,
     Location,
@@ -15,6 +16,7 @@ from smart_agri.core.models import (
     SyncConflictDLQ,
     SyncRecord,
     Task,
+    TreeServiceCoverage,
 )
 from smart_agri.core.services.custody_transfer_service import CustodyTransferService
 from smart_agri.inventory.models import Item, ItemInventory
@@ -34,6 +36,7 @@ class OfflineDailyLogReplayTests(TestCase):
         self.location = Location.objects.create(farm=self.farm, name="Block 1", code="BLOCK-1", type="Field")
         self.warehouse = Location.objects.create(farm=self.farm, name="Warehouse", code="WH-1", type="Warehouse")
         self.crop = Crop.objects.create(name="Replay Crop", mode="Open")
+        self.variety = CropVariety.objects.create(crop=self.crop, name="Replay Variety")
         self.task = Task.objects.create(crop=self.crop, stage="Care", name="Spraying", requires_tree_count=False)
         self.item = Item.objects.create(name="Replay Urea", group="fertilizer", uom="kg", unit_price=Decimal("10.000"))
         ItemInventory.objects.create(
@@ -71,6 +74,9 @@ class OfflineDailyLogReplayTests(TestCase):
             "activity": {
                 "task": self.task.id,
                 "locations": [self.location.id],
+                "variety_id": self.variety.id,
+                "tree_count_delta": 1,
+                "activity_tree_count": 1,
                 "items_payload": [
                     {
                         "item": self.item.id,
@@ -79,6 +85,16 @@ class OfflineDailyLogReplayTests(TestCase):
                         "waste_qty": "1",
                         "waste_reason": "spill",
                         'uom': 'kg',
+                    }
+                ],
+                "service_counts_payload": [
+                    {
+                        "location_id": self.location.id,
+                        "variety_id": self.variety.id,
+                        "service_count": 1,
+                        "service_type": TreeServiceCoverage.GENERAL,
+                        "service_scope": "location",
+                        "distribution_mode": "equal",
                     }
                 ],
             },
@@ -96,6 +112,8 @@ class OfflineDailyLogReplayTests(TestCase):
 
         daily_log = DailyLog.objects.get(pk=body["log_id"])
         self.assertEqual(daily_log.supervisor_id, self.supervisor.id)
+        coverage = TreeServiceCoverage.objects.get(activity_id=body["activity_id"])
+        self.assertEqual(coverage.distribution_mode, TreeServiceCoverage.DISTRIBUTION_UNIFORM)
         self.assertEqual(
             CustodyTransferService.get_item_custody_balance(
                 farm=self.farm,
@@ -124,6 +142,22 @@ class OfflineDailyLogReplayTests(TestCase):
         )
         self.assertIn(replay.status_code, (200, 201), replay.content)
         self.assertEqual(replay.json()["activity_id"], body["activity_id"])
+
+        mismatch_payload = {
+            **payload,
+            "log": {
+                **payload["log"],
+                "notes": "changed after first submission",
+            },
+        }
+        mismatch = self.client.post(
+            self.url,
+            mismatch_payload,
+            format="json",
+            HTTP_X_IDEMPOTENCY_KEY="3b8b4b34-310a-4b2d-8165-08d4c4e74a11",
+        )
+        self.assertEqual(mismatch.status_code, 409, mismatch.content)
+        self.assertEqual(mismatch.json()["code"], "IDEMPOTENCY_MISMATCH")
 
     def test_out_of_order_client_sequence_enters_dlq(self):
         response = self.client.post(

@@ -55,6 +55,12 @@ import { createAuthClient } from './authClient'
 import { createReportingClients } from './reportingClient'
 import { getAuthContext } from '../auth/contextBridge'
 import { sanitizeDailyLogActivityPayload, sanitizeDailyLogEnvelope } from '../utils/dailyLogPayload'
+import { normalizeServiceCountsList } from '../utils/serviceCoveragePayload'
+import {
+  buildDailyLogIdempotencyRotationPatch,
+  isIdempotencyMismatch409,
+  resolveDailyLogReplayIdentity,
+} from '../utils/offlineDailyLogIdentity'
 
 const { authBase: AUTH_BASE, apiV1Base: API_V1_BASE } = resolveApiRoots()
 const rawAppVersion = import.meta.env.VITE_APP_VERSION
@@ -98,6 +104,61 @@ const resolveQueueStatus = (status, deadLetter = false) => {
   if (status === 'failed') return 'failed_retryable'
   if (status === 'complete' || status === 'completed') return 'synced'
   return status || 'pending'
+}
+
+const normalizeDailyLogReplayEntry = (entry = {}) => {
+  const legacyData = entry.data && typeof entry.data === 'object' ? entry.data : {}
+  const rawLogPayload =
+    entry.logPayload && typeof entry.logPayload === 'object' ? entry.logPayload : {}
+  const rawActivityPayload =
+    entry.activityPayload && typeof entry.activityPayload === 'object'
+      ? entry.activityPayload
+      : legacyData
+  const farmId =
+    entry.farm_id ??
+    rawLogPayload.farm_id ??
+    rawLogPayload.farm ??
+    legacyData.farm_id ??
+    legacyData.farm ??
+    entry.meta?.farmId ??
+    null
+  const logPayload = {
+    ...rawLogPayload,
+  }
+  if (farmId && logPayload.farm == null && logPayload.farm_id == null) {
+    logPayload.farm = farmId
+  }
+  if (logPayload.log_date == null && logPayload.date == null) {
+    logPayload.log_date = legacyData.log_date || legacyData.date || entry.meta?.date || nowIso().slice(0, 10)
+  }
+  if (logPayload.notes == null && legacyData.notes != null) {
+    logPayload.notes = legacyData.notes
+  }
+  if (logPayload.variance_note == null && legacyData.variance_note != null) {
+    logPayload.variance_note = legacyData.variance_note
+  }
+
+  const activityPayload = { ...rawActivityPayload }
+  if (Array.isArray(activityPayload.service_counts_payload)) {
+    activityPayload.service_counts_payload = normalizeServiceCountsList(
+      activityPayload.service_counts_payload,
+    )
+  }
+  if (Array.isArray(activityPayload.service_counts)) {
+    activityPayload.service_counts = normalizeServiceCountsList(activityPayload.service_counts)
+  }
+
+  return {
+    ...entry,
+    farm_id: farmId,
+    logPayload,
+    activityPayload,
+    meta: {
+      ...(entry.meta || {}),
+      ...(farmId ? { farmId } : {}),
+      ...(logPayload.log_date || logPayload.date ? { date: logPayload.log_date || logPayload.date } : {}),
+    },
+  }
 }
 
 const DAILY_LOG_SYNC_HISTORY_KEY = 'daily-log-sync-history'
@@ -1025,6 +1086,7 @@ async function flushOfflineDailyLogs() {
   const syncedEntries = []
 
   for (const entry of toProcess) {
+    const normalizedEntry = normalizeDailyLogReplayEntry(entry)
     const attachments = Array.isArray(entry.attachments) ? entry.attachments : []
     const previouslyUploaded = Array.isArray(entry.uploadedAttachmentIds)
       ? entry.uploadedAttachmentIds
@@ -1044,27 +1106,28 @@ async function flushOfflineDailyLogs() {
       )
 
         const logPayload = attachmentIds.length
-          ? { ...entry.logPayload, attachments: attachmentIds }
-          : entry.logPayload
+          ? { ...normalizedEntry.logPayload, attachments: attachmentIds }
+          : normalizedEntry.logPayload
 
+        const replayIdentity = resolveDailyLogReplayIdentity(normalizedEntry, makeUUID)
         const replayPayload = {
-          uuid: entry.payload_uuid || entry.uuid || entry.id,
-          payload_uuid: entry.payload_uuid || entry.uuid || entry.id,
-          idempotency_key: entry.idempotency_key || entry.idempotencyKey || makeUUID(),
-          draft_uuid: entry.draft_uuid || entry.meta?.draft_uuid || null,
-          device_timestamp: entry.device_timestamp || entry.deviceTimestamp || nowIso(),
-          client_seq: entry.client_seq || entry.clientSeq || 1,
-          device_id: entry.device_id || entry.deviceId || 'web-client',
-          farm_id: entry.farm_id || logPayload?.farm || entry.meta?.farmId || null,
-          supervisor_id: entry.supervisor_id || entry.meta?.supervisorId || entry.activityPayload?.supervisor_id || entry.activityPayload?.supervisor || null,
+          uuid: replayIdentity.payloadUuid,
+          payload_uuid: replayIdentity.payloadUuid,
+          idempotency_key: replayIdentity.idempotencyKey,
+          draft_uuid: normalizedEntry.draft_uuid || normalizedEntry.meta?.draft_uuid || null,
+          device_timestamp: normalizedEntry.device_timestamp || normalizedEntry.deviceTimestamp || nowIso(),
+          client_seq: normalizedEntry.client_seq || normalizedEntry.clientSeq || 1,
+          device_id: normalizedEntry.device_id || normalizedEntry.deviceId || 'web-client',
+          farm_id: normalizedEntry.farm_id || logPayload?.farm || normalizedEntry.meta?.farmId || null,
+          supervisor_id: normalizedEntry.supervisor_id || normalizedEntry.meta?.supervisorId || normalizedEntry.activityPayload?.supervisor_id || normalizedEntry.activityPayload?.supervisor || null,
           log: logPayload,
-          activity: sanitizeDailyLogActivityPayload(entry.activityPayload || {}),
-          client_metadata: entry.meta || {},
+          activity: sanitizeDailyLogActivityPayload(normalizedEntry.activityPayload || {}),
+          client_metadata: normalizedEntry.meta || {},
           attachment_refs: attachmentIds,
           lookup_snapshot_version:
-            entry.lookup_snapshot_version || entry.meta?.lookup_snapshot_version || null,
+            normalizedEntry.lookup_snapshot_version || normalizedEntry.meta?.lookup_snapshot_version || null,
           task_contract_snapshot:
-            entry.task_contract_snapshot || entry.meta?.task_contract_snapshot || null,
+            normalizedEntry.task_contract_snapshot || normalizedEntry.meta?.task_contract_snapshot || null,
         }
 
         const replayResponse = await api.post('/offline/daily-log-replay/atomic/', replayPayload, {
@@ -1079,17 +1142,34 @@ async function flushOfflineDailyLogs() {
           logId,
           activityId,
           payloadUuid: replayPayload.payload_uuid,
-          draftUuid: entry.draft_uuid || entry.meta?.draft_uuid || null,
-          farmId: logPayload?.farm ?? entry.meta?.farmId ?? null,
-          date: logPayload?.log_date || logPayload?.date || entry.meta?.date || null,
-          taskId: entry.activityPayload?.task_id ?? entry.meta?.taskId ?? null,
+          draftUuid: normalizedEntry.draft_uuid || normalizedEntry.meta?.draft_uuid || null,
+          farmId: replayPayload.farm_id ?? logPayload?.farm ?? normalizedEntry.meta?.farmId ?? null,
+          date: logPayload?.log_date || logPayload?.date || normalizedEntry.meta?.date || null,
+          taskId: normalizedEntry.activityPayload?.task_id ?? normalizedEntry.meta?.taskId ?? null,
         taskName:
-          entry.meta?.taskName || entry.meta?.taskLabel || entry.activityPayload?.task_name || null,
-        meta: entry.meta || null,
-        queuedAt: entry.queuedAt || entry.queued_at || null,
+          normalizedEntry.meta?.taskName || normalizedEntry.meta?.taskLabel || normalizedEntry.activityPayload?.task_name || null,
+        meta: normalizedEntry.meta || null,
+        queuedAt: normalizedEntry.queuedAt || normalizedEntry.queued_at || null,
       })
         await recordDailyLogSyncHistory(syncedEntries[syncedEntries.length - 1])
     } catch (error) {
+      if (isIdempotencyMismatch409(error)) {
+        const patch = buildDailyLogIdempotencyRotationPatch(entry, {
+          newKey: makeUUID(),
+          nowIsoValue: nowIso(),
+          lastError: describeError(error),
+        })
+        await db.daily_log_queue.update(entry.id, {
+          ...patch,
+          uploadedAttachmentIds: attachmentIds,
+        })
+        remaining.push({
+          ...entry,
+          ...patch,
+          uploadedAttachmentIds: attachmentIds,
+        })
+        continue
+      }
       // [AGRI-GUARDIAN] Auto-correct client_seq on server rejection
       const serverExpectedSeq = extractExpectedSeq(error)
       if (serverExpectedSeq !== null) {
@@ -1229,7 +1309,13 @@ async function flushCustodyQueue() {
 export async function enqueueDailyLogSubmission(entry) {
   const sanitizedEntry = sanitizeDailyLogEnvelope(entry)
   const ownerKey = await getQueueOwnerKey()
-  const farmId = sanitizedEntry?.logPayload?.farm ?? sanitizedEntry?.logPayload?.farm_id ?? sanitizedEntry?.meta?.farmId ?? null
+  const farmId =
+    sanitizedEntry?.logPayload?.farm ??
+    sanitizedEntry?.logPayload?.farm_id ??
+    sanitizedEntry?.activityPayload?.farm_id ??
+    sanitizedEntry?.activityPayload?.farm ??
+    sanitizedEntry?.meta?.farmId ??
+    null
   const draftUuid = sanitizedEntry?.draft_uuid || sanitizedEntry?.meta?.draft_uuid || generateOfflineId()
   const envelope = await buildOfflineEnvelope({
     category: 'daily_log',

@@ -49,6 +49,17 @@ class TreeCoverageService:
         ).values_list("quantity", flat=True)
         return sum(int(quantity or 0) for quantity in cohort_quantities)
 
+    @staticmethod
+    def _normalize_distribution_mode(value: Any) -> Any:
+        if not isinstance(value, str):
+            return value
+        aliases = {
+            "equal": TreeServiceCoverage.DISTRIBUTION_UNIFORM,
+            "equally": TreeServiceCoverage.DISTRIBUTION_UNIFORM,
+            "weighted": TreeServiceCoverage.DISTRIBUTION_EXCEPTION_WEIGHTED,
+        }
+        return aliases.get(value.strip().lower(), value)
+
     def sync_service_coverages(
         self,
         *,
@@ -111,6 +122,7 @@ class TreeCoverageService:
                 distribution_mode = (
                     payload.get("distribution_mode") or TreeServiceCoverage.DISTRIBUTION_UNIFORM
                 )
+                distribution_mode = self._normalize_distribution_mode(distribution_mode)
                 distribution_factor = payload.get("distribution_factor")
                 total_before = payload.get("total_before")
                 total_after = payload.get("total_after")

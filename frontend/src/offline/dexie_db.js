@@ -1,4 +1,5 @@
 import Dexie from 'dexie'
+import { buildDailyLogIdempotencyRotationPatch } from '../utils/offlineDailyLogIdentity'
 
 export const db = new Dexie('AgriOfflineDB')
 
@@ -296,9 +297,18 @@ const requeueFailures = async (tableName, ownerKey = null) => {
     }
     await Promise.all(
       failed.map((item) => {
-        const newUid = (typeof globalThis.crypto?.randomUUID === 'function') 
-          ? globalThis.crypto.randomUUID() 
-          : item.uuid; // fallback to same if crypto missing, but should be there
+        const newUid = (typeof globalThis.crypto?.randomUUID === 'function')
+          ? globalThis.crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+        if (tableName === 'daily_log_queue') {
+          return db[tableName].update(
+            item.id,
+            buildDailyLogIdempotencyRotationPatch(item, {
+              newKey: newUid,
+              nowIsoValue: nowIso(),
+            }),
+          )
+        }
         return db[tableName].update(item.id, {
           status: 'pending',
           dead_letter: false,

@@ -502,7 +502,7 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
         service_count: String(row.serviceCount || 0),
         service_type: row.serviceType || 'general',
         service_scope: row.serviceScope || 'location',
-        distribution_mode: row.distributionMode || 'equal',
+        distribution_mode: row.distributionMode || 'uniform',
         distribution_factor: row.distributionFactor || '',
         notes: row.notes || ''
       }))
@@ -512,9 +512,6 @@ export function useDailyLogForm(initialOverrides = {}, options = {}) {
     const sanitized = sanitizeDailyLogActivityPayload(cleaned)
     if (Array.isArray(cleaned.items_payload)) {
       sanitized.items_payload = cleaned.items_payload
-    }
-    if (Array.isArray(cleaned.service_counts_payload)) {
-      sanitized.service_counts_payload = cleaned.service_counts_payload
     }
     return sanitized
   }

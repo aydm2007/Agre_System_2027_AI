@@ -1,65 +1,73 @@
-export const DEFAULT_SERVICE_SCOPE = 'general'
+import {
+  DEFAULT_DISTRIBUTION_MODE,
+  DEFAULT_SERVICE_SCOPE,
+  normalizeDistributionMode,
+  normalizeServiceCountEntry,
+  normalizeServiceCountsList,
+  normalizeServiceScopeValue,
+} from '../utils/serviceCoveragePayload'
 
-export const normalizeServiceScopeValue = (value, fallback = DEFAULT_SERVICE_SCOPE) => {
-  if (typeof value === 'string') {
-    const trimmed = value.trim()
-    if (trimmed) {
-      return trimmed
-    }
-  }
-  return fallback
-}
-
-export const normalizeServiceCountEntry = (entry) => {
-  if (!entry || typeof entry !== 'object') {
-    return null
-  }
-  const normalized = { ...entry }
-  const scope = normalizeServiceScopeValue(
-    entry.service_scope,
-    normalizeServiceScopeValue(entry.service_type, DEFAULT_SERVICE_SCOPE),
-  )
-  normalized.service_scope = scope
-  if (
-    !normalized.service_type ||
-    typeof normalized.service_type !== 'string' ||
-    !normalized.service_type.trim()
-  ) {
-    normalized.service_type = scope
-  }
-  return normalized
-}
-
-export const normalizeServiceCountsList = (entries) => {
-  if (!Array.isArray(entries)) {
-    return Array.isArray(entries) ? entries : []
-  }
-  return entries.map((item) => normalizeServiceCountEntry(item) || item)
+export {
+  DEFAULT_DISTRIBUTION_MODE,
+  DEFAULT_SERVICE_SCOPE,
+  normalizeDistributionMode,
+  normalizeServiceCountEntry,
+  normalizeServiceCountsList,
+  normalizeServiceScopeValue,
 }
 
 export const normalizeDailyLogQueueEntry = (entry) => {
-  if (!entry || entry.type !== 'daily-log') {
+  const isDailyLogEntry =
+    entry?.type === 'daily-log' ||
+    entry?.category === 'daily_log' ||
+    entry?.category === 'daily-log' ||
+    (entry?.data && !entry?.method)
+  if (!entry || !isDailyLogEntry) {
     return entry
   }
 
   const normalized = { ...entry }
+  const data = entry.data && typeof entry.data === 'object' ? entry.data : {}
+
+  if (!normalized.farm_id) {
+    normalized.farm_id =
+      entry.logPayload?.farm_id ||
+      entry.logPayload?.farm ||
+      data.farm_id ||
+      data.farm ||
+      entry.meta?.farmId ||
+      null
+  }
+
+  if (!normalized.logPayload && Object.keys(data).length > 0) {
+    normalized.logPayload = {
+      farm: normalized.farm_id,
+      log_date: data.log_date || data.date || entry.meta?.date || null,
+      notes: data.notes || '',
+      ...(data.variance_note ? { variance_note: data.variance_note } : {}),
+    }
+  }
+
+  if (!normalized.activityPayload && Object.keys(data).length > 0) {
+    normalized.activityPayload = { ...data }
+  }
 
   if (Array.isArray(entry.service_counts_payload)) {
     normalized.service_counts_payload = normalizeServiceCountsList(entry.service_counts_payload)
   }
 
-  if (entry.activityPayload) {
+  if (normalized.activityPayload) {
     normalized.activityPayload = {
-      ...entry.activityPayload,
+      ...normalized.activityPayload,
     }
-    if (Array.isArray(entry.activityPayload.service_counts_payload)) {
+    if (Array.isArray(normalized.activityPayload.service_counts_payload)) {
       normalized.activityPayload.service_counts_payload = normalizeServiceCountsList(
-        entry.activityPayload.service_counts_payload,
+        normalized.activityPayload.service_counts_payload,
       )
     }
-    if (Array.isArray(entry.activityPayload.service_counts)) {
+    if (Array.isArray(normalized.activityPayload.service_counts)) {
       normalized.activityPayload.service_counts = normalizeServiceCountsList(
-        entry.activityPayload.service_counts,
+        normalized.activityPayload.service_counts,
       )
     }
   }

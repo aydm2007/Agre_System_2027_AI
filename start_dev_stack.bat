@@ -468,7 +468,7 @@ popd
 exit /b 0
 
 :run_verify
-echo [Verify] Running canonical release gate...
+echo [Verify] Running release verification gate...
 pushd "%BACKEND_DIR%"
 call %PY_CMD% manage.py verify_release_gate_v21
 if errorlevel 1 (
@@ -476,8 +476,15 @@ if errorlevel 1 (
   echo [ERROR] verify_release_gate_v21 failed.
   exit /b 1
 )
+echo [Verify] Running canonical V21 axis completion gate...
+call %PY_CMD% manage.py verify_axis_complete_v21
+if errorlevel 1 (
+  popd
+  echo [ERROR] verify_axis_complete_v21 failed.
+  exit /b 1
+)
 popd
-echo [PASS] Canonical release gate passed.
+echo [PASS] Release and canonical V21 axis gates passed.
 exit /b 0
 
 :run_tests
@@ -663,7 +670,7 @@ echo Modes:
 echo   default      = full local stack ^(backend + frontend + celery worker + celery beat^)
 echo   app-only     = backend + frontend only ^(diagnostic mode^)
 echo   check        = preflight only, no launch
-echo   verify       = canonical release gate only, no launch
+echo   verify       = release gate + canonical V21 axis completion gate, no launch
 echo   test         = verify + backend tests + frontend CI tests + build, no launch
 echo.
 echo Examples:

@@ -1,3 +1,5 @@
+import { normalizeServiceCountsList } from './serviceCoveragePayload'
+
 const BACKEND_OWNED_COST_FIELDS = [
   'cost_materials',
   'cost_labor',
@@ -168,17 +170,19 @@ const normalizeNestedOperationalDecimals = (payload) => {
     }))
   }
   if (Array.isArray(payload.service_counts_payload)) {
-    payload.service_counts_payload = payload.service_counts_payload.map((row) => ({
+    payload.service_counts_payload = normalizeServiceCountsList(payload.service_counts_payload).map((row) => ({
       ...row,
       service_count: normalizeDecimalString(row.service_count, 0),
-      distribution_factor: normalizeDecimalString(row.distribution_factor, 4),
+      distribution_factor:
+        row.distribution_factor === '' ? null : normalizeDecimalString(row.distribution_factor, 4),
     }))
   }
   if (Array.isArray(payload.service_counts)) {
-    payload.service_counts = payload.service_counts.map((row) => ({
+    payload.service_counts = normalizeServiceCountsList(payload.service_counts).map((row) => ({
       ...row,
       service_count: normalizeDecimalString(row.service_count, 0),
-      distribution_factor: normalizeDecimalString(row.distribution_factor, 4),
+      distribution_factor:
+        row.distribution_factor === '' ? null : normalizeDecimalString(row.distribution_factor, 4),
     }))
   }
 }

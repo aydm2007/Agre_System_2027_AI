@@ -33,7 +33,9 @@ function StatTile({ label, value, tone = 'default', testId }) {
       ? 'text-rose-700 dark:text-rose-300'
       : tone === 'warning'
         ? 'text-amber-700 dark:text-amber-300'
-        : 'text-gray-900 dark:text-white'
+        : tone === 'success'
+          ? 'text-emerald-700 dark:text-emerald-300'
+          : 'text-gray-900 dark:text-white'
 
   return (
     <div data-testid={testId} className="rounded-xl bg-white/70 px-3 py-3 dark:bg-slate-950/40">
@@ -46,7 +48,7 @@ function StatTile({ label, value, tone = 'default', testId }) {
 StatTile.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  tone: PropTypes.oneOf(['default', 'warning', 'danger']),
+  tone: PropTypes.oneOf(['default', 'warning', 'danger', 'success']),
   testId: PropTypes.string.isRequired,
 }
 
@@ -255,7 +257,7 @@ export function DailyLogSmartCard({ form, linkedCropPlan = null, offlineDrafts =
   const isDraftActive = draftTotalServiced > 0 || draftFuelConsumed > 0 || draftWaterVolume > 0 || draftTotalArea > 0 || draftTotalTrees > 0 || draftGenericAch > 0 || queuedDrafts.length > 0
 
   const completionPct = executionMetrics.plan_progress_pct || 0
-  const completionTone = isDraftActive ? 'emerald' : (openAlerts > 0 ? 'warning' : 'default')
+  const completionTone = isDraftActive ? 'success' : (openAlerts > 0 ? 'warning' : 'default')
   
   let draftLabelStr = ''
   if (draftTotalArea > 0) draftLabelStr += ` مساحة ${draftTotalArea}`

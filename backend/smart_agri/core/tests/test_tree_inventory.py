@@ -577,6 +577,7 @@ class TreeInventoryAPITests(APITestCase):
                     "variety_id": self.variety1.id,
                     "service_count": 20,
                     "service_type": TreeServiceCoverage.GENERAL,
+                    "distribution_mode": "equal",
                 },
                 {
                     "location_id": self.location1.id,
@@ -602,6 +603,7 @@ class TreeInventoryAPITests(APITestCase):
         self.assertEqual(coverages[0].crop_variety_id, self.variety1.id)
         self.assertEqual(coverages[0].service_type, TreeServiceCoverage.GENERAL)
         self.assertEqual(coverages[0].service_scope, TreeServiceCoverage.GENERAL)
+        self.assertEqual(coverages[0].distribution_mode, TreeServiceCoverage.DISTRIBUTION_UNIFORM)
         self.assertEqual(coverages[0].service_count, 20)
         self.assertEqual(coverages[0].recorded_by_id, self.user.id)
         self.assertEqual(coverages[1].notes, "ري تكميلي")

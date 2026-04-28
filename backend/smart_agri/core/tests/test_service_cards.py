@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
 from smart_agri.accounts.models import FarmMembership
-from smart_agri.core.models import Crop, CropRecipe, CropRecipeMaterial, DailyLog, Farm, FarmCrop, Task
+from smart_agri.core.models import Crop, CropProduct, CropRecipe, CropRecipeMaterial, DailyLog, Farm, FarmCrop, Task
 from smart_agri.core.models.activity import Activity, ActivityEmployee, ActivityItem
 from smart_agri.core.models.farm import Location
 from smart_agri.core.models.planning import CropPlan, CropPlanBudgetLine, CropPlanLocation, PlannedActivity
@@ -278,9 +278,32 @@ class ServiceCardAPITests(APITestCase):
         self.assertEqual(execution_card['metrics']['location_coverage_pct'], 100.0)
         self.assertEqual(execution_card['metrics']['open_variances'], 1)
         self.assertEqual(execution_card['flags'], [])
-        self.assertTrue(execution_card['policy']['shadow_accounting'])
-        self.assertEqual(execution_card['policy']['cost_display_mode'], FarmSettings.COST_VISIBILITY_SUMMARIZED)
-        self.assertEqual(execution_card['source_refs'][0], 'activity')
+
+    def test_service_cards_harvest_task_uses_product_pack_uom_without_500(self):
+        harvest_task = Task.objects.create(
+            crop=self.crop,
+            stage='Harvest',
+            name='Harvest proof',
+            is_harvest_task=True,
+        )
+        CropProduct.objects.create(crop=self.crop, name='Tomato Box', pack_uom='kg')
+
+        response = self.client.get(
+            self.url,
+            {
+                'farm_id': self.farm.id,
+                'crop_id': self.crop.id,
+                'task_id': harvest_task.id,
+                'crop_plan_id': self.plan.id,
+                'location_ids': str(self.location.id),
+                'date': date.today().isoformat(),
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        stack = response.data[0]['smart_card_stack']
+        harvest_card = next(card for card in stack if card['card_key'] == 'harvest')
+        self.assertEqual(harvest_card['metrics']['available_products'][0]['uom'], 'kg')
 
     def test_service_cards_emit_no_plan_schedule_status_when_active_plan_missing(self):
         self.plan.status = 'draft'

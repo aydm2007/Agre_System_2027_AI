@@ -1,9 +1,9 @@
 # V21 Release Gate Verification
 
 - command: `verify_release_gate_v21`
-- generated_at: `2026-04-25T01:31:03.595648-07:00`
-- overall_status: `FAIL`
-- suite_dir: `C:\tools\workspace\AgriAsset_v445\docs\evidence\closure\20260425_012907\verify_release_gate_v21`
+- generated_at: `2026-04-26T22:20:46.844672-07:00`
+- overall_status: `PASS`
+- suite_dir: `C:\tools\workspace\AgriAsset_v445\docs\evidence\closure\20260426_221702\verify_release_gate_v21`
 - latest_dir: `C:\tools\workspace\AgriAsset_v445\docs\evidence\closure\latest\verify_release_gate_v21`
 
 ## Step Summary
@@ -22,16 +22,16 @@
 | `static` | `Compliance docs contract` | `PASS` | `0` |
 | `static` | `XLSX integrity gate` | `PASS` | `0` |
 | `static` | `Float guard strict scan` | `PASS` | `0` |
-| `backend_tests` | `Backend smart-card and mode tests` | `FAIL` | `1` |
-| `backend_tests` | `Backend approval and reopen tests` | `FAIL` | `1` |
-| `backend_tests` | `Backend attachment and runtime tests` | `FAIL` | `1` |
-| `backend_tests` | `Backend supplier settlement and mode policy tests` | `FAIL` | `1` |
-| `backend_tests` | `Backend contract, assets, fuel, and petty-cash tests` | `FAIL` | `1` |
+| `backend_tests` | `Backend smart-card and mode tests` | `PASS` | `0` |
+| `backend_tests` | `Backend approval and reopen tests` | `PASS` | `0` |
+| `backend_tests` | `Backend attachment and runtime tests` | `PASS` | `0` |
+| `backend_tests` | `Backend supplier settlement and mode policy tests` | `PASS` | `0` |
+| `backend_tests` | `Backend contract, assets, fuel, and petty-cash tests` | `PASS` | `0` |
 | `frontend` | `Frontend lint` | `PASS` | `0` |
 | `frontend` | `Frontend focused Vitest suites` | `PASS` | `0` |
 | `frontend` | `Frontend build` | `PASS` | `0` |
 | `runtime` | `Django system checks` | `PASS` | `0` |
-| `runtime` | `Seed runtime governance evidence` | `FAIL` | `1` |
+| `runtime` | `Seed runtime governance evidence` | `PASS` | `0` |
 | `runtime` | `Django migrations status` | `PASS` | `0` |
 | `runtime` | `Django migration plan` | `PASS` | `0` |
 | `runtime` | `Runtime probe V21` | `PASS` | `0` |

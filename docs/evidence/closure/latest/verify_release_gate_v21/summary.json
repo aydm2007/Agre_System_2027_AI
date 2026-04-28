@@ -1,14 +1,14 @@
 {
   "command_name": "verify_release_gate_v21",
   "title": "V21 Release Gate Verification",
-  "generated_at": "2026-04-25T01:31:03.595648-07:00",
-  "overall_status": "FAIL",
+  "generated_at": "2026-04-26T22:20:46.844672-07:00",
+  "overall_status": "PASS",
   "repo_root": "C:\\tools\\workspace\\AgriAsset_v445",
-  "suite_dir": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21",
+  "suite_dir": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21",
   "latest_dir": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21",
   "counts": {
-    "pass": 25,
-    "fail": 6,
+    "pass": 31,
+    "fail": 0,
     "blocked": 0,
     "total": 31
   },
@@ -23,7 +23,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\bootstrap_contract.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\bootstrap_contract.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\bootstrap_contract.log"
     },
     {
@@ -36,7 +36,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\postgres_foundation.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\postgres_foundation.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\postgres_foundation.log"
     },
     {
@@ -49,7 +49,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\bare_exceptions.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\bare_exceptions.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\bare_exceptions.log"
     },
     {
@@ -62,7 +62,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\docx_traceability.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\docx_traceability.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\docx_traceability.log"
     },
     {
@@ -75,7 +75,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\release_hygiene.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\release_hygiene.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\release_hygiene.log"
     },
     {
@@ -88,7 +88,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\decimal_mutations.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\decimal_mutations.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\decimal_mutations.log"
     },
     {
@@ -101,7 +101,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\idempotency_actions.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\idempotency_actions.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\idempotency_actions.log"
     },
     {
@@ -114,7 +114,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\farm_scope_guards.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\farm_scope_guards.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\farm_scope_guards.log"
     },
     {
@@ -127,7 +127,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\service_layer_writes.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\service_layer_writes.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\service_layer_writes.log"
     },
     {
@@ -140,7 +140,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\compliance_docs.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\compliance_docs.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\compliance_docs.log"
     },
     {
@@ -153,7 +153,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\xlsx_gate_check.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\xlsx_gate_check.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\xlsx_gate_check.log"
     },
     {
@@ -166,7 +166,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\float_guard_strict.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\float_guard_strict.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\float_guard_strict.log"
     },
     {
@@ -177,9 +177,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\backend_smart_card_mode_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\backend_smart_card_mode_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\backend_smart_card_mode_tests.log"
     },
     {
@@ -190,9 +190,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\backend_approval_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\backend_approval_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\backend_approval_tests.log"
     },
     {
@@ -203,9 +203,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\backend_attachment_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\backend_attachment_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\backend_attachment_tests.log"
     },
     {
@@ -216,9 +216,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\backend_supplier_mode_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\backend_supplier_mode_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\backend_supplier_mode_tests.log"
     },
     {
@@ -229,9 +229,9 @@
       "cwd": ".",
       "timeout_seconds": 600,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\backend_contract_asset_fuel_cash_tests.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\backend_contract_asset_fuel_cash_tests.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\backend_contract_asset_fuel_cash_tests.log"
     },
     {
@@ -244,7 +244,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\frontend_lint.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\frontend_lint.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\frontend_lint.log"
     },
     {
@@ -257,7 +257,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\frontend_focused_vitest.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\frontend_focused_vitest.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\frontend_focused_vitest.log"
     },
     {
@@ -270,7 +270,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\frontend_build.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\frontend_build.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\frontend_build.log"
     },
     {
@@ -283,7 +283,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\django_check.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\django_check.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\django_check.log"
     },
     {
@@ -294,9 +294,9 @@
       "cwd": ".",
       "timeout_seconds": null,
       "env_overrides": {},
-      "status": "FAIL",
-      "exit_code": 1,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\seed_runtime_evidence.log",
+      "status": "PASS",
+      "exit_code": 0,
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\seed_runtime_evidence.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\seed_runtime_evidence.log"
     },
     {
@@ -309,7 +309,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\showmigrations_plan.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\showmigrations_plan.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\showmigrations_plan.log"
     },
     {
@@ -322,7 +322,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\migrate_plan.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\migrate_plan.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\migrate_plan.log"
     },
     {
@@ -335,7 +335,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\runtime_probe_v21.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\runtime_probe_v21.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\runtime_probe_v21.log"
     },
     {
@@ -348,7 +348,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\release_readiness_snapshot.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\release_readiness_snapshot.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\release_readiness_snapshot.log"
     },
     {
@@ -361,7 +361,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\scan_pending_attachments.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\scan_pending_attachments.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\scan_pending_attachments.log"
     },
     {
@@ -374,7 +374,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\report_due_remote_reviews.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\report_due_remote_reviews.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\report_due_remote_reviews.log"
     },
     {
@@ -387,7 +387,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\dispatch_outbox.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\dispatch_outbox.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\dispatch_outbox.log"
     },
     {
@@ -400,7 +400,7 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\retry_dead_letters.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\retry_dead_letters.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\retry_dead_letters.log"
     },
     {
@@ -413,24 +413,24 @@
       "env_overrides": {},
       "status": "PASS",
       "exit_code": 0,
-      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\logs\\purge_dispatched_outbox.log",
+      "log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\logs\\purge_dispatched_outbox.log",
       "latest_log_path": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\logs\\purge_dispatched_outbox.log"
     }
   ],
   "artifacts": [
     {
       "source": "C:\\tools\\workspace\\AgriAsset_v445\\backend\\release_readiness_snapshot.json",
-      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\artifacts\\release_readiness_snapshot.json",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\artifacts\\release_readiness_snapshot.json",
       "latest_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\artifacts\\release_readiness_snapshot.json"
     },
     {
       "source": "C:\\tools\\workspace\\AgriAsset_v445\\backend\\release_readiness_snapshot.md",
-      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\artifacts\\release_readiness_snapshot.md",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\artifacts\\release_readiness_snapshot.md",
       "latest_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\artifacts\\release_readiness_snapshot.md"
     },
     {
       "source": "C:\\tools\\workspace\\AgriAsset_v445\\backend\\scripts\\release_gate_float_check.txt",
-      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260425_012907\\verify_release_gate_v21\\artifacts\\release_gate_float_check.txt",
+      "suite_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\20260426_221702\\verify_release_gate_v21\\artifacts\\release_gate_float_check.txt",
       "latest_copy": "C:\\tools\\workspace\\AgriAsset_v445\\docs\\evidence\\closure\\latest\\verify_release_gate_v21\\artifacts\\release_gate_float_check.txt"
     }
   ]

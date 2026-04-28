@@ -10,6 +10,7 @@ import {
 } from '../../api/client.js'
 import { getQueueOwnerKey } from '../../api/offlineQueueStore.js'
 import { db } from '../../offline/dexie_db.js'
+import { buildDailyLogIdempotencyRotationPatch } from '../../utils/offlineDailyLogIdentity.js'
 import OfflineQueueRow from './OfflineQueueRow.jsx'
 
 const DEFAULT_DETAIL_LIMIT = 100
@@ -225,10 +226,12 @@ export default function OfflineQueuePanel() {
       let seq = 1
       for (const item of sorted) {
         const newUid = uuidv4()
-        const updates = { 
+        const updates = {
           client_seq: seq,
-          uuid: newUid,
-          idempotency_key: newUid
+          ...buildDailyLogIdempotencyRotationPatch(item, {
+            newKey: newUid,
+            nowIsoValue: new Date().toISOString(),
+          }),
         }
         // Resurrect dead_letter items back to pending so they can be re-flushed
         if (item.status === 'dead_letter' || item.dead_letter) {
