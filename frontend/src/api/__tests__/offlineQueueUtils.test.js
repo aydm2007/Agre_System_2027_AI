@@ -6,6 +6,7 @@ import {
   isIdempotencyMismatch409,
   resolveDailyLogReplayIdentity,
 } from '../../utils/offlineDailyLogIdentity'
+import { isStaleSyncingQueueItem } from '../../offline/dexie_db'
 
 describe('offlineQueueUtils', () => {
   it('normalizes legacy daily-log queue entries with farm data and equal distribution', () => {
@@ -86,5 +87,31 @@ describe('offlineQueueUtils', () => {
       }),
     ).toBe(true)
     expect(isIdempotencyMismatch409({ response: { status: 400, data: {} } })).toBe(false)
+  })
+
+  it('detects stale syncing daily-log queue items without changing replay identity', () => {
+    const now = new Date('2026-04-28T08:00:00.000Z').getTime()
+    expect(
+      isStaleSyncingQueueItem(
+        {
+          status: 'syncing',
+          updated_at: '2026-04-28T07:58:30.000Z',
+          payload_uuid: 'payload-23',
+          idempotency_key: 'attempt-key',
+        },
+        now,
+      ),
+    ).toBe(true)
+    expect(
+      isStaleSyncingQueueItem(
+        {
+          status: 'syncing',
+          updated_at: '2026-04-28T07:59:30.000Z',
+          payload_uuid: 'payload-23',
+          idempotency_key: 'attempt-key',
+        },
+        now,
+      ),
+    ).toBe(false)
   })
 })

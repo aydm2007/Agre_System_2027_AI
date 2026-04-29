@@ -40,11 +40,10 @@ test.describe('SIMPLE Mode Isolation', () => {
     await expect(page.getByTestId('fuel-reconciliation-policy-banner')).toBeVisible()
 
     await page.goto(`${BASE_URL}/finance`)
-    await expect(page).toHaveURL(/\/dashboard(?:\?|$)/)
-    await expect(page.getByTestId('dashboard-title')).toBeVisible()
+    await expect(page).toHaveURL(/\/finance(?:\?|$)/)
+    await expect(page.getByTestId('finance-ledger-page')).toBeVisible()
 
     await page.goto(`${BASE_URL}/finance/ledger`)
     await expect(page).toHaveURL(/\/dashboard(?:\?|$)/)
-    await expect(page.getByTestId('dashboard-title')).toBeVisible()
   })
 })

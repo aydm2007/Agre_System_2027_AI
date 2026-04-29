@@ -1,0 +1,88 @@
+{
+  "audit_name": "simple_offline_audit",
+  "generated_at": "2026-04-28T18:40:58-07:00",
+  "score": 96,
+  "recommendation": "READY_FOR_GOVERNED_DEMO_OPERATION",
+  "canonical_gate": {
+    "command": "python backend/manage.py verify_axis_complete_v21",
+    "overall_status": "PASS",
+    "axis_overall_status": "PASS",
+    "evidence_dir": "docs/evidence/closure/20260428_183244/verify_axis_complete_v21",
+    "latest_summary": "docs/evidence/closure/latest/verify_axis_complete_v21/summary.json"
+  },
+  "demo_seed": {
+    "command": "python backend/manage.py seed_simple_offline_demo_data --reset-demo --with-offline-fixtures",
+    "status": "PASS",
+    "farm_slug": "simple-offline-demo-farm",
+    "farm_name": "Simple Offline Demo Farm",
+    "mode": "SIMPLE",
+    "username": "simple_offline_demo",
+    "password": "DemoOffline2026!",
+    "fixtures": {
+      "sync_records": 4,
+      "sync_conflict_dlq": 1,
+      "offline_sync_quarantine": 1
+    }
+  },
+  "commands": [
+    {
+      "name": "prepare_e2e_auth_v21",
+      "command": "python backend/manage.py prepare_e2e_auth_v21",
+      "status": "PASS"
+    },
+    {
+      "name": "backend_simple_offline",
+      "command": "python backend/manage.py test smart_agri.core.tests.test_offline_daily_log_replay smart_agri.core.tests.test_simple_strict_separation smart_agri.core.tests.test_simple_no_finance_leak smart_agri.core.tests.test_shadow_ledger_readonly smart_agri.core.tests.test_seed_simple_offline_demo_data_command --keepdb --noinput",
+      "status": "PASS",
+      "tests": 20
+    },
+    {
+      "name": "backend_service_fuel",
+      "command": "python backend/manage.py test smart_agri.core.tests.test_service_cards smart_agri.core.tests.test_fuel_reconciliation_dashboard_api --keepdb --noinput",
+      "status": "PASS",
+      "tests": 13
+    },
+    {
+      "name": "frontend_targeted",
+      "command": "npm --prefix frontend run test -- --run src/api/__tests__/offlineQueueUtils.test.js src/offline/__tests__/OfflineQueueProvider.test.jsx src/components/offline/__tests__/OfflineQueuePanel.test.jsx src/hooks/__tests__/useDailyLogForm.test.js src/components/daily-log/__tests__/DailyLogSmartCard.test.jsx src/__tests__/appRouteGuards.test.js",
+      "status": "PASS",
+      "tests": 30
+    },
+    {
+      "name": "frontend_route_guard_retest",
+      "command": "npm --prefix frontend run test -- --run src/__tests__/appRouteGuards.test.js",
+      "status": "PASS",
+      "tests": 1
+    },
+    {
+      "name": "frontend_lint",
+      "command": "npm --prefix frontend run lint",
+      "status": "PASS_WITH_WARNINGS",
+      "warnings": 2
+    },
+    {
+      "name": "frontend_build",
+      "command": "npm --prefix frontend run build",
+      "status": "PASS_WITH_WARNING",
+      "warnings": ["chunk_size"]
+    },
+    {
+      "name": "playwright_simple_offline",
+      "command": "npx --prefix frontend playwright test frontend/tests/e2e/simple_mode_isolation.spec.js frontend/tests/e2e/simple-mode-governed-cycles-ar.spec.js frontend/tests/e2e/daily-log-smart-card.spec.js frontend/tests/e2e/fuel-reconciliation.spec.js frontend/tests/e2e/dual-mode-switch.spec.js --project=chromium --config=frontend/playwright.config.js --workers=1 --reporter=line",
+      "status": "PASS",
+      "tests": 8
+    }
+  ],
+  "score_breakdown": {
+    "offline_sync_readiness": 25,
+    "simple_strict_boundary_safety": 20,
+    "frontend_runtime_build_ui_safety": 18,
+    "backend_api_domain_integrity": 19,
+    "evidence_seed_repeatability_report_trust": 14
+  },
+  "residual_issues": [
+    "frontend/src/contexts/SettingsContext.jsx react-hooks/exhaustive-deps warning for isAuthenticated",
+    "frontend/src/pages/settings/TeamBuilderTab.jsx react-hooks/exhaustive-deps warning for page",
+    "Vite chunk-size warning remains"
+  ]
+}

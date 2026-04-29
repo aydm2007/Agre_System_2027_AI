@@ -1,3 +1,4 @@
+from calendar import monthrange
 from datetime import date
 from decimal import Decimal
 
@@ -105,17 +106,19 @@ class ServiceCardAPITests(APITestCase):
 
         Task.objects.create(crop=self.other_crop, stage='Maintenance', name='Unused service', requires_machinery=True)
 
+        today = date.today()
+        month_end = monthrange(today.year, today.month)[1]
         fiscal_year = FiscalYear.objects.create(
             farm=self.farm,
-            year=date.today().year,
-            start_date=date(date.today().year, 1, 1),
-            end_date=date(date.today().year, 12, 31),
+            year=today.year,
+            start_date=date(today.year, 1, 1),
+            end_date=date(today.year, 12, 31),
         )
         FiscalPeriod.objects.create(
             fiscal_year=fiscal_year,
-            month=date.today().month,
-            start_date=date(date.today().year, date.today().month, 1),
-            end_date=date(date.today().year, date.today().month, 28),
+            month=today.month,
+            start_date=date(today.year, today.month, 1),
+            end_date=date(today.year, today.month, month_end),
             status=FiscalPeriod.STATUS_OPEN,
         )
 

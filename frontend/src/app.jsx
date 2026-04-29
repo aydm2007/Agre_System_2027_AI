@@ -220,17 +220,22 @@ function AppRoutes() {
             )}
 
             {/* Financial routes — STRICT for ordinary users; SIMPLE stays technical/control-oriented */}
-            <Route
-              path="finance/supplier-settlements"
-              element={<SupplierSettlementDashboard />}
-            />
-            <Route path="finance/receipts-deposits" element={<ReceiptsDepositDashboard />} />
-            <Route
-              path="finance/petty-cash"
-              element={isPettyCashEnabled ? <PettyCashDashboard /> : <Navigate to="/dashboard" replace />}
-            />
-            <Route path="fuel-reconciliation" element={<FuelReconciliationDashboard />} />
+            <Route element={<ModeGuard policyCheck="canAccessFinanceHubRoutes" />}>
+              <Route
+                path="finance/supplier-settlements"
+                element={<SupplierSettlementDashboard />}
+              />
+              <Route path="finance/receipts-deposits" element={<ReceiptsDepositDashboard />} />
+              <Route
+                path="finance/petty-cash"
+                element={isPettyCashEnabled ? <PettyCashDashboard /> : <Navigate to="/dashboard" replace />}
+              />
+            </Route>
+            <Route element={<ModeGuard requiredMode={null} policyCheck="canAccessFuelReconciliationRoutes" />}>
+              <Route path="fuel-reconciliation" element={<FuelReconciliationDashboard />} />
+            </Route>
             <Route element={<ModeGuard policyCheck="canRegisterFinancialRoutes" />}>
+              <Route path="finance/ledger" element={<Finance />} />
               <Route path="commercial" element={<CommercialDashboard />} />
               <Route path="harvest-products" element={<HarvestProductsPage />} />
               <Route path="sales/*" element={<Sales />} />

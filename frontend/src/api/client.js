@@ -1064,7 +1064,12 @@ async function flushOfflineDailyLogs() {
     if (item.status === 'syncing' && item.updated_at) {
       const elapsed = staleCutoff - new Date(item.updated_at).getTime()
       if (elapsed > STALE_SYNCING_MS) {
-        await db.daily_log_queue.update(item.id, { status: 'pending', updated_at: nowIso() })
+        await db.daily_log_queue.update(item.id, {
+          status: 'pending',
+          dead_letter: false,
+          next_attempt_at: nowIso(),
+          updated_at: nowIso(),
+        })
         item.status = 'pending'
       }
     }
@@ -1163,6 +1168,7 @@ async function flushOfflineDailyLogs() {
           ...patch,
           uploadedAttachmentIds: attachmentIds,
         })
+        notifyQueueChange()
         remaining.push({
           ...entry,
           ...patch,

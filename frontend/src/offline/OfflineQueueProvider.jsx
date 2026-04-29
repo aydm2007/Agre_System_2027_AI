@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import useNetworkStatus from './useNetworkStatus'
 import { flushQueue, getOfflineQueueCounts } from '../api/client'
 import { useToast } from '../components/ToastProvider'
@@ -7,6 +7,7 @@ import { useSettings } from '../contexts/SettingsContext'
 import { performOfflinePurge } from './dexie_db'
 
 const SYNC_INTERVAL_MS = 15 * 60 * 1000
+const AUTO_SYNC_DEBOUNCE_MS = 750
 
 const OfflineQueueContext = createContext({
   isOnline: true,
@@ -38,6 +39,7 @@ export function OfflineQueueProvider({ children }) {
   const [syncing, setSyncing] = useState(false)
   const [lastSync, setLastSync] = useState(null)
   const [lastNoPendingToastAt, setLastNoPendingToastAt] = useState(0)
+  const syncTimerRef = useRef(null)
   const addToast = useToast()
   const { offlineCacheRetentionDays, syncedDraftRetentionDays, deadLetterRetentionDays } = useSettings()
 
@@ -138,6 +140,30 @@ export function OfflineQueueProvider({ children }) {
     syncing,
   ])
 
+  const scheduleSync = useCallback(
+    (delayMs = AUTO_SYNC_DEBOUNCE_MS) => {
+      if (!isOnline || syncing) {
+        return
+      }
+      if (syncTimerRef.current) {
+        clearTimeout(syncTimerRef.current)
+      }
+      syncTimerRef.current = setTimeout(async () => {
+        syncTimerRef.current = null
+        const counts = await refreshCounts()
+        const hasPending =
+          (counts?.requests || 0) > 0 ||
+          (counts?.harvests || 0) > 0 ||
+          (counts?.dailyLogs || 0) > 0 ||
+          (counts?.custody || 0) > 0
+        if (hasPending) {
+          syncNow().catch(() => {})
+        }
+      }, delayMs)
+    },
+    [isOnline, refreshCounts, syncNow, syncing],
+  )
+
   useEffect(() => {
     refreshCounts()
   }, [refreshCounts])
@@ -155,13 +181,41 @@ export function OfflineQueueProvider({ children }) {
 
   useEffect(() => {
     const handleQueueChange = () => {
-      refreshCounts()
+      refreshCounts().then((counts) => {
+        const hasPending =
+          (counts?.requests || 0) > 0 ||
+          (counts?.harvests || 0) > 0 ||
+          (counts?.dailyLogs || 0) > 0 ||
+          (counts?.custody || 0) > 0
+        if (hasPending) {
+          scheduleSync()
+        }
+      })
     }
     window.addEventListener('offline-queue-change', handleQueueChange)
     return () => {
       window.removeEventListener('offline-queue-change', handleQueueChange)
     }
-  }, [refreshCounts])
+  }, [refreshCounts, scheduleSync])
+
+  useEffect(() => {
+    if (!isOnline) {
+      return undefined
+    }
+    const handleOnline = () => scheduleSync(0)
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        scheduleSync(0)
+      }
+    }
+    window.addEventListener('online', handleOnline)
+    document.addEventListener('visibilitychange', handleVisibility)
+    scheduleSync(0)
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      document.removeEventListener('visibilitychange', handleVisibility)
+    }
+  }, [isOnline, scheduleSync])
 
   useEffect(() => {
     if (typeof navigator === 'undefined' || !navigator.serviceWorker) {
@@ -183,9 +237,9 @@ export function OfflineQueueProvider({ children }) {
       return
     }
     if (queuedRequests > 0 || queuedHarvests > 0 || queuedDailyLogs > 0 || queuedCustody > 0) {
-      syncNow().catch(() => {})
+      scheduleSync()
     }
-  }, [isOnline, queuedRequests, queuedHarvests, queuedDailyLogs, queuedCustody, syncNow, syncing])
+  }, [isOnline, queuedRequests, queuedHarvests, queuedDailyLogs, queuedCustody, scheduleSync, syncing])
   useEffect(() => {
     if (!isOnline) {
       return undefined
@@ -195,6 +249,12 @@ export function OfflineQueueProvider({ children }) {
     }, SYNC_INTERVAL_MS)
     return () => clearInterval(timer)
   }, [isOnline, syncNow])
+
+  useEffect(() => () => {
+    if (syncTimerRef.current) {
+      clearTimeout(syncTimerRef.current)
+    }
+  }, [])
 
   const value = useMemo(
     () => ({

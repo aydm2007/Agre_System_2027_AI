@@ -157,6 +157,7 @@ db.version(2).upgrade((tx) =>
 )
 
 const nowIso = () => new Date().toISOString()
+const STALE_SYNCING_MS = 60 * 1000
 const PENDING_QUEUE_STATUSES = new Set(['pending', 'syncing', 'failed_retryable'])
 const FAILED_QUEUE_STATUSES = new Set(['dead_letter', 'quarantined'])
 const normalizeQueueStatus = (status, deadLetter = false) => {
@@ -205,8 +206,44 @@ const ensureQueueRecord = (record, defaults = {}) => {
   }
 }
 
+export const isStaleSyncingQueueItem = (item, nowMs = Date.now()) => {
+  if (item?.status !== 'syncing') return false
+  const updatedAt = new Date(item.updated_at || item.updatedAt || item.created_at || 0).getTime()
+  return Number.isFinite(updatedAt) && nowMs - updatedAt > STALE_SYNCING_MS
+}
+
+const refreshStaleSyncingItems = async (tableName, ownerKey = null) => {
+  if (tableName !== 'daily_log_queue') return 0
+  const all = await db[tableName].toArray()
+  const stale = all.filter(
+    (item) =>
+      (!ownerKey || item.owner_key === ownerKey) &&
+      isStaleSyncingQueueItem(item),
+  )
+  if (!stale.length) return 0
+  const recoveredAt = nowIso()
+  await Promise.all(
+    stale.map((item) =>
+      db[tableName].update(item.id, {
+        status: 'pending',
+        dead_letter: false,
+        retry_count: Number(item.retry_count || 0),
+        next_attempt_at: recoveredAt,
+        sync_recovery_status: 'stale_syncing',
+        meta: {
+          ...(item.meta || {}),
+          stale_syncing_recovered_at: recoveredAt,
+        },
+        updated_at: recoveredAt,
+      }),
+    ),
+  )
+  return stale.length
+}
+
 const getQueueCounts = async (tableName, ownerKey = null) => {
   try {
+    await refreshStaleSyncingItems(tableName, ownerKey)
     const all = await db[tableName].toArray()
     const scoped = ownerKey ? all.filter((item) => item.owner_key === ownerKey) : all
     return {
@@ -221,6 +258,7 @@ const getQueueCounts = async (tableName, ownerKey = null) => {
 
 const getQueueDetails = async (tableName, ownerKey = null) => {
   try {
+    await refreshStaleSyncingItems(tableName, ownerKey)
     const all = await db[tableName].toArray()
     const scoped = ownerKey ? all.filter((item) => item.owner_key === ownerKey) : all
     return {

@@ -49,6 +49,7 @@ const formatDateTime = (value) => {
 }
 
 const queueStateLabels = {
+  stale_syncing: 'stale_syncing | auto-recovered for replay',
   pending: 'queued | بانتظار المزامنة',
   syncing: 'syncing | جارٍ الترحيل',
   failed: 'failed | فشل قابل للإعادة',
@@ -57,6 +58,8 @@ const queueStateLabels = {
 }
 
 const queueStateClasses = {
+  stale_syncing:
+    'border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-200',
   pending:
     'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-200',
   syncing:
@@ -96,6 +99,7 @@ const canonicalQueueStateClasses = {
 const resolveCanonicalQueueState = (entry, fallbackStatus = 'pending') => {
   if (entry?.dead_letter || entry?.status === 'dead_letter') return 'dead_letter'
   if (entry?.status === 'quarantined') return 'quarantined'
+  if (entry?.sync_recovery_status === 'stale_syncing' || entry?.meta?.stale_syncing_recovered_at) return 'stale_syncing'
   if (entry?.status === 'syncing') return 'syncing'
   if (entry?.status === 'synced') return 'synced'
   if (entry?.status === 'failed_retryable') return 'failed_retryable'
@@ -681,6 +685,19 @@ export default function OfflineQueuePanel() {
               </button>
             </div>
             <div className="max-h-64 overflow-y-auto rounded border border-gray-200 bg-gray-50 p-3 text-xs dark:border-slate-600 dark:bg-slate-700">
+              {(selectedItem.queueType === 'daily-log' ||
+                selectedItem.queueType === 'failed-daily-log') && (
+                <div className="mb-3 grid gap-1 rounded border border-cyan-200 bg-cyan-50 p-2 text-[11px] text-cyan-900 dark:border-cyan-700 dark:bg-cyan-950/30 dark:text-cyan-100">
+                  <div>
+                    <span className="font-semibold">payload_uuid:</span>{' '}
+                    <span className="font-mono">{selectedItem.entry?.payload_uuid || selectedItem.entry?.uuid || '-'}</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold">idempotency_key:</span>{' '}
+                    <span className="font-mono">{selectedItem.entry?.idempotency_key || '-'}</span>
+                  </div>
+                </div>
+              )}
               <pre className="whitespace-pre-wrap break-words dark:text-slate-200">
                 {JSON.stringify(selectedItem.entry, null, 2)}
               </pre>

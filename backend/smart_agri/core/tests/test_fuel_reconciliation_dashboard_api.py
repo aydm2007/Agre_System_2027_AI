@@ -1,3 +1,4 @@
+from calendar import monthrange
 from datetime import timedelta
 from decimal import Decimal
 
@@ -58,6 +59,7 @@ class FuelReconciliationDashboardAPITests(APITestCase):
         )
 
     def _ensure_open_period(self, target_date):
+        month_end = monthrange(target_date.year, target_date.month)[1]
         fiscal_year = FiscalYear.objects.create(
             farm=self.farm,
             year=target_date.year,
@@ -68,7 +70,7 @@ class FuelReconciliationDashboardAPITests(APITestCase):
             fiscal_year=fiscal_year,
             month=target_date.month,
             start_date=target_date.replace(day=1),
-            end_date=target_date.replace(day=28),
+            end_date=target_date.replace(day=month_end),
             status=FiscalPeriod.STATUS_OPEN,
             is_closed=False,
         )
