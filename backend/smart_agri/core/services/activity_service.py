@@ -48,6 +48,12 @@ def _derive_activity_days_spent(explicit_days_spent, employees_payload):
 
     return max(normalized_entries)
 
+
+def _coerce_fk_primitive(value):
+    if value in (None, "", 0, "0"):
+        return None
+    return value
+
 class ActivityService(BaseService):
     """
     طبقة الخدمة المسؤولة عن العمليات الذرية للأنشطة.
@@ -63,25 +69,38 @@ class ActivityService(BaseService):
         if "location_ids" not in normalized and "locations" in normalized:
             normalized["location_ids"] = normalized.get("locations")
 
-        fk_aliases = (
-            "task",
-            "crop",
-            "asset",
-            "well_asset",
-            "crop_variety",
-            "product",
-            "tree_loss_reason",
-            "crop_plan",
-        )
-        for field_name in fk_aliases:
+        if "well_id" in normalized:
+            coerced_well_id = _coerce_fk_primitive(normalized.get("well_id"))
+            if "well_asset_id" not in normalized and coerced_well_id is not None:
+                normalized["well_asset_id"] = coerced_well_id
+            normalized.pop("well_id", None)
+
+        fk_aliases = {
+            "task": "task_id",
+            "crop": "crop_id",
+            "asset": "asset_id",
+            "well_asset": "well_asset_id",
+            "crop_variety": "crop_variety_id",
+            "variety": "crop_variety_id",
+            "product": "product_id",
+            "tree_loss_reason": "tree_loss_reason_id",
+            "crop_plan": "crop_plan_id",
+        }
+        for field_name, id_field_name in fk_aliases.items():
             value = normalized.get(field_name)
-            if (
-                value not in (None, "")
-                and not hasattr(value, "_meta")
-                and f"{field_name}_id" not in normalized
-            ):
-                normalized[f"{field_name}_id"] = value
+            if hasattr(value, "_meta"):
+                continue
+            coerced_value = _coerce_fk_primitive(value)
+            if coerced_value is not None and id_field_name not in normalized:
+                normalized[id_field_name] = coerced_value
+            if field_name in normalized:
                 normalized.pop(field_name, None)
+
+        for id_field_name in set(fk_aliases.values()) | {"well_asset_id"}:
+            if id_field_name not in normalized:
+                continue
+            if _coerce_fk_primitive(normalized.get(id_field_name)) is None:
+                normalized.pop(id_field_name, None)
 
         return normalized
 

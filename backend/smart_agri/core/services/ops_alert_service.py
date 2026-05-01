@@ -305,10 +305,21 @@ class OpsAlertService:
 
     @classmethod
     def offline_ops_snapshot(cls, *, farm_id: int | None = None) -> dict:
-        conflict_qs = SyncConflictDLQ.objects.filter(deleted_at__isnull=True, status="PENDING").select_related("farm")
+        conflict_qs = SyncConflictDLQ.objects.filter(
+            deleted_at__isnull=True,
+            status="PENDING",
+        ).exclude(
+            idempotency_key__startswith="demo-",
+        ).exclude(
+            request_payload__has_key="demo_fixture",
+        ).select_related("farm")
         quarantine_qs = OfflineSyncQuarantine.objects.filter(
             deleted_at__isnull=True,
             status="PENDING_REVIEW",
+        ).exclude(
+            idempotency_key__startswith="demo-",
+        ).exclude(
+            original_payload__has_key="demo_fixture",
         ).select_related("farm")
         if farm_id:
             conflict_qs = conflict_qs.filter(farm_id=farm_id)

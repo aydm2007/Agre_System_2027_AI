@@ -6,6 +6,7 @@ import {
   isIdempotencyMismatch409,
   resolveDailyLogReplayIdentity,
 } from '../../utils/offlineDailyLogIdentity'
+import { normalizeActivityForeignKeys } from '../../utils/dailyLogPayload'
 import { isStaleSyncingQueueItem } from '../../offline/dexie_db'
 
 describe('offlineQueueUtils', () => {
@@ -45,10 +46,10 @@ describe('offlineQueueUtils', () => {
   it('keeps payload uuid stable while rotating a failed daily-log idempotency key', () => {
     const entry = {
       id: 22,
-      queue_id: 'queue-22',
-      payload_uuid: 'payload-22',
-      uuid: 'old-http-key',
-      idempotency_key: 'old-http-key',
+      queue_id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+      payload_uuid: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+      uuid: 'cccccccc-cccc-4ccc-8ccc-cccccccccccc',
+      idempotency_key: 'dddddddd-dddd-4ddd-8ddd-dddddddddddd',
       status: 'dead_letter',
       dead_letter: true,
       farm_id: '21',
@@ -56,23 +57,71 @@ describe('offlineQueueUtils', () => {
     }
 
     const patch = buildDailyLogIdempotencyRotationPatch(entry, {
-      newKey: 'new-http-key',
+      newKey: 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',
       nowIsoValue: '2026-04-27T18:00:00.000Z',
       lastError: 'HTTP 409',
     })
-    const replayIdentity = resolveDailyLogReplayIdentity({ ...entry, ...patch }, () => 'fallback-key')
+    const replayIdentity = resolveDailyLogReplayIdentity(
+      { ...entry, ...patch },
+      () => 'ffffffff-ffff-4fff-8fff-ffffffffffff',
+    )
 
     expect(patch).toMatchObject({
       status: 'pending',
       dead_letter: false,
-      idempotency_key: 'new-http-key',
-      previous_idempotency_key: 'old-http-key',
+      idempotency_key: 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',
+      previous_idempotency_key: 'dddddddd-dddd-4ddd-8ddd-dddddddddddd',
       retry_count: 0,
     })
     expect(patch).not.toHaveProperty('uuid')
     expect(patch).not.toHaveProperty('payload_uuid')
-    expect(replayIdentity.payloadUuid).toBe('payload-22')
-    expect(replayIdentity.idempotencyKey).toBe('new-http-key')
+    expect(replayIdentity.payloadUuid).toBe('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb')
+    expect(replayIdentity.idempotencyKey).toBe('eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee')
+  })
+
+  it('repairs legacy non-UUID replay idempotency keys before HTTP replay', () => {
+    const replayIdentity = resolveDailyLogReplayIdentity(
+      {
+        payload_uuid: '6ef6e28e-3d06-4821-b831-174a54c2e4ea',
+        idempotency_key: '1777468364956-edpi3fv0vxe',
+      },
+      () => '12345678-1234-4234-8234-123456789abc',
+    )
+
+    expect(replayIdentity.payloadUuid).toBe('6ef6e28e-3d06-4821-b831-174a54c2e4ea')
+    expect(replayIdentity.idempotencyKey).toBe('12345678-1234-4234-8234-123456789abc')
+  })
+
+  it('drops blank FK aliases and preserves valid legacy FK ids for replay payloads', () => {
+    const normalized = normalizeActivityForeignKeys({
+      well_id: '32',
+      asset: '31',
+      asset_id: '31',
+      task: '222',
+      crop: '259',
+      tree_loss_reason: '',
+      tree_loss_reason_id: '',
+      variety: '',
+      product: '32',
+      crop_plan: '',
+    })
+
+    expect(normalized).toMatchObject({
+      well_asset_id: 32,
+      asset_id: 31,
+      task_id: 222,
+      crop_id: 259,
+      product_id: 32,
+    })
+    expect(normalized).not.toHaveProperty('well_id')
+    expect(normalized).not.toHaveProperty('asset')
+    expect(normalized).not.toHaveProperty('task')
+    expect(normalized).not.toHaveProperty('crop')
+    expect(normalized).not.toHaveProperty('tree_loss_reason')
+    expect(normalized).not.toHaveProperty('tree_loss_reason_id')
+    expect(normalized).not.toHaveProperty('variety')
+    expect(normalized).not.toHaveProperty('crop_plan')
+    expect(normalized).not.toHaveProperty('crop_plan_id')
   })
 
   it('detects 409 idempotency mismatch responses from backend and legacy detail text', () => {

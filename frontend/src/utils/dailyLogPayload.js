@@ -31,16 +31,22 @@ const READ_ONLY_ACTIVITY_FIELDS = [
   'item_governance_flags',
 ]
 
-const OBJECT_ID_FIELDS = [
-  'farm',
-  'crop',
-  'task',
-  'asset',
-  'well_asset',
-  'variety',
-  'product',
-  'tree_loss_reason',
-  'crop_plan',
+const FK_ALIAS_TO_ID_FIELD = {
+  farm: 'farm_id',
+  log: 'log_id',
+  location: 'location_id',
+  asset: 'asset_id',
+  well_asset: 'well_asset_id',
+  crop: 'crop_id',
+  task: 'task_id',
+  variety: 'variety_id',
+  product: 'product_id',
+  tree_loss_reason: 'tree_loss_reason_id',
+  crop_plan: 'crop_plan_id',
+}
+
+const FK_ID_FIELDS = [
+  ...new Set([...Object.values(FK_ALIAS_TO_ID_FIELD), 'well_id']),
 ]
 
 const ARABIC_DIGITS = '٠١٢٣٤٥٦٧٨٩'
@@ -130,6 +136,12 @@ const normalizeUOM = (uom) => {
   return match || raw;
 }
 
+const coerceForeignKeyId = (value) => {
+  if (value === null || value === undefined || value === '') return null
+  const num = Number(value)
+  return Number.isFinite(num) && num !== 0 ? num : null
+}
+
 const normalizeNestedOperationalDecimals = (payload) => {
   if (Array.isArray(payload.items)) {
     payload.items = payload.items.map((itemObj) => {
@@ -187,23 +199,69 @@ const normalizeNestedOperationalDecimals = (payload) => {
   }
 }
 
+export const normalizeActivityForeignKeys = (payload = {}) => {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return payload
+
+  const cleaned = { ...payload }
+
+  for (const [field, idField] of Object.entries(FK_ALIAS_TO_ID_FIELD)) {
+    const value = cleaned[field]
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      const id = value.id ?? value.pk ?? null
+      if (id !== null && id !== undefined && !cleaned[idField]) {
+        cleaned[idField] = id
+      }
+      delete cleaned[field]
+      continue
+    }
+
+    if (value === '' || value === null || value === undefined) {
+      delete cleaned[field]
+      continue
+    }
+
+    if (value !== undefined && value !== null && idField && !Object.prototype.hasOwnProperty.call(cleaned, idField)) {
+      const coerced = coerceForeignKeyId(value)
+      if (coerced !== null) {
+        cleaned[idField] = coerced
+      }
+    }
+
+    delete cleaned[field]
+  }
+
+  if (Object.prototype.hasOwnProperty.call(cleaned, 'well_id')) {
+    const coercedWellId = coerceForeignKeyId(cleaned.well_id)
+    if (
+      !Object.prototype.hasOwnProperty.call(cleaned, 'well_asset_id') &&
+      coercedWellId !== null
+    ) {
+      cleaned.well_asset_id = coercedWellId
+    }
+    delete cleaned.well_id
+  }
+
+  FK_ID_FIELDS.forEach((field) => {
+    if (!Object.prototype.hasOwnProperty.call(cleaned, field)) {
+      return
+    }
+    const coerced = coerceForeignKeyId(cleaned[field])
+    if (coerced === null) {
+      delete cleaned[field]
+    } else {
+      cleaned[field] = coerced
+    }
+  })
+
+  return cleaned
+}
+
 export const sanitizeDailyLogActivityPayload = (payload = {}) => {
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return payload
 
   const cleaned = { ...payload }
   BACKEND_OWNED_COST_FIELDS.forEach((field) => delete cleaned[field])
   READ_ONLY_ACTIVITY_FIELDS.forEach((field) => delete cleaned[field])
-
-  OBJECT_ID_FIELDS.forEach((field) => {
-    const value = cleaned[field]
-    if (value && typeof value === 'object' && !Array.isArray(value)) {
-      const id = value.id ?? value.pk ?? null
-      if (id !== null && id !== undefined && !cleaned[`${field}_id`]) {
-        cleaned[`${field}_id`] = id
-      }
-      delete cleaned[field]
-    }
-  })
 
   Object.entries(DECIMAL_FIELD_SCALE).forEach(([field, scale]) => {
     if (Object.prototype.hasOwnProperty.call(cleaned, field)) {
@@ -216,7 +274,7 @@ export const sanitizeDailyLogActivityPayload = (payload = {}) => {
 
   normalizeNestedOperationalDecimals(cleaned)
 
-  return cleaned
+  return normalizeActivityForeignKeys(cleaned)
 }
 
 export const sanitizeDailyLogEnvelope = (entry = {}) => {

@@ -151,7 +151,7 @@ export function SettingsProvider({ children }) {
     } finally {
       setLoading(false)
     }
-  }, [selectedFarmId, setStrictErpModeValue, buildSimpleFallback])
+  }, [selectedFarmId, isAuthenticated, setStrictErpModeValue, buildSimpleFallback])
 
   useEffect(() => {
     fetchSettings()

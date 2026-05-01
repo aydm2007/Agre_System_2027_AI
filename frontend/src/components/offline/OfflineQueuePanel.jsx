@@ -482,7 +482,8 @@ export default function OfflineQueuePanel() {
   const hasAnyPending = queuedRequests + queuedHarvests + queuedDailyLogs + queuedCustody > 0
   const serverConflictCount = details.syncConflicts.length
   const serverQuarantineCount = details.quarantines.length
-  const successfulReplayCount = details.syncRecords.filter((item) => item.status === 'success').length
+  const successfulSyncRecords = details.syncRecords.filter((item) => item?.status === 'success')
+  const successfulReplayCount = successfulSyncRecords.length
   const hasServerForensics = serverConflictCount > 0 || serverQuarantineCount > 0 || successfulReplayCount > 0
 
   return (
@@ -562,9 +563,9 @@ export default function OfflineQueuePanel() {
       {hasServerForensics && (
         <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900/40">
           <div>
-            <h4 className="text-base font-semibold text-slate-900 dark:text-white">مراقبة Replay الخادوم</h4>
+            <h4 className="text-base font-semibold text-slate-900 dark:text-white">مراقبة Replay</h4>
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              تعرض هذه اللوحة السجلات المرحّلة، تعارضات `DLQ`، والحمولات المعزولة ضمن farm scope الفعلي.
+              تعرض هذه اللوحة آخر نجاحات replay المرئية للمستخدم، إضافة إلى تعارضات `DLQ` والحمولات المعزولة ضمن farm scope الفعلي.
             </p>
           </div>
           <div className="grid gap-3 md:grid-cols-3">
@@ -585,13 +586,13 @@ export default function OfflineQueuePanel() {
             <div className="rounded-xl border border-slate-200 px-3 py-3 dark:border-slate-700">
               <div className="mb-2 text-sm font-semibold text-slate-900 dark:text-white">Sync Records</div>
               <div className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-                {details.syncRecords.slice(0, 5).map((item) => (
+                {successfulSyncRecords.slice(0, 5).map((item) => (
                   <div key={`sync-${item.id}`} className="rounded-lg bg-slate-50 px-3 py-2 dark:bg-slate-800/70">
                     <div className="font-mono">{item.category || 'unknown'} / {item.reference || item.id}</div>
                     <div>الحالة: {item.status || 'unknown'}</div>
                   </div>
                 ))}
-                {details.syncRecords.length === 0 && <div>لا توجد سجلات مرحّلة ضمن النطاق الحالي.</div>}
+                {successfulSyncRecords.length === 0 && <div>لا توجد سجلات مرحّلة ضمن النطاق الحالي.</div>}
               </div>
             </div>
             <div className="rounded-xl border border-slate-200 px-3 py-3 dark:border-slate-700">

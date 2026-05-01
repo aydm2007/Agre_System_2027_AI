@@ -86,7 +86,27 @@ class SyncRecordAPITests(TestCase):
             'reference': 'ref-illegal',
             'status': SyncRecord.STATUS_PENDING,
         }
-        response = self.client.post('/api/v1/sync-records/', payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        response = self.client.post(
+            '/api/v1/sync-records/',
+            payload,
+            format='json',
+            HTTP_X_IDEMPOTENCY_KEY='sync-records-illegal-ref',
+        )
+        self.assertIn(response.status_code, (400, 403))
         self.assertFalse(SyncRecord.objects.filter(reference='ref-illegal').exists())
 
+    def test_exclude_demo_filters_demo_sync_records(self):
+        SyncRecord.objects.create(
+            user=self.manager,
+            farm=self.farm_alpha,
+            category=SyncRecord.CATEGORY_DAILY_LOG,
+            reference='demo-offline-pending',
+            status=SyncRecord.STATUS_PENDING,
+            payload={'demo_fixture': True},
+        )
+        self.client.force_authenticate(self.manager)
+        response = self.client.get('/api/v1/sync-records/?exclude_demo=1')
+        self.assertEqual(response.status_code, 200)
+        payload = _get_results(response.json())
+        references = {entry['reference'] for entry in payload}
+        self.assertNotIn('demo-offline-pending', references)

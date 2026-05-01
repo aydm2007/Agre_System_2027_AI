@@ -99,7 +99,40 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    build: { outDir },
+    build: {
+      outDir,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes('node_modules')) {
+              return undefined
+            }
+            if (/[\\/]node_modules[\\/](chart\.js|react-chartjs-2)[\\/]/.test(id)) {
+              return 'vendor-chartjs'
+            }
+            if (/[\\/]node_modules[\\/]recharts[\\/]/.test(id)) {
+              return 'vendor-recharts'
+            }
+            if (/[\\/]node_modules[\\/]xlsx[\\/]/.test(id)) {
+              return 'vendor-xlsx'
+            }
+            if (/[\\/]node_modules[\\/]html5-qrcode[\\/]/.test(id)) {
+              return 'vendor-qr'
+            }
+            if (/[\\/]node_modules[\\/](lucide-react|framer-motion|@headlessui)[\\/]/.test(id)) {
+              return 'vendor-ui'
+            }
+            if (/[\\/]node_modules[\\/](date-fns|moment)[\\/]/.test(id)) {
+              return 'vendor-date'
+            }
+            if (/[\\/]node_modules[\\/](axios|dexie|idb-keyval|uuid|jwt-decode)[\\/]/.test(id)) {
+              return 'vendor-data'
+            }
+            return undefined
+          },
+        },
+      },
+    },
     preview: {
       port: 4173,
       proxy: {

@@ -1,4 +1,5 @@
 import Dexie from 'dexie'
+import { v4 as uuidv4 } from 'uuid'
 import { buildDailyLogIdempotencyRotationPatch } from '../utils/offlineDailyLogIdentity'
 
 export const db = new Dexie('AgriOfflineDB')
@@ -337,7 +338,7 @@ const requeueFailures = async (tableName, ownerKey = null) => {
       failed.map((item) => {
         const newUid = (typeof globalThis.crypto?.randomUUID === 'function')
           ? globalThis.crypto.randomUUID()
-          : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+          : uuidv4()
         if (tableName === 'daily_log_queue') {
           return db[tableName].update(
             item.id,

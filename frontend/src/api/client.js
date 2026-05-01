@@ -1115,6 +1115,22 @@ async function flushOfflineDailyLogs() {
           : normalizedEntry.logPayload
 
         const replayIdentity = resolveDailyLogReplayIdentity(normalizedEntry, makeUUID)
+        const previousAttemptKey = normalizedEntry.idempotency_key || normalizedEntry.idempotencyKey || null
+        if (previousAttemptKey !== replayIdentity.idempotencyKey) {
+          const rotatedAt = nowIso()
+          await db.daily_log_queue.update(entry.id, {
+            idempotency_key: replayIdentity.idempotencyKey,
+            previous_idempotency_key: previousAttemptKey,
+            updated_at: rotatedAt,
+            meta: {
+              ...(normalizedEntry.meta || {}),
+              ...(previousAttemptKey ? { previous_idempotency_key: previousAttemptKey } : {}),
+              idempotency_key_rotated_at: rotatedAt,
+              idempotency_key_rotation_reason: 'invalid_uuid',
+            },
+          })
+          notifyQueueChange()
+        }
         const replayPayload = {
           uuid: replayIdentity.payloadUuid,
           payload_uuid: replayIdentity.payloadUuid,
@@ -1126,7 +1142,7 @@ async function flushOfflineDailyLogs() {
           farm_id: normalizedEntry.farm_id || logPayload?.farm || normalizedEntry.meta?.farmId || null,
           supervisor_id: normalizedEntry.supervisor_id || normalizedEntry.meta?.supervisorId || normalizedEntry.activityPayload?.supervisor_id || normalizedEntry.activityPayload?.supervisor || null,
           log: logPayload,
-          activity: sanitizeDailyLogActivityPayload(normalizedEntry.activityPayload || {}),
+          activity: normaliseActivityPayload(normalizedEntry.activityPayload || {}),
           client_metadata: normalizedEntry.meta || {},
           attachment_refs: attachmentIds,
           lookup_snapshot_version:
@@ -1496,9 +1512,9 @@ export async function getOfflineQueueDetails(options = {}) {
     getHarvestQueueDetails(ownerKey),
     getDailyLogQueueDetails(ownerKey),
     getCustodyQueueDetails(ownerKey),
-    api.get('/sync-records/', { params: { page_size: limit } }).catch(() => ({ data: [] })),
-    api.get('/sync-conflict-dlq/', { params: { page_size: limit } }).catch(() => ({ data: [] })),
-    api.get('/offline-sync-quarantines/', { params: { page_size: limit } }).catch(() => ({ data: [] })),
+    api.get('/sync-records/', { params: { page_size: limit, status: 'success', exclude_demo: 1 } }).catch(() => ({ data: [] })),
+    api.get('/sync-conflict-dlq/', { params: { page_size: limit, status: 'PENDING', exclude_demo: 1 } }).catch(() => ({ data: [] })),
+    api.get('/offline-sync-quarantines/', { params: { page_size: limit, status: 'PENDING_REVIEW', exclude_demo: 1 } }).catch(() => ({ data: [] })),
   ])
   const localDailyLogSyncHistory = await getDailyLogSyncHistory()
 
@@ -1636,7 +1652,14 @@ export async function getOfflineQueueDetails(options = {}) {
         local: true,
       })),
       ...serverSyncRecords,
-    ])
+    ]
+      .filter((row) => row?.status === 'success')
+      .filter((row) => !(row?.payload?.demo_fixture || row?.reference?.startsWith?.('demo-')))
+      .sort((left, right) =>
+        String(right?.updated_at || right?.created_at || '').localeCompare(
+          String(left?.updated_at || left?.created_at || ''),
+        ),
+      ))
     const syncConflicts = take(Array.isArray(syncConflictsResponse?.data?.results) ? syncConflictsResponse.data.results : syncConflictsResponse?.data || [])
     const quarantines = take(Array.isArray(quarantinesResponse?.data?.results) ? quarantinesResponse.data.results : quarantinesResponse?.data || [])
 

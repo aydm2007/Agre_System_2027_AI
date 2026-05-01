@@ -88,7 +88,7 @@ export default function TeamBuilderTab({ selectedFarmId }) {
         } finally {
             setLoading(false)
         }
-    }, [selectedFarmId, showError])
+    }, [selectedFarmId, page, showError])
 
     useEffect(() => {
         loadData()

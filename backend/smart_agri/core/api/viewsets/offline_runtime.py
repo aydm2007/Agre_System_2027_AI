@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime, timedelta
 
 from django.core.exceptions import PermissionDenied as DjangoPermissionDenied
@@ -42,6 +43,8 @@ BACKEND_OWNED_ACTIVITY_COST_FIELDS = (
     "cost_total",
 )
 
+logger = logging.getLogger(__name__)
+
 
 def _parse_device_timestamp(value):
     if not value:
@@ -70,7 +73,7 @@ def _scrub_backend_owned_activity_fields(payload):
 
 
 def _record_dlq(*, farm, actor, conflict_type, conflict_reason, endpoint, http_method, request_payload, idempotency_key, device_timestamp):
-    return SyncConflictDLQ.objects.create(
+    row = SyncConflictDLQ.objects.create(
         farm=farm,
         actor=actor,
         conflict_type=conflict_type,
@@ -81,6 +84,93 @@ def _record_dlq(*, farm, actor, conflict_type, conflict_reason, endpoint, http_m
         idempotency_key=idempotency_key,
         device_timestamp=device_timestamp,
     )
+    _resolve_superseded_dlq_entries(
+        farm=farm,
+        actor=actor,
+        endpoint=endpoint,
+        request_payload=request_payload,
+        keep_id=row.id,
+    )
+    return row
+
+
+def _extract_replay_identity(payload):
+    if not isinstance(payload, dict):
+        return None, None
+    payload_uuid = payload.get("payload_uuid") or payload.get("uuid")
+    draft_uuid = payload.get("draft_uuid")
+    return payload_uuid, draft_uuid
+
+
+def _dlq_matches_replay_identity(row_payload, payload_uuid, draft_uuid):
+    if not isinstance(row_payload, dict):
+        return False
+    row_payload_uuid = row_payload.get("payload_uuid") or row_payload.get("uuid")
+    row_draft_uuid = row_payload.get("draft_uuid")
+    if payload_uuid and row_payload_uuid == payload_uuid:
+        return True
+    if draft_uuid and row_draft_uuid == draft_uuid:
+        return True
+    return False
+
+
+def _resolve_superseded_dlq_entries(*, farm, actor, endpoint, request_payload, keep_id):
+    payload_uuid, draft_uuid = _extract_replay_identity(request_payload)
+    if not payload_uuid and not draft_uuid:
+        return 0
+    now = timezone.now()
+    resolved = 0
+    qs = SyncConflictDLQ.objects.filter(
+        farm=farm,
+        actor=actor,
+        endpoint=endpoint,
+        status="PENDING",
+        deleted_at__isnull=True,
+    ).exclude(pk=keep_id)
+    for row in qs:
+        if not _dlq_matches_replay_identity(row.request_payload, payload_uuid, draft_uuid):
+            continue
+        row.status = "RESOLVED"
+        row.resolved_by = actor
+        row.resolved_at = now
+        row.resolution_notes = (
+            f"Superseded by newer replay attempt for payload_uuid={payload_uuid or '-'} "
+            f"draft_uuid={draft_uuid or '-'}."
+        )
+        row.save(update_fields=["status", "resolved_by", "resolved_at", "resolution_notes", "updated_at"])
+        resolved += 1
+    return resolved
+
+
+def _mark_replayed_dlq_entries(*, farm, actor, endpoint, payload_uuid=None, draft_uuid=None):
+    if not payload_uuid and not draft_uuid:
+        return 0
+    now = timezone.now()
+    resolved = 0
+    qs = SyncConflictDLQ.objects.filter(
+        farm=farm,
+        actor=actor,
+        endpoint=endpoint,
+        status="PENDING",
+        deleted_at__isnull=True,
+    )
+    for row in qs:
+        if not _dlq_matches_replay_identity(row.request_payload, payload_uuid, draft_uuid):
+            continue
+        row.status = "REPLAYED"
+        row.resolved_by = actor
+        row.resolved_at = now
+        row.resolution_notes = (
+            f"Auto-resolved after successful replay for payload_uuid={payload_uuid or '-'} "
+            f"draft_uuid={draft_uuid or '-'}."
+        )
+        row.save(update_fields=["status", "resolved_by", "resolved_at", "resolution_notes", "updated_at"])
+        resolved += 1
+    return resolved
+
+
+def _is_truthy_query_param(value):
+    return str(value).strip().lower() in {"1", "true", "yes", "on"}
 
 
 def _latest_success_response(*, user, category, reference):
@@ -154,6 +244,73 @@ def _save_sync_record(*, user, farm, category, reference, response_payload, log_
     sync_record.log_date = log_date
     sync_record.save()
     return sync_record
+
+
+def _resolve_or_create_daily_log_for_replay(
+    *,
+    farm,
+    supervisor,
+    log_date,
+    actor,
+    parsed_device_timestamp,
+    log_payload,
+):
+    matching_logs = list(
+        DailyLog.objects.select_for_update()
+        .filter(
+            farm=farm,
+            log_date=log_date,
+            supervisor=supervisor,
+            deleted_at__isnull=True,
+        )
+        .order_by("id")
+    )
+    if not matching_logs:
+        return (
+            DailyLog.objects.create(
+                farm=farm,
+                supervisor=supervisor,
+                log_date=log_date,
+                created_by=actor,
+                updated_by=actor,
+                notes=log_payload.get("notes", ""),
+                variance_note=log_payload.get("variance_note", ""),
+                device_timestamp=parsed_device_timestamp,
+            ),
+            True,
+        )
+
+    keeper = next(
+        (log for log in matching_logs if log.activities.filter(deleted_at__isnull=True).exists()),
+        matching_logs[0],
+    )
+    if len(matching_logs) > 1:
+        logger.warning(
+            "offline_daily_log_replay.duplicate_daily_logs_resolved farm_id=%s supervisor_id=%s log_date=%s keeper_id=%s duplicate_ids=%s",
+            farm.id,
+            getattr(supervisor, "id", None),
+            log_date,
+            keeper.id,
+            [log.id for log in matching_logs if log.id != keeper.id],
+        )
+
+    update_fields = []
+    if parsed_device_timestamp and keeper.device_timestamp != parsed_device_timestamp:
+        keeper.device_timestamp = parsed_device_timestamp
+        update_fields.append("device_timestamp")
+    variance_note = log_payload.get("variance_note")
+    if variance_note is not None and keeper.variance_note != variance_note:
+        keeper.variance_note = variance_note
+        update_fields.append("variance_note")
+    notes = log_payload.get("notes")
+    if notes is not None and keeper.notes != notes:
+        keeper.notes = notes
+        update_fields.append("notes")
+    if update_fields:
+        keeper.updated_by = actor
+        update_fields.append("updated_by")
+        keeper.save(update_fields=update_fields)
+    return keeper, False
 
 
 def _normalize_harvest_payload(payload):
@@ -284,36 +441,14 @@ class HardenedOfflineDailyLogReplayViewSet(IdempotentCreateMixin, viewsets.ViewS
                 if not log_date:
                     raise ValidationError({"log.log_date": "تاريخ السجل اليومي مطلوب."})
 
-                daily_log, created = DailyLog.objects.select_for_update().get_or_create(
+                daily_log, _created = _resolve_or_create_daily_log_for_replay(
                     farm=farm,
-                    log_date=log_date,
                     supervisor=supervisor,
-                    deleted_at__isnull=True,
-                    defaults={
-                        "created_by": request.user,
-                        "updated_by": request.user,
-                        "notes": log_payload.get("notes", ""),
-                        "variance_note": log_payload.get("variance_note", ""),
-                        "device_timestamp": parsed_device_timestamp,
-                    },
+                    log_date=log_date,
+                    actor=request.user,
+                    parsed_device_timestamp=parsed_device_timestamp,
+                    log_payload=log_payload,
                 )
-                if not created:
-                    update_fields = []
-                    if parsed_device_timestamp and daily_log.device_timestamp != parsed_device_timestamp:
-                        daily_log.device_timestamp = parsed_device_timestamp
-                        update_fields.append("device_timestamp")
-                    variance_note = log_payload.get("variance_note")
-                    if variance_note is not None and daily_log.variance_note != variance_note:
-                        daily_log.variance_note = variance_note
-                        update_fields.append("variance_note")
-                    notes = log_payload.get("notes")
-                    if notes is not None and daily_log.notes != notes:
-                        daily_log.notes = notes
-                        update_fields.append("notes")
-                    if update_fields:
-                        daily_log.updated_by = request.user
-                        update_fields.append("updated_by")
-                        daily_log.save(update_fields=update_fields)
 
                 activity_input = _scrub_backend_owned_activity_fields(activity_payload)
                 if "items" not in activity_input and "items_payload" in activity_input:
@@ -386,6 +521,13 @@ class HardenedOfflineDailyLogReplayViewSet(IdempotentCreateMixin, viewsets.ViewS
                     response_payload=response_payload,
                     log_date=daily_log.log_date,
                     extra_payload=extra_payload,
+                )
+                _mark_replayed_dlq_entries(
+                    farm=farm,
+                    actor=request.user,
+                    endpoint=request.path,
+                    payload_uuid=payload_uuid,
+                    draft_uuid=draft_uuid,
                 )
         except (ValidationError, PermissionDenied, DjangoPermissionDenied) as exc:
             _record_dlq(
@@ -722,6 +864,8 @@ class SyncConflictDLQViewSet(viewsets.ReadOnlyModelViewSet):
         status_value = self.request.query_params.get("status")
         if status_value:
             qs = qs.filter(status=status_value)
+        if _is_truthy_query_param(self.request.query_params.get("exclude_demo")):
+            qs = qs.exclude(idempotency_key__startswith="demo-").exclude(request_payload__has_key="demo_fixture")
         return qs
 
 
@@ -745,6 +889,8 @@ class OfflineSyncQuarantineViewSet(viewsets.ReadOnlyModelViewSet):
         status_value = self.request.query_params.get("status")
         if status_value:
             qs = qs.filter(status=status_value)
+        if _is_truthy_query_param(self.request.query_params.get("exclude_demo")):
+            qs = qs.exclude(idempotency_key__startswith="demo-").exclude(original_payload__has_key="demo_fixture")
         return qs
 
 
@@ -766,4 +912,6 @@ class OfflineSyncRecordViewSet(AuditedModelViewSet):
         category = self.request.query_params.get("category")
         if category:
             qs = qs.filter(category=category)
+        if _is_truthy_query_param(self.request.query_params.get("exclude_demo")):
+            qs = qs.exclude(reference__startswith="demo-").exclude(payload__has_key="demo_fixture")
         return qs

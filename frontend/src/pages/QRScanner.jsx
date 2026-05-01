@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import { Html5Qrcode } from 'html5-qrcode'
 import {
   QrCode as QrCodeIcon,
   CheckCircle as CheckCircleIcon,
@@ -57,7 +56,7 @@ export default function QRScanner() {
     loadLocations()
   }, [selectedFarm, addToast])
 
-  const startScanner = () => {
+  const startScanner = async () => {
     if (!selectedFarm) {
       addToast('يجب اختيار المزرعة أولاً', 'error')
       return
@@ -65,6 +64,7 @@ export default function QRScanner() {
 
     setScannerActive(true)
     setScanResult(null)
+    const { Html5Qrcode } = await import('html5-qrcode')
 
     setTimeout(() => {
       const html5QrCode = new Html5Qrcode('qr-reader')

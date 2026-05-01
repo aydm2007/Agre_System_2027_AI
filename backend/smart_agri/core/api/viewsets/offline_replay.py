@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID
 
 from django.db import transaction, DatabaseError, IntegrityError
 from django.utils import timezone
@@ -14,6 +15,7 @@ from smart_agri.core.models.settings import Supervisor
 from smart_agri.core.models.task import Task
 from smart_agri.core.models import CropPlan
 from smart_agri.core.services.activity_service import ActivityService
+from smart_agri.core.api.viewsets.offline_runtime import _resolve_or_create_daily_log_for_replay
 
 
 BACKEND_OWNED_ACTIVITY_COST_FIELDS = (
@@ -31,6 +33,17 @@ def _scrub_backend_owned_activity_fields(payload):
     for field_name in BACKEND_OWNED_ACTIVITY_COST_FIELDS:
         cleaned.pop(field_name, None)
     return cleaned
+
+
+def _valid_uuid_or_none(*values):
+    for value in values:
+        if value in (None, ""):
+            continue
+        try:
+            return str(UUID(str(value)))
+        except (TypeError, ValueError):
+            continue
+    return None
 
 
 class OfflineDailyLogReplayViewSet(IdempotentCreateMixin, viewsets.ViewSet):
@@ -154,36 +167,14 @@ class OfflineDailyLogReplayViewSet(IdempotentCreateMixin, viewsets.ViewSet):
                 if not log_date:
                     raise ValidationError({"log.log_date": "تاريخ السجل اليومي مطلوب."})
 
-                daily_log, created = DailyLog.objects.select_for_update().get_or_create(
+                daily_log, _created = _resolve_or_create_daily_log_for_replay(
                     farm=farm,
-                    log_date=log_date,
                     supervisor=supervisor,
-                    deleted_at__isnull=True,
-                    defaults={
-                        "created_by": request.user,
-                        "updated_by": request.user,
-                        "notes": log_payload.get("notes", ""),
-                        "variance_note": log_payload.get("variance_note", ""),
-                        "device_timestamp": parsed_device_timestamp,
-                    },
+                    log_date=log_date,
+                    actor=request.user,
+                    parsed_device_timestamp=parsed_device_timestamp,
+                    log_payload=log_payload,
                 )
-                if not created:
-                    update_fields = []
-                    if parsed_device_timestamp and daily_log.device_timestamp != parsed_device_timestamp:
-                        daily_log.device_timestamp = parsed_device_timestamp
-                        update_fields.append("device_timestamp")
-                    variance_note = log_payload.get("variance_note")
-                    if variance_note is not None and daily_log.variance_note != variance_note:
-                        daily_log.variance_note = variance_note
-                        update_fields.append("variance_note")
-                    notes = log_payload.get("notes")
-                    if notes is not None and daily_log.notes != notes:
-                        daily_log.notes = notes
-                        update_fields.append("notes")
-                    if update_fields:
-                        daily_log.updated_by = request.user
-                        update_fields.append("updated_by")
-                        daily_log.save(update_fields=update_fields)
 
                 activity_input = _scrub_backend_owned_activity_fields(activity_payload)
                 if "items" not in activity_input and "items_payload" in activity_input:
@@ -209,7 +200,9 @@ class OfflineDailyLogReplayViewSet(IdempotentCreateMixin, viewsets.ViewSet):
 
                 activity_input["log"] = daily_log
                 activity_input["log_id"] = daily_log.id
-                activity_input["idempotency_key"] = idempotency_key
+                activity_uuid_key = _valid_uuid_or_none(idempotency_key, payload_uuid)
+                if activity_uuid_key:
+                    activity_input["idempotency_key"] = activity_uuid_key
                 activity_input["device_timestamp"] = parsed_device_timestamp
 
                 result = ActivityService.maintain_activity(request.user, activity_input, activity_id=None)

@@ -152,6 +152,52 @@ describe('OfflineQueuePanel', () => {
     expect(screen.getAllByText((_, node) => node?.textContent?.includes('success')).length).toBeGreaterThan(0)
   })
 
+  it('renders only successful replay rows in the server replay panel', async () => {
+    useOfflineQueueMock.mockReturnValue({
+      queuedRequests: 0,
+      queuedHarvests: 0,
+      queuedDailyLogs: 0,
+      queuedCustody: 0,
+      failedRequests: 0,
+      failedHarvests: 0,
+      failedDailyLogs: 0,
+      failedCustody: 0,
+      syncing: false,
+      lastSync: '2026-04-11T10:00:00.000Z',
+      syncNow: vi.fn(),
+      addToast: vi.fn(),
+      refreshCounts: vi.fn(),
+    })
+    getOfflineQueueDetailsMock.mockResolvedValue({
+      requests: [],
+      harvests: [],
+      dailyLogs: [],
+      custody: [],
+      failedRequests: [],
+      failedHarvests: [],
+      failedDailyLogs: [],
+      failedCustody: [],
+      syncRecords: [
+        { id: 'sync-ok', category: 'daily_log', reference: 'payload-ok', status: 'success' },
+        { id: 'sync-pending', category: 'daily_log', reference: 'payload-pending', status: 'pending' },
+        { id: 'sync-failed', category: 'daily_log', reference: 'payload-failed', status: 'failed' },
+      ],
+      syncConflicts: [],
+      quarantines: [],
+      meta: {},
+    })
+
+    render(
+      <MemoryRouter>
+        <OfflineQueuePanel />
+      </MemoryRouter>,
+    )
+
+    await waitFor(() => expect(screen.getByText(/daily_log \/ payload-ok/i)).toBeTruthy())
+    expect(screen.queryByText(/daily_log \/ payload-pending/i)).toBeNull()
+    expect(screen.queryByText(/daily_log \/ payload-failed/i)).toBeNull()
+  })
+
   it('repairs daily-log sequence without replacing payload identity', async () => {
     const addToast = vi.fn()
     const refreshCounts = vi.fn()

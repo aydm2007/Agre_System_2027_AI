@@ -23,7 +23,6 @@ import RiskDashboard from '../components/RiskDashboard.jsx'
 import { useToast } from '../components/ToastProvider'
 // Unused: import { useAuth } from '../auth/AuthContext'
 import BudgetImportModal from '../components/BudgetImportModal.jsx'
-import * as XLSX from 'xlsx'
 import { extractApiError } from '../utils/errorUtils.js'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
@@ -286,8 +285,9 @@ export default function CropPlanDetailPage() {
     }
   }
 
-  const handleExportActivities = () => {
+  const handleExportActivities = async () => {
     if (!activities.length) return
+    const XLSX = await import('xlsx')
     const rows = activities.map((act) => ({
       ID: act.id,
       Date: act.log_date || act.created_at?.slice(0, 10),

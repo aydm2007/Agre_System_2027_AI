@@ -25,10 +25,19 @@ export const resolveDailyLogPayloadUuid = (entry = {}) =>
   entry.id ||
   null
 
-export const resolveDailyLogReplayIdentity = (entry = {}, makeKey) => ({
-  payloadUuid: resolveDailyLogPayloadUuid(entry),
-  idempotencyKey: entry.idempotency_key || entry.idempotencyKey || makeKey(),
-})
+export const isUuidLike = (value) =>
+  typeof value === 'string' &&
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
+
+export const resolveDailyLogReplayIdentity = (entry = {}, makeKey) => {
+  const fallback = typeof makeKey === 'function' ? makeKey : () => null
+  const payloadCandidate = resolveDailyLogPayloadUuid(entry)
+  const idempotencyCandidate = entry.idempotency_key || entry.idempotencyKey
+  return {
+    payloadUuid: isUuidLike(payloadCandidate) ? payloadCandidate : fallback(),
+    idempotencyKey: isUuidLike(idempotencyCandidate) ? idempotencyCandidate : fallback(),
+  }
+}
 
 export const buildDailyLogIdempotencyRotationPatch = (
   entry = {},
