@@ -67,6 +67,8 @@ const PettyCashDashboard = lazy(() => import('./pages/Finance/PettyCashDashboard
 const SupplierSettlementDashboard = lazy(
   () => import('./pages/Finance/SupplierSettlementDashboard.jsx'),
 )
+const FiscalYearList = lazy(() => import('./pages/Finance/FiscalYearList.jsx'))
+const FiscalPeriodList = lazy(() => import('./pages/Finance/FiscalPeriodList.jsx'))
 const Sales = lazy(() => import('./pages/Sales.jsx'))
 const PurchaseOrders = lazy(() => import('./pages/PurchaseOrders.jsx'))
 const PurchaseOrderForm = lazy(() => import('./pages/PurchaseOrderForm.jsx'))
@@ -226,6 +228,8 @@ function AppRoutes() {
                 element={<SupplierSettlementDashboard />}
               />
               <Route path="finance/receipts-deposits" element={<ReceiptsDepositDashboard />} />
+              <Route path="finance/fiscal-years" element={<FiscalYearList />} />
+              <Route path="finance/fiscal-periods" element={<FiscalPeriodList />} />
               <Route
                 path="finance/petty-cash"
                 element={isPettyCashEnabled ? <PettyCashDashboard /> : <Navigate to="/dashboard" replace />}
@@ -328,6 +332,12 @@ function AppRoutes() {
               path="settings"
               element={canAccessSettings ? <Settings /> : <Navigate to="/dashboard" replace />}
             />
+            <Route
+              path="settings/fiscal-periods"
+              element={<ModeGuard policyCheck="canAccessFinanceHubRoutes" />}
+            >
+              <Route index element={<FiscalPeriodList />} />
+            </Route>
 
             <Route path="*" element={<NotFound />} />
           </Route>

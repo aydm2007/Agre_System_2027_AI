@@ -13,6 +13,7 @@ import CostCentersTab from './settings/CostCentersTab'
 import CropRecipesTab from './settings/CropRecipesTab'
 import GovernanceTab from './settings/GovernanceTab'
 import FarmSettingsTab from './settings/FarmSettingsTab'
+import FiscalPeriodsTab from './settings/FiscalPeriods'
 import MembershipsTab from './settings/MembershipsTab'
 import RoleTemplateMatrix from './settings/RoleTemplateMatrix'
 import SharecroppingContractsTab from './settings/SharecroppingContractsTab'
@@ -36,6 +37,8 @@ const TABS = [
   { key: 'sharecropping', label: 'عقود الشراكة' },
   { key: 'offline', label: 'مزامنة دون اتصال' },
 ]
+
+TABS.splice(8, 0, { key: 'fiscalPeriods', label: 'الفترات المالية' })
 
 function normalizeFarmsPayload(data) {
   if (Array.isArray(data)) return data
@@ -191,6 +194,7 @@ export default function Settings() {
       {activeTab === 'farmSettings' && (
         <FarmSettingsTab selectedFarmId={selectedFarmId} hasFarms={hasFarms} />
       )}
+      {activeTab === 'fiscalPeriods' && <FiscalPeriodsTab />}
       {activeTab === 'costCenters' && (
         <CostCentersTab selectedFarmId={selectedFarmId} hasFarms={hasFarms} />
       )}

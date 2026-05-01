@@ -56,3 +56,6 @@ open → soft-close → hard-close
 - **لا `float()` مطلقاً** في المسارات المالية والمخزنية.
 - `Decimal(19, 4)` لكل الحقول المالية والكمية.
 - التقريب بـ `quantize(Decimal('0.0001'))`.
+## 9. Fiscal Operator Surfaces
+- `docs/doctrine/FISCAL_PERIOD_OPERATIONS_UI.md` is the canonical route and support reference for fiscal close, reopen, and year-opening maintenance.
+- Opening a fiscal year for operational use means the year record exists and the required monthly periods exist in `open` status; `FiscalYear.is_closed = false` alone is not sufficient.

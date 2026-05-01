@@ -329,6 +329,7 @@ Attachment handling must be policy-aware and evidence-safe.
 | Role / Permission Matrix | [docs/reference/ROLE_PERMISSION_MATRIX_V21.md](docs/reference/ROLE_PERMISSION_MATRIX_V21.md) | local vs sector role responsibilities by mode |
 | Runtime Proof Checklist | [docs/reference/RUNTIME_PROOF_CHECKLIST_V21.md](docs/reference/RUNTIME_PROOF_CHECKLIST_V21.md) | runtime and release evidence checklist |
 | Financial Rules | [docs/doctrine/FINANCIAL_DOCTRINE.md](docs/doctrine/FINANCIAL_DOCTRINE.md) | Fund accounting, fiscal lifecycle, Zakat, IAS 41 |
+| Fiscal Period Operations UI | [docs/doctrine/FISCAL_PERIOD_OPERATIONS_UI.md](docs/doctrine/FISCAL_PERIOD_OPERATIONS_UI.md) | fiscal close UI routes, reopen workflow, year-opening maintenance |
 | Hybrid Mode | [docs/doctrine/HYBRID_MODE_V2.md](docs/doctrine/HYBRID_MODE_V2.md) | current SIMPLE/STRICT behavior |
 | V11 Governance and Mode Policy | [docs/doctrine/V11_GOVERNANCE_AND_MODE_POLICY.md](docs/doctrine/V11_GOVERNANCE_AND_MODE_POLICY.md) | mode boundaries, farm-size governance, sector chain |
 | V11 Sector Governance and Approvals | [docs/doctrine/V11_SECTOR_GOVERNANCE_AND_APPROVAL_CHAIN.md](docs/doctrine/V11_SECTOR_GOVERNANCE_AND_APPROVAL_CHAIN.md) | roles, thresholds, approval ladders |
@@ -363,6 +364,9 @@ Skill rules:
 - Canonical skill selection follows [docs/reference/SKILLS_CANONICALIZATION_V21.yaml](docs/reference/SKILLS_CANONICALIZATION_V21.yaml).
 - `schema_guardian/SKILL_V2.md` is the canonical schema-governance skill.
 - `schema_sentinel/SKILL_NEW.md` and `sql_sync/SKILL.md` remain conditional specialist skills; deprecated variants must not be cited as authoritative.
+- Fiscal lifecycle route changes, reopen flows, and year-opening maintenance must keep
+  `financial_integrity` aligned with `FINANCIAL_DOCTRINE.md` and
+  `FISCAL_PERIOD_OPERATIONS_UI.md`.
 
 ---
 
@@ -467,6 +471,7 @@ Any V12-ready change must satisfy all of the following before being described as
 - code path exists and is mode-aware where applicable
 - doctrine is updated
 - relevant skills are updated
+- fiscal lifecycle changes update route/operator doctrine and any linked maintenance command references
 - release evidence or blocker note exists
 - mode separation remains intact
 - sector governance and attachment policy remain policy-aware

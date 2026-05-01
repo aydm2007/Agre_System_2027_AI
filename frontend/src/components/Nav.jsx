@@ -793,6 +793,25 @@ const baseNavItems = {
     // Unified Visibility: Everyone allowed by role, but ONLY in Strict Mode or if enabled in Simple mode
     visible: (ctx) => (ctx.strictErpMode || ctx.showFinanceInSimple) && (isFinancialRole(ctx) || ctx.isAdmin),
   },
+  fiscalPeriods: {
+    key: 'fiscal-periods',
+    to: '/finance/fiscal-periods',
+    label: 'إغلاقات الفترات المالية',
+    icon: (
+      <svg
+        className="h-4 w-4"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      >
+        <path d="M7 3v4M17 3v4M4 9h16" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="4" y="5" width="16" height="16" rx="2" />
+        <path d="M10 14h4M12 12v4" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    visible: (ctx) => ctx.strictErpMode && (isFinancialRole(ctx) || ctx.isAdmin),
+  },
   financialReports: {
     key: 'financial-reports',
     to: '/finance/reports',
@@ -957,6 +976,7 @@ const navSections = [
       'purchases',
       'makerChecker',
       'finance',
+      'fiscalPeriods',
       'varianceAnalysisBI',
       'payrollSettlement',
       'treasury',

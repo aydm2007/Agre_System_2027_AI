@@ -100,6 +100,13 @@ Status: aligned with the 18-axis protocol in [AGENTS.md](../../../AGENTS.md).
 ## 9. Release Evidence
 Use [docs/doctrine/VERIFICATION_COMMANDS_V2.md](../../../docs/doctrine/VERIFICATION_COMMANDS_V2.md) as the readable current release-gate reference.
 
+Fiscal close, reopen, and year-opening operator flows must also keep
+[docs/doctrine/FISCAL_PERIOD_OPERATIONS_UI.md](../../../docs/doctrine/FISCAL_PERIOD_OPERATIONS_UI.md)
+aligned with:
+- `/finance/fiscal-periods`
+- `/finance/fiscal-years`
+- the governed maintenance command `ensure_fiscal_year_open`
+
 When finance, daily execution, variance, biological assets, settlement workflows, attachment lifecycle, or role governance change, require:
 - general finance release gate
 - daily execution smart card gate when DailyLog or smart-card integration changes
