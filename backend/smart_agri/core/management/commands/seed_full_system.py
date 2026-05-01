@@ -159,27 +159,27 @@ class Command(BaseCommand):
 
         # Phase 2: Seed Golden Farm
         self._phase('🏆 المرحلة 2: المزرعة الذهبية (Golden Farm)')
-        golden_farm = self._seed_golden_farm()
+        golden_farm = None
 
         # Phase 3: Seed Sardud Farm with full document cycle
         self._phase('🌴 المرحلة 3: مزرعة سردود - دورة مستندية كاملة')
         sardud_farm = self._seed_sardud_farm()
 
-        # Phase 4: Seed Al-Jaruba Farm with full document cycle
-        self._phase('🌿 المرحلة 4: مزرعة الجروبة - دورة مستندية كاملة')
-        jaruba_farm = self._seed_jaruba_farm()
+        # Jaruba seeding disabled in Sardud-only canonical mode
+        jaruba_farm = None
+
 
         # Phase 5: Create Users with Roles
         self._phase('👥 المرحلة 5: إنشاء المستخدمين والصلاحيات')
         farm_map = {
             'sardud': sardud_farm,
-            'jaruba': jaruba_farm,
-            'golden': golden_farm,
+
+
         }
         self._create_users(farm_map)
 
-        # Phase 6: Summary
-        self._print_final_summary(golden_farm, sardud_farm, jaruba_farm)
+        self._print_final_summary(None, sardud_farm, None)
+
 
     # ═══════════════════════════════════════════════════════════
     # GOLDEN FARM
@@ -978,7 +978,7 @@ class Command(BaseCommand):
     # ═══════════════════════════════════════════════════════════
     def _clean_stale_farms(self):
         from smart_agri.core.models import Farm
-        keep_slugs = ['sardud', 'jaruba', 'golden-farm']
+        keep_slugs = ['sardud']
         stale_farms = Farm.objects.exclude(slug__in=keep_slugs)
         count = stale_farms.count()
         if count > 0:

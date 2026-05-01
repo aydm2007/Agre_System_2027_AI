@@ -103,9 +103,13 @@ Farm policy remains part of the execution contract:
 - Offline daily execution now follows a two-layer contract:
   - `daily_log_drafts`: persistent local draft sessions keyed by `farm + date + draft_uuid`
   - `daily_log_queue`: immutable replay envelopes keyed by their own sync `uuid`
+- The authoritative local-draft identity is `farm_id + log_date + draft_uuid`. `created_at` is an
+  ordering timestamp only and must not replace `log_date` when restoring the latest matching draft.
 - Returning to `DailyLog` without internet must reopen the most recent matching local draft rather than a single global scratch pad.
 - Multiple offline submissions for the same day are valid. Each replay envelope may target the same `DailyLog.log_date`, but it must append one activity atomically and must not overwrite a newer queued activity.
 - Offline lookup usage is allowed with warning when cached datasets are stale. The UI must expose freshness posture; the backend remains the final authority on reconnect.
+- Restored drafts must hydrate canonical foreign-key fields before lookup reconciliation, especially:
+  `asset_id`, `item_id`, `well_id`, `product_id`, and `serviceRows[].varietyId`.
 
 ## Tree Loss Separation
 

@@ -72,4 +72,31 @@ describe('ActivityItemsField', () => {
     const unitField = await screen.findByDisplayValue('لتر')
     expect(unitField.getAttribute('readonly')).not.toBeNull()
   })
+
+  it('reconciles restored item choices when materials props arrive after mount', async () => {
+    const handleChange = vi.fn()
+    const { rerender } = render(
+      <ActivityItemsField
+        items={[{ item_id: '7', qty: '2', uom: '', batch_number: '' }]}
+        onChange={handleChange}
+        materials={[]}
+      />,
+    )
+
+    rerender(
+      <ActivityItemsField
+        items={[{ item_id: '7', qty: '2', uom: '', batch_number: '' }]}
+        onChange={handleChange}
+        materials={[
+          {
+            item_id: 7,
+            item_name: 'سماد مستعاد',
+            recommended_uom: 'kg',
+          },
+        ]}
+      />,
+    )
+
+    await waitFor(() => expect(screen.getByRole('option', { name: 'سماد مستعاد' })).toBeTruthy())
+  })
 })

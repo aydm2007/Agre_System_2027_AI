@@ -65,11 +65,15 @@ export default function DetailedTables({
   reportRefreshing = false,
   selectedSections = ['summary'],
   sectionStatusMap = {},
+  canUseJsonExports = false,
 }) {
   const groupedTemplates = useMemo(() => groupExportTemplates(exportTemplates), [exportTemplates])
   const showDetailedTables = selectedSections.includes('detailed_tables')
   const showActivitiesTable = selectedSections.includes('activities') || showDetailedTables
   const activitiesStatus = sectionStatusMap.activities || sectionStatusMap.detailed_tables || 'idle'
+  const hasJsonExports = groupedTemplates.some((group) =>
+    group.items.some((template) => (template.formats || []).includes('json')),
+  )
 
   return (
     <>
@@ -122,7 +126,7 @@ export default function DetailedTables({
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{TEXT.table.title}</h2>
             <span className="inline-flex w-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600 dark:bg-slate-700 dark:text-slate-100">
-              XLSX أساسي • JSON اختياري
+              {hasJsonExports && canUseJsonExports ? 'XLSX أساسي • JSON إداري' : 'XLSX أساسي'}
             </span>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -190,7 +194,7 @@ export default function DetailedTables({
                             تصدير Excel للأقسام المختارة
                           </button>
                         ) : null}
-                        {(template.formats || []).includes('json') ? (
+                        {(template.formats || []).includes('json') && canUseJsonExports ? (
                           <button
                             type="button"
                             onClick={() =>

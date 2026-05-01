@@ -28,6 +28,7 @@ import {
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
+import { useAuth } from '../../auth/AuthContext'
 import { useSettings } from '../../contexts/SettingsContext'
 import { usePageFarmFilter } from '../../hooks/usePageFarmFilter'
 import { useOfflineQueue } from '../../offline/OfflineQueueProvider'
@@ -40,21 +41,6 @@ import FinancialRiskZone from './components/FinancialRiskZone'
 import DetailedTables from './components/DetailedTables'
 import { useReportFilters } from './hooks/useReportFilters'
 import { useReportData } from './hooks/useReportData'
-
-const chartData = [
-  { name: 'يناير', cost: 4000, revenue: 2400, trend: 38 },
-  { name: 'فبراير', cost: 3000, revenue: 1398, trend: 46 },
-  { name: 'مارس', cost: 2000, revenue: 9800, trend: 62 },
-  { name: 'أبريل', cost: 2780, revenue: 3908, trend: 58 },
-  { name: 'مايو', cost: 1890, revenue: 4800, trend: 71 },
-]
-
-const resourceMix = [
-  { name: 'أسمدة', value: 400 },
-  { name: 'عمالة', value: 300 },
-  { name: 'وقود', value: 300 },
-  { name: 'صيانة', value: 200 },
-]
 
 const COLORS = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444']
 
@@ -69,6 +55,7 @@ const formatDateTime = (value) => {
 
 export default function ReportsPage() {
   const { isStrictMode, showAdvancedReports } = useSettings()
+  const { isAdmin, isSuperuser } = useAuth()
   const navigate = useNavigate()
   const { farmId, canUseAll } = usePageFarmFilter({
     storageKey: 'reports:farm',
@@ -138,11 +125,66 @@ export default function ReportsPage() {
 
   const pendingOffline = queuedRequests + queuedHarvests + queuedDailyLogs + queuedCustody
   const failedOffline = failedRequests + failedHarvests + failedDailyLogs + failedCustody
+  const canUseJsonExports = isAdmin || isSuperuser
 
-  const formatCurrency = (tick) => {
-    if (!isStrictMode) return '***'
-    return Number(tick || 0).toLocaleString()
-  }
+  const chartData = useMemo(() => {
+    const grouped = new Map()
+    activities.forEach((activity) => {
+      const rawDate = activity?.log_date || activity?.created_at
+      if (!rawDate) return
+      const date = new Date(rawDate)
+      if (Number.isNaN(date.getTime())) return
+      const label = date.toLocaleString('ar-YE', { month: 'short' })
+      const current = grouped.get(label) || { name: label, cost: 0, revenue: 0, trend: 0 }
+      current.cost +=
+        Number(activity?.hours || 0) +
+        Number(activity?.machine_hours || 0) +
+        Number(activity?.fuel_consumed || 0) +
+        Number(activity?.water_volume || 0)
+      current.revenue +=
+        Number(activity?.harvest_quantity || 0) +
+        Number(activity?.harvested_qty || 0) +
+        Number(activity?.achievement_qty || 0)
+      grouped.set(label, current)
+    })
+    return Array.from(grouped.values()).map((entry) => ({
+      ...entry,
+      cost: Number(entry.cost.toFixed(2)),
+      revenue: Number(entry.revenue.toFixed(2)),
+      trend: Number((entry.cost > 0 ? (entry.revenue / entry.cost) * 100 : 0).toFixed(1)),
+    }))
+  }, [activities])
+
+  const resourceMix = useMemo(() => {
+    const materialsValue = Array.isArray(summary?.materials)
+      ? summary.materials.reduce((total, item) => total + Number(item?.total_qty || 0), 0)
+      : 0
+    const laborValue = activities.reduce((total, activity) => total + Number(activity?.hours || 0), 0)
+    const fuelValue = activities.reduce(
+      (total, activity) => total + Number(activity?.fuel_consumed || 0),
+      0,
+    )
+    const waterValue = activities.reduce(
+      (total, activity) => total + Number(activity?.water_volume || 0),
+      0,
+    )
+    return [
+      { name: 'المواد', value: materialsValue },
+      { name: 'العمالة', value: laborValue },
+      { name: 'الوقود', value: fuelValue },
+      { name: 'الري', value: waterValue },
+    ].filter((entry) => entry.value > 0)
+  }, [activities, summary])
+
+  const resourceMixTotal = useMemo(
+    () => resourceMix.reduce((total, entry) => total + Number(entry.value || 0), 0),
+    [resourceMix],
+  )
+
+  const growthMetric = useMemo(() => {
+    if (!chartData.length) return 0
+    return Number(chartData[chartData.length - 1]?.trend || 0)
+  }, [chartData])
 
   const applySimplePreset = (sections) => {
     if (typeof setSelectedSections === 'function') {
@@ -169,10 +211,18 @@ export default function ReportsPage() {
         <div className="flex flex-wrap gap-2">
           {isStrictMode ? (
             <>
-              <button className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 font-bold shadow-sm transition-all hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800">
-                <Download size={18} /> تصدير PDF
+              <button
+                type="button"
+                onClick={() => navigate('/reports/advanced')}
+                className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 font-bold shadow-sm transition-all hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800"
+              >
+                <Download size={18} /> التقارير المتقدمة (XLSX)
               </button>
-              <button className="flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-6 py-3 font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500">
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-6 py-3 font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500"
+              >
                 <Printer size={18} /> طباعة
               </button>
             </>
@@ -186,6 +236,10 @@ export default function ReportsPage() {
             </button>
           ) : null}
         </div>
+      </div>
+
+      <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-100">
+        التقارير تعمل عبر خادم AgriAsset الداخلي ولا تحتاج اشتراكاً خارجياً. عرض الرسوم والتصدير يعتمد على اتصال الواجهة بالخادم وخط التقارير غير المتزامن.
       </div>
 
       <div className="mb-8 flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-800">
@@ -299,7 +353,7 @@ export default function ReportsPage() {
           <div className="mb-8 flex items-center justify-between">
             <h2 className="flex items-center gap-2 text-lg font-black">
               <BarChart3 size={20} className="text-emerald-500" />
-              {isStrictMode ? 'تقرير الإيرادات مقابل التكاليف (ر.ي)' : 'مؤشر الإنتاجية مقابل استهلاك الموارد'}
+              الاتجاه التشغيلي الشهري
             </h2>
           </div>
           <div className="h-[400px] w-full">
@@ -307,14 +361,14 @@ export default function ReportsPage() {
               <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12 }} tickFormatter={formatCurrency} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
                 <Tooltip
-                  formatter={(value) => [isStrictMode ? Number(value || 0).toLocaleString() : '---', '']}
+                  formatter={(value) => [Number(value || 0).toLocaleString('ar-YE'), '']}
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend iconType="circle" />
-                <Bar dataKey="revenue" fill="#10b981" radius={[4, 4, 0, 0]} name={isStrictMode ? 'الإيرادات' : 'الإنتاجية'} />
-                <Bar dataKey="cost" fill="#3b82f6" radius={[4, 4, 0, 0]} name={isStrictMode ? 'التكاليف' : 'الاستهلاك'} />
+                <Bar dataKey="revenue" fill="#10b981" radius={[4, 4, 0, 0]} name="الإنجاز" />
+                <Bar dataKey="cost" fill="#3b82f6" radius={[4, 4, 0, 0]} name="استهلاك الموارد" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -333,7 +387,13 @@ export default function ReportsPage() {
                       <Cell key={`cell-${entry.name}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => `${((Number(value || 0) / 1200) * 100).toFixed(1)}%`} />
+                  <Tooltip
+                    formatter={(value) =>
+                      resourceMixTotal > 0
+                        ? `${((Number(value || 0) / resourceMixTotal) * 100).toFixed(1)}%`
+                        : '0%'
+                    }
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -342,7 +402,9 @@ export default function ReportsPage() {
                 <div key={entry.name} className="flex items-center gap-2 text-xs">
                   <div className="h-2 w-2 rounded-full" style={{ backgroundColor: COLORS[index] }} />
                   <span className="truncate text-slate-500">{entry.name}</span>
-                  <span className="font-bold">{((entry.value / 1200) * 100).toFixed(1)}%</span>
+                  <span className="font-bold">
+                    {resourceMixTotal > 0 ? ((entry.value / resourceMixTotal) * 100).toFixed(1) : '0.0'}%
+                  </span>
                 </div>
               ))}
             </div>
@@ -351,10 +413,13 @@ export default function ReportsPage() {
           <div className="app-panel border-none bg-emerald-600 p-6 text-white shadow-emerald-600/20">
             <div className="mb-4 flex items-start justify-between">
               <LineIcon size={24} className="opacity-50" />
-              <span className="rounded-full bg-white/20 px-2 py-1 text-xs font-bold">توقع النمو</span>
+              <span className="rounded-full bg-white/20 px-2 py-1 text-xs font-bold">مؤشر حقيقي</span>
             </div>
-            <p className="mb-1 text-sm opacity-80">معدل العائد المتوقع</p>
-            <h3 className="mb-4 text-3xl font-black">+24.5%</h3>
+            <p className="mb-1 text-sm opacity-80">معدل التحسن التشغيلي</p>
+            <h3 className="mb-4 text-3xl font-black">
+              {growthMetric > 0 ? '+' : ''}
+              {growthMetric.toFixed(1)}%
+            </h3>
             <div className="h-[60px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData}>
@@ -433,6 +498,7 @@ export default function ReportsPage() {
           exporting={exporting}
           exportJobs={exportJobs}
           exportTemplates={exportTemplates}
+          canUseJsonExports={canUseJsonExports}
           reportPendingMessage={reportPendingMessage}
           reportRefreshing={reportRefreshing}
           selectedSections={selectedSections}

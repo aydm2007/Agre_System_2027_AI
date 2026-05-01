@@ -65,6 +65,7 @@ describe('DetailedTables', () => {
         reportRefreshing
         selectedSections={['summary', 'detailed_tables', 'activities']}
         sectionStatusMap={{ detailed_tables: 'ready', activities: 'ready' }}
+        canUseJsonExports
       />,
     )
 
@@ -89,5 +90,33 @@ describe('DetailedTables', () => {
       exportType: 'daily_execution_summary',
       format: 'json',
     })
+  })
+
+  it('hides json export controls when the current role is not allowed to use them', () => {
+    render(
+      <DetailedTables
+        summary={{ locations: [] }}
+        activities={[]}
+        loading={false}
+        exporting={false}
+        handleExport={vi.fn()}
+        exportTemplates={[
+          {
+            export_type: 'daily_execution_summary',
+            title: 'ملخص التنفيذ اليومي',
+            report_group: 'execution',
+            mode_scope: 'all',
+            sensitivity_level: 'operational',
+            formats: ['xlsx', 'json'],
+          },
+        ]}
+        selectedSections={['detailed_tables']}
+        sectionStatusMap={{ detailed_tables: 'ready' }}
+        canUseJsonExports={false}
+      />,
+    )
+
+    expect(screen.queryByRole('button', { name: 'تصدير JSON للأقسام المختارة' })).toBeNull()
+    expect(screen.getByText('XLSX أساسي')).toBeTruthy()
   })
 })

@@ -33,7 +33,7 @@ class FiscalGovernanceService:
         if target_status not in allowed_transitions.get(current_status, set()):
             raise ValidationError(f"Invalid status transition from {current_status} to {target_status}")
 
-        farm = period.farm
+        farm = period.fiscal_year.farm
         if target_status == FiscalPeriod.STATUS_HARD_CLOSE:
             # [AGRI-GUARDIAN PRD §8.1] SMALL farm compensating control:
             # SMALL farms CANNOT perform hard-close locally.
@@ -66,17 +66,24 @@ class FiscalGovernanceService:
                 )
                 from smart_agri.core.models.log import AuditLog
                 AuditLog.objects.create(
-                    user=user,
+                    actor=user,
                     action="AUTOMATED_FISCAL_ROLLOVER",
-                    notes=f"Auto-generated next fiscal year and opening balances after closing period {period.id}",
+                    model="FiscalYear",
+                    object_id=str(fiscal_year.id),
                     farm=farm,
-                    remote_ip="0.0.0.0"
+                    new_payload={
+                        "closed_period_id": period.id,
+                        "fiscal_year_id": fiscal_year.id,
+                        "rollover_trigger": "all_periods_hard_closed",
+                    },
+                    reason=f"Auto-generated next fiscal year and opening balances after closing period {period.id}",
                 )
                 
             return period
 
         FarmFinanceAuthorityService.require_strict_cycle_authority(user=user, farm=farm, action_label='الإقفال المرحلي للفترة المالية')
         period.status = target_status
+        period.is_closed = True
         period.closed_at = timezone.now()
         period.closed_by = user
         period.save(update_fields=["status", "is_closed", "closed_at", "closed_by"])
@@ -94,7 +101,7 @@ class FiscalGovernanceService:
         if current_status == FiscalPeriod.STATUS_OPEN:
             raise ValidationError("Period is already OPEN.")
             
-        farm = period.farm
+        farm = period.fiscal_year.farm
         
         # [AGRI-GUARDIAN] Reopening a closed period is a severe event. Requires sector_final_authority.
         FarmFinanceAuthorityService.require_sector_final_authority(user=user, farm=farm, action_label='إعادة فتح الفترة المحاسبية')
@@ -102,6 +109,7 @@ class FiscalGovernanceService:
         from smart_agri.core.models import AuditLog
         
         period.status = FiscalPeriod.STATUS_OPEN
+        period.is_closed = False
         period.closed_at = None
         period.closed_by = None
         period._allow_reopen = True
@@ -109,10 +117,16 @@ class FiscalGovernanceService:
         period.save(update_fields=["status", "is_closed", "closed_at", "closed_by"])
         
         AuditLog.objects.create(
-            user=user,
+            actor=user,
             action="FISCAL_PERIOD_REOPEN",
-            notes=f"Reopened fiscal period {period_id}. Reason: {reason.strip()}",
+            model="FiscalPeriod",
+            object_id=str(period_id),
             farm=farm,
-            remote_ip="0.0.0.0"
+            new_payload={
+                "period_id": period_id,
+                "status": FiscalPeriod.STATUS_OPEN,
+                "reason": reason.strip(),
+            },
+            reason=reason.strip(),
         )
         return period

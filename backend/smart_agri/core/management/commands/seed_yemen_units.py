@@ -67,7 +67,7 @@ UNIT_DEFINITIONS = [
         'precision': 3,
     },
     {
-        'code': 'l',
+        'code': 'L',
         'name': 'لتر',
         'symbol': 'لتر',
         'category': Unit.CATEGORY_VOLUME,
@@ -154,8 +154,8 @@ UNIT_CONVERSIONS = [
     ('bag', 'kg', Decimal('50')),      # شوال: 50 كجم
     ('bundle', 'piece', Decimal('1')),
     ('carton', 'piece', Decimal('12')),
-    ('m3', 'l', Decimal('1000')),
-    ('l', 'ml', Decimal('1000')),
+    ('m3', 'L', Decimal('1000')),
+    ('L', 'ml', Decimal('1000')),
     ('libnah', 'm2', Decimal('44.44')), # Standard approximation
     ('dunum', 'm2', Decimal('1000')),   # دونم = 1000 متر مربع
     ('hectare', 'm2', Decimal('10000')), # هكتار = 10000 متر مربع

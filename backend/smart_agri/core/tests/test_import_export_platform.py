@@ -7,8 +7,10 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import override_settings
 from openpyxl import load_workbook
 from rest_framework import status
+from rest_framework.exceptions import ValidationError
 from rest_framework.test import APITestCase
 
+from smart_agri.accounts.models import FarmMembership
 from smart_agri.core.models import (
     AsyncImportJob,
     AsyncReportRequest,
@@ -38,6 +40,11 @@ class ImportExportPlatformTests(APITestCase):
             password="pass1234",
         )
         self.client.force_authenticate(self.user)
+        self.regular_user = user_model.objects.create_user(
+            username=f"import-export-regular-{uuid4().hex[:8]}",
+            email="import-export-regular@example.com",
+            password="pass1234",
+        )
 
         self.simple_farm = Farm.objects.create(
             name=f"Simple Farm {uuid4().hex[:6]}",
@@ -52,6 +59,7 @@ class ImportExportPlatformTests(APITestCase):
             region="North",
         )
         FarmSettings.objects.create(farm=self.strict_farm, mode=FarmSettings.MODE_STRICT)
+        FarmMembership.objects.create(user=self.regular_user, farm=self.strict_farm, role="Admin")
 
         self.item = Item.objects.create(
             name=f"سماد إثباتي {uuid4().hex[:5]}",
@@ -258,6 +266,31 @@ class ImportExportPlatformTests(APITestCase):
             AsyncReportRequest.EXPORT_TYPE_GOVERNANCE_WORK_QUEUE,
             {entry["export_type"] for entry in results},
         )
+
+    def test_reports_hub_hides_json_export_for_non_admin_users(self):
+        templates = ImportExportPlatformService.available_export_templates(
+            actor=self.regular_user,
+            farm_id=self.strict_farm.id,
+            ui_surface="reports_hub",
+        )
+
+        execution_report = next(
+            entry
+            for entry in templates
+            if entry["export_type"] == AsyncReportRequest.EXPORT_TYPE_DAILY_EXECUTION_SUMMARY
+        )
+        self.assertIn(AsyncReportRequest.FORMAT_XLSX, execution_report["formats"])
+        self.assertNotIn(AsyncReportRequest.FORMAT_JSON, execution_report["formats"])
+
+        with self.assertRaises(ValidationError):
+            ImportExportPlatformService.create_export_job(
+                actor=self.regular_user,
+                payload={
+                    "farm_id": self.strict_farm.id,
+                    "export_type": AsyncReportRequest.EXPORT_TYPE_DAILY_EXECUTION_SUMMARY,
+                    "format": AsyncReportRequest.FORMAT_JSON,
+                },
+            )
 
     def test_strict_only_export_is_blocked_in_simple_mode(self):
         response = self.client.post(

@@ -27,6 +27,35 @@ import { extractApiError } from '../utils/errorUtils.js'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
 
+const CANONICAL_UOM_ALIASES = {
+  liter: 'L',
+  litre: 'L',
+  l: 'L',
+  'لتر': 'L',
+  kg: 'kg',
+  'كجم': 'kg',
+  kilogram: 'kg',
+  ton: 'ton',
+  'طن': 'ton',
+  surra: 'surra',
+  hour: 'hour',
+  hr: 'hour',
+  'ساعة': 'hour',
+  lot: 'lot',
+  'مقطوعية': 'lot',
+  pcs: 'pcs',
+  piece: 'pcs',
+  pack: 'pack',
+  unit: 'Unit',
+}
+
+const normalizeBudgetUom = (value) => {
+  if (value === null || value === undefined) return ''
+  const trimmed = String(value).trim()
+  if (!trimmed) return ''
+  return CANONICAL_UOM_ALIASES[trimmed.toLowerCase()] || trimmed
+}
+
 const numberFormat = (value, currency = '') => {
   if (value === null || value === undefined) return '-'
   const num = Number(value)
@@ -87,7 +116,7 @@ export default function CropPlanDetailPage() {
           entry?.item_uom ||
           '',
       )
-      .map((value) => String(value || '').trim())
+      .map((value) => normalizeBudgetUom(value))
       .filter(Boolean)
     return [...new Set(values)]
   }, [materialRecommendations])
@@ -212,7 +241,8 @@ export default function CropPlanDetailPage() {
 
   const handleLineChange = (id, field, value, isNew = false) => {
     const applyAutoTotal = (line) => {
-      let next = { ...line, [field]: value }
+      const normalizedValue = field === 'uom' ? normalizeBudgetUom(value) : value
+      let next = { ...line, [field]: normalizedValue }
 
       // Auto-set UOM based on Category selection
       if (field === 'category') {
@@ -254,7 +284,7 @@ export default function CropPlanDetailPage() {
               : null,
         category: line.category || 'other',
         qty_budget: line.qty_budget ? Number(line.qty_budget) : null,
-        uom: line.uom || '',
+        uom: normalizeBudgetUom(line.uom || ''),
         rate_budget: line.rate_budget ? Number(line.rate_budget) : 0,
         total_budget: line.total_budget ? Number(line.total_budget) : 0,
         currency: line.currency || plan.currency || 'YER',
@@ -946,7 +976,7 @@ export default function CropPlanDetailPage() {
             </table>
             <datalist id="uom-options">
               <option value="kg">كجم (kg)</option>
-              <option value="liter">لتر (L)</option>
+              <option value="L">لتر (L)</option>
               <option value="ton">طن (Ton)</option>
               <option value="lot">مقطوعية (Lot)</option>
               <option value="surra">فترة (Surra)</option>

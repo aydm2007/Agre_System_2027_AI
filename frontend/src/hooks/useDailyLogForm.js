@@ -129,9 +129,26 @@ const TASK_CHANGE_RESETS = {
   ...CONTEXTUAL_DETAIL_RESETS,
 }
 
+const stringifyId = (value) => {
+  if (value === null || value === undefined || value === '') return ''
+  if (typeof value === 'object') {
+    return stringifyId(value.id ?? value.value ?? '')
+  }
+  return String(value)
+}
+
 const hydratePayloadToForm = (rawData) => {
   if (!rawData) return rawData;
   const hydrated = { ...rawData };
+
+  hydrated.asset_id = stringifyId(hydrated.asset_id || hydrated.asset)
+  hydrated.asset = hydrated.asset_id
+  hydrated.well_id = stringifyId(hydrated.well_id || hydrated.well_asset_id || hydrated.well)
+  hydrated.product_id = stringifyId(hydrated.product_id || hydrated.product)
+  hydrated.variety = stringifyId(hydrated.variety || hydrated.variety_id)
+  if (Array.isArray(hydrated.locations)) {
+    hydrated.locations = hydrated.locations.map((location) => stringifyId(location)).filter(Boolean)
+  }
 
   if (Array.isArray(hydrated.employees_payload) && hydrated.employees_payload.length > 0) {
     const firstEmp = hydrated.employees_payload[0];
@@ -149,26 +166,34 @@ const hydratePayloadToForm = (rawData) => {
 
   if (Array.isArray(hydrated.items_payload) && hydrated.items_payload.length > 0) {
     hydrated.items = hydrated.items_payload.map((it) => ({
-      item_id: String(it.item_id || it.item || ''),
+      item_id: stringifyId(it.item_id || it.item),
       qty: String(it.qty || ''),
       uom: it.uom || ''
     }));
   } else if (Array.isArray(hydrated.items)) {
     hydrated.items = hydrated.items.map((it) => ({
-      item_id: String(it.item_id || it.item || ''),
+      item_id: stringifyId(it.item_id || it.item),
       qty: String(it.qty || ''),
       uom: it.uom || ''
     }));
   }
 
   if (Array.isArray(hydrated.service_counts_payload) && hydrated.service_counts_payload.length > 0) {
-    const defaultLocation = Array.isArray(hydrated.locations) && hydrated.locations.length > 0 ? String(hydrated.locations[0]) : '';
+    const defaultLocation = Array.isArray(hydrated.locations) && hydrated.locations.length > 0 ? stringifyId(hydrated.locations[0]) : '';
     hydrated.serviceRows = hydrated.service_counts_payload.map((row) => ({
       key: uuidv4(),
-      varietyId: String(row.variety_id || ''),
-      locationId: String(row.location_id || defaultLocation),
+      varietyId: stringifyId(row.variety_id || row.varietyId || row.variety),
+      locationId: stringifyId(row.location_id || row.locationId || defaultLocation),
       serviceCount: String(row.service_count || ''),
       notes: row.notes || ''
+    }));
+  } else if (Array.isArray(hydrated.serviceRows)) {
+    hydrated.serviceRows = hydrated.serviceRows.map((row) => ({
+      key: row.key || uuidv4(),
+      varietyId: stringifyId(row.varietyId || row.variety_id || row.variety),
+      locationId: stringifyId(row.locationId || row.location_id || row.location),
+      serviceCount: String(row.serviceCount || row.service_count || ''),
+      notes: row.notes || '',
     }));
   }
 

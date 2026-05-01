@@ -1,357 +1,347 @@
-/**
- * [AGRI-GUARDIAN] Fiscal Period Management Page
- * Strict Mode only — full ERP fiscal lifecycle management.
- *
- * Compliance:
- * - Axis 3: Fiscal Lifecycle (open → soft-close → hard-close)
- * - Axis 6: Farm-scoped periods
- * - AGENTS.md §94-102: Period closing rules
- *
- * data-testid: finance-fiscal-periods-page
- */
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { api } from '../../api/client'
 import { toast } from 'react-hot-toast'
 import { useFarmContext } from '../../api/farmContext.jsx'
 import { useAuth } from '../../auth/AuthContext'
 import {
   Calendar,
-  Lock,
-  Unlock,
-  AlertTriangle,
   CheckCircle,
   Clock,
-  ChevronRight,
-  Shield,
+  Lock,
   RefreshCw,
+  RotateCcw,
+  Shield,
+  Unlock,
 } from 'lucide-react'
 import ClosingWizard from './components/ClosingWizard'
 
-// ─────────────────────────────────────────────────────────────────
-// STATUS DESIGN TOKENS
-// ─────────────────────────────────────────────────────────────────
+const normalizePeriodStatus = (status) => String(status || 'open').toLowerCase().replace(/-/g, '_')
 
 const STATUS_CONFIG = {
   open: {
     label: 'مفتوحة',
     icon: Unlock,
-    color: 'emerald',
-    bg: 'bg-emerald-50 dark:bg-emerald-900/20',
-    text: 'text-emerald-700 dark:text-emerald-400',
-    border: 'border-emerald-200 dark:border-emerald-800',
     badge: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
-    glow: 'shadow-emerald-200/50 dark:shadow-emerald-900/30',
+    border: 'border-emerald-200 dark:border-emerald-800',
+    panel: 'bg-emerald-50 dark:bg-emerald-900/10',
   },
-  'soft-close': {
+  soft_close: {
     label: 'إغلاق مبدئي',
     icon: Clock,
-    color: 'amber',
-    bg: 'bg-amber-50 dark:bg-amber-900/20',
-    text: 'text-amber-700 dark:text-amber-400',
-    border: 'border-amber-200 dark:border-amber-800',
     badge: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
-    glow: 'shadow-amber-200/50 dark:shadow-amber-900/30',
+    border: 'border-amber-200 dark:border-amber-800',
+    panel: 'bg-amber-50 dark:bg-amber-900/10',
   },
-  'hard-close': {
+  hard_close: {
     label: 'مغلقة نهائياً',
     icon: Lock,
-    color: 'slate',
-    bg: 'bg-slate-100 dark:bg-slate-800/40',
-    text: 'text-slate-600 dark:text-slate-400',
-    border: 'border-slate-200 dark:border-slate-700',
     badge: 'bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300',
-    glow: 'shadow-slate-200/30 dark:shadow-slate-900/20',
+    border: 'border-slate-200 dark:border-slate-700',
+    panel: 'bg-slate-100 dark:bg-slate-800/40',
   },
 }
 
-// ─────────────────────────────────────────────────────────────────
-// SKELETON LOADER
-// ─────────────────────────────────────────────────────────────────
-
-function PeriodSkeleton() {
-  return (
-    <div className="animate-pulse space-y-4">
-      {[1, 2, 3, 4].map((i) => (
-        <div key={i} className="h-24 bg-gray-200 dark:bg-slate-700 rounded-2xl" />
-      ))}
-    </div>
-  )
+const parseApiErrorMessage = (error, fallback = 'تعذر إتمام العملية.') => {
+  const payload = error?.response?.data
+  if (!payload) return error?.message || fallback
+  if (typeof payload === 'string' && payload.trim()) return payload
+  if (typeof payload?.detail === 'string' && payload.detail.trim()) return payload.detail
+  if (typeof payload?.error === 'string' && payload.error.trim()) return payload.error
+  return fallback
 }
 
-// ─────────────────────────────────────────────────────────────────
-// PERIOD CARD COMPONENT
-// ─────────────────────────────────────────────────────────────────
-
-function PeriodCard({ period, onClose, isAdmin }) {
-  const config = STATUS_CONFIG[period.status] || STATUS_CONFIG.open
+function PeriodCard({ period, canManage, canReopen, onManage }) {
+  const status = normalizePeriodStatus(period.status)
+  const config = STATUS_CONFIG[status] || STATUS_CONFIG.open
   const Icon = config.icon
-  const isLocked = period.status === 'hard-close'
+
+  let actionLabel = ''
+  if (status === 'open' && canManage) actionLabel = 'بدء الإغلاق'
+  if (status === 'soft_close' && canManage) actionLabel = 'إدارة الإغلاق'
+  if (status === 'hard_close' && canReopen) actionLabel = 'إعادة فتح'
 
   return (
     <div
-      className={`
-        relative overflow-hidden rounded-2xl border
-        ${config.border} ${config.bg}
-        shadow-lg ${config.glow}
-        transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5
-      `}
+      className={`rounded-2xl border p-5 shadow-sm transition-all ${config.border} ${config.panel}`}
     >
-      {/* Top gradient bar */}
-      <div
-        className={`h-1 bg-gradient-to-r ${
-          period.status === 'open'
-            ? 'from-emerald-400 to-teal-500'
-            : period.status === 'soft-close'
-              ? 'from-amber-400 to-orange-500'
-              : 'from-slate-400 to-slate-500'
-        }`}
-      />
-
-      <div className="p-5">
-        <div className="flex items-center justify-between">
-          {/* Left: Period info */}
-          <div className="flex items-center gap-4">
-            <div
-              className={`p-3 rounded-xl ${config.badge} transition-transform duration-200 hover:scale-105`}
-            >
-              <Icon className="w-5 h-5" />
-            </div>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <span className={`rounded-xl p-3 ${config.badge}`}>
+              <Icon className="h-5 w-5" />
+            </span>
             <div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">
-                {period.name || `الفترة ${period.period_number || period.id}`}
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                {period.name || `الفترة ${period.month}`}
               </h3>
-              <div className="flex items-center gap-3 mt-1 text-sm text-gray-500 dark:text-slate-400">
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {period.start_date}
-                </span>
-                <ChevronRight className="w-3 h-3" />
+              <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                <Calendar className="h-4 w-4" />
+                <span>{period.start_date}</span>
+                <span>حتى</span>
                 <span>{period.end_date}</span>
               </div>
             </div>
           </div>
 
-          {/* Right: Status badge + Actions */}
-          <div className="flex items-center gap-3">
-            <span
-              className={`
-                inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold
-                ${config.badge}
-                transition-all duration-200
-              `}
-            >
-              <Icon className="w-3 h-3" />
-              {config.label}
-            </span>
-
-            {!isLocked && isAdmin && (
-              <button
-                onClick={() => onClose(period)}
-                className={`
-                  inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium
-                  transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5
-                  ${
-                    period.status === 'open'
-                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-amber-300/30'
-                      : 'bg-gradient-to-r from-slate-600 to-slate-700 text-white shadow-slate-400/30'
-                  }
-                `}
-              >
-                <Shield className="w-4 h-4" />
-                {period.status === 'open' ? 'إغلاق مبدئي' : 'إغلاق نهائي'}
-              </button>
-            )}
-
-            {isLocked && (
-              <div className="flex items-center gap-1.5 text-slate-400">
-                <Lock className="w-4 h-4" />
-                <span className="text-xs">غير قابلة للتعديل</span>
-              </div>
-            )}
-          </div>
+          {status === 'soft_close' ? (
+            <p className="text-sm text-amber-800 dark:text-amber-300">
+              الفترة في وضع مراجعة. يمكن الإغلاق النهائي أو إعادة الفتح المحكومة حسب الصلاحيات.
+            </p>
+          ) : null}
+          {status === 'hard_close' ? (
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              الفترة مغلقة نهائياً. إعادة الفتح تترك أثراً تدقيقياً وتتطلب اعتماداً قطاعياً.
+            </p>
+          ) : null}
         </div>
 
-        {/* Warning for soft-close */}
-        {period.status === 'soft-close' && (
-          <div className="mt-3 flex items-start gap-2 p-3 rounded-xl bg-amber-100/50 dark:bg-amber-900/10 border border-amber-200/50 dark:border-amber-800/30">
-            <AlertTriangle className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-            <p className="text-xs text-amber-700 dark:text-amber-400">
-              الفترة في وضع الإغلاق المبدئي — يُسمح فقط بقيود التسوية. الإغلاق النهائي لا رجعة فيه.
-            </p>
-          </div>
-        )}
+        <div className="flex flex-col items-start gap-3 md:items-end">
+          <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold ${config.badge}`}>
+            <Icon className="h-3.5 w-3.5" />
+            {config.label}
+          </span>
 
-        {/* Hard-close stamp */}
-        {isLocked && (
-          <div className="mt-3 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-500">
-            <CheckCircle className="w-3.5 h-3.5" />
-            <span>تم الإغلاق النهائي — التصحيح يتطلب قيد عكسي في الفترة التالية</span>
-          </div>
-        )}
+          {actionLabel ? (
+            <button
+              type="button"
+              onClick={() => onManage(period)}
+              className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+            >
+              {actionLabel}
+            </button>
+          ) : (
+            <span className="text-xs text-slate-500 dark:text-slate-400">
+              لا توجد إجراءات متاحة لهذا المستخدم
+            </span>
+          )}
+        </div>
       </div>
     </div>
   )
 }
 
-// ─────────────────────────────────────────────────────────────────
-// MAIN PAGE
-// ─────────────────────────────────────────────────────────────────
-
 export default function FiscalPeriodList() {
+  const { selectedFarmId, farms } = useFarmContext()
+  const { hasPermission, hasFarmRole, isAdmin, isSuperuser } = useAuth()
   const [loading, setLoading] = useState(true)
-  const [periods, setPeriods] = useState([])
   const [fiscalYears, setFiscalYears] = useState([])
-  const [selectedYear, setSelectedYear] = useState(null)
-  const [closingTarget, setClosingTarget] = useState(null)
-  const { farmId } = useFarmContext()
-  const { isAdmin, is_superuser } = useAuth()
-  const canManage = isAdmin || is_superuser
+  const [periods, setPeriods] = useState([])
+  const [selectedYear, setSelectedYear] = useState('')
+  const [activePeriod, setActivePeriod] = useState(null)
+
+  const canSoftClosePeriod =
+    isAdmin || isSuperuser || hasFarmRole('manager') || hasFarmRole('admin')
+  const canHardClosePeriod =
+    isAdmin || isSuperuser || hasPermission('can_hard_close_period')
+  const canReopenPeriod = canHardClosePeriod
+
+  const selectedFarm = useMemo(
+    () => farms?.find((farm) => String(farm.id) === String(selectedFarmId)) || null,
+    [farms, selectedFarmId],
+  )
 
   const fetchFiscalYears = useCallback(async () => {
-    if (!farmId) return
-    try {
-      const res = await api.get('/fiscal-years/', { params: { farm_id: farmId } })
-      const years = Array.isArray(res.data) ? res.data : res.data?.results || []
-      setFiscalYears(years)
-      setSelectedYear((current) => current || years[0]?.id || null)
-    } catch (err) {
-      toast.error('فشل تحميل السنوات المالية')
+    if (!selectedFarmId) {
+      setFiscalYears([])
+      setSelectedYear('')
+      return
     }
-  }, [farmId])
+
+    try {
+      const response = await api.get('/finance/fiscal-years/', {
+        params: { farm: selectedFarmId },
+      })
+      const years = Array.isArray(response.data) ? response.data : response.data?.results || []
+      setFiscalYears(years)
+      setSelectedYear((current) =>
+        current && years.some((year) => String(year.id) === String(current))
+          ? current
+          : years[0]?.id || '',
+      )
+    } catch (error) {
+      toast.error(parseApiErrorMessage(error, 'فشل تحميل السنوات المالية'))
+    }
+  }, [selectedFarmId])
 
   const fetchPeriods = useCallback(async () => {
-    if (!selectedYear) return
+    if (!selectedYear || !selectedFarmId) {
+      setPeriods([])
+      setLoading(false)
+      return
+    }
+
     setLoading(true)
     try {
-      const res = await api.get('/fiscal-periods/', {
-        params: { fiscal_year: selectedYear, farm_id: farmId },
+      const response = await api.get('/finance/fiscal-periods/', {
+        params: { fiscal_year: selectedYear, farm: selectedFarmId },
       })
-      setPeriods(Array.isArray(res.data) ? res.data : res.data?.results || [])
-    } catch (err) {
-      toast.error('فشل تحميل الفترات المالية')
+      const records = Array.isArray(response.data) ? response.data : response.data?.results || []
+      setPeriods(records)
+    } catch (error) {
+      toast.error(parseApiErrorMessage(error, 'فشل تحميل الفترات المالية'))
     } finally {
       setLoading(false)
     }
-  }, [selectedYear, farmId])
+  }, [selectedFarmId, selectedYear])
 
   useEffect(() => {
-    fetchFiscalYears()
+    setLoading(true)
+    fetchFiscalYears().finally(() => setLoading(false))
   }, [fetchFiscalYears])
+
   useEffect(() => {
     fetchPeriods()
   }, [fetchPeriods])
 
-  const openCount = periods.filter((p) => p.status === 'open').length
-  const softCloseCount = periods.filter((p) => p.status === 'soft-close').length
-  const hardCloseCount = periods.filter((p) => p.status === 'hard-close').length
+  const normalizedPeriods = useMemo(
+    () =>
+      periods.map((period) => ({
+        ...period,
+        normalizedStatus: normalizePeriodStatus(period.status),
+      })),
+    [periods],
+  )
+
+  const stats = useMemo(() => {
+    const open = normalizedPeriods.filter((period) => period.normalizedStatus === 'open').length
+    const softClosed = normalizedPeriods.filter(
+      (period) => period.normalizedStatus === 'soft_close',
+    ).length
+    const hardClosed = normalizedPeriods.filter(
+      (period) => period.normalizedStatus === 'hard_close',
+    ).length
+    return { open, softClosed, hardClosed }
+  }, [normalizedPeriods])
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 p-6"
+      className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 p-6 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
       data-testid="finance-fiscal-periods-page"
+      dir="rtl"
     >
-      {/* Header */}
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
+          <h1 className="bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-3xl font-extrabold text-transparent">
             الفترات المالية
           </h1>
-          <p className="text-gray-500 dark:text-slate-400 mt-1">
-            إدارة دورة الحياة المالية — مفتوح → إغلاق مبدئي → إغلاق نهائي
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            إدارة دورة الفترة المالية من واجهة موحدة للمزرعة المحددة.
           </p>
+          {selectedFarm ? (
+            <p className="mt-1 text-sm font-medium text-slate-700 dark:text-slate-200">
+              المزرعة الحالية: {selectedFarm.name}
+            </p>
+          ) : null}
         </div>
+
         <button
+          type="button"
           onClick={() => {
             fetchFiscalYears()
             fetchPeriods()
           }}
-          className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all duration-200"
-          title="تحديث"
+          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
         >
-          <RefreshCw className="w-5 h-5 text-gray-500 dark:text-slate-400" />
+          <RefreshCw className="h-4 w-4" />
+          تحديث
         </button>
       </div>
 
-      {/* Year Selector */}
-      {fiscalYears.length > 0 && (
-        <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
-          {fiscalYears.map((year) => (
-            <button
-              key={year.id}
-              onClick={() => setSelectedYear(year.id)}
-              className={`
-                px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200
-                ${
-                  selectedYear === year.id
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/30'
-                    : 'bg-white dark:bg-slate-800 text-gray-600 dark:text-slate-300 border border-gray-200 dark:border-slate-700 hover:shadow-md'
-                }
-              `}
-            >
-              {year.name || year.year || year.id}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Status Summary Cards */}
-      <div className="mb-6 grid grid-cols-3 gap-4">
-        <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200/50 dark:border-emerald-800/30 text-center">
-          <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-400">
-            {openCount}
-          </div>
-          <div className="text-xs text-emerald-600 dark:text-emerald-500 mt-1">مفتوحة</div>
-        </div>
-        <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-900/10 border border-amber-200/50 dark:border-amber-800/30 text-center">
-          <div className="text-2xl font-bold text-amber-700 dark:text-amber-400">
-            {softCloseCount}
-          </div>
-          <div className="text-xs text-amber-600 dark:text-amber-500 mt-1">إغلاق مبدئي</div>
-        </div>
-        <div className="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/30 border border-slate-200/50 dark:border-slate-700/30 text-center">
-          <div className="text-2xl font-bold text-slate-700 dark:text-slate-400">
-            {hardCloseCount}
-          </div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">مغلقة نهائياً</div>
-        </div>
-      </div>
-
-      {/* Periods List */}
-      {loading ? (
-        <PeriodSkeleton />
-      ) : periods.length === 0 ? (
-        <div className="text-center py-16">
-          <Calendar className="w-16 h-16 mx-auto text-gray-300 dark:text-slate-600 mb-4" />
-          <h3 className="text-lg font-medium text-gray-500 dark:text-slate-400">
-            لا توجد فترات مالية
-          </h3>
-          <p className="text-sm text-gray-400 dark:text-slate-500 mt-1">
-            قم بإنشاء سنة مالية أولاً من الإعدادات
-          </p>
+      {!selectedFarmId ? (
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center text-amber-900 dark:border-amber-800 dark:bg-amber-900/10 dark:text-amber-200">
+          اختر مزرعة من الشريط العلوي لعرض السنوات والفترات المالية الخاصة بها.
         </div>
       ) : (
-        <div className="space-y-4">
-          {periods.map((period) => (
-            <PeriodCard
-              key={period.id}
-              period={period}
-              onClose={(p) => setClosingTarget(p)}
-              isAdmin={canManage}
-            />
-          ))}
-        </div>
+        <>
+          <div className="mb-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-800 dark:bg-emerald-900/10">
+              <div className="flex items-center gap-2 text-sm font-bold text-emerald-700 dark:text-emerald-300">
+                <Unlock className="h-4 w-4" />
+                فترات مفتوحة
+              </div>
+              <div className="mt-2 text-2xl font-black text-emerald-900 dark:text-emerald-100">
+                {stats.open}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/10">
+              <div className="flex items-center gap-2 text-sm font-bold text-amber-700 dark:text-amber-300">
+                <Clock className="h-4 w-4" />
+                إغلاق مبدئي
+              </div>
+              <div className="mt-2 text-2xl font-black text-amber-900 dark:text-amber-100">
+                {stats.softClosed}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-slate-100 p-4 dark:border-slate-700 dark:bg-slate-800/40">
+              <div className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
+                <Lock className="h-4 w-4" />
+                مغلقة نهائياً
+              </div>
+              <div className="mt-2 text-2xl font-black text-slate-900 dark:text-slate-100">
+                {stats.hardClosed}
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+            <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200">
+              السنة المالية
+            </label>
+            <select
+              value={selectedYear}
+              onChange={(event) => setSelectedYear(event.target.value)}
+              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
+            >
+              {fiscalYears.length === 0 ? (
+                <option value="">لا توجد سنوات مالية</option>
+              ) : (
+                fiscalYears.map((year) => (
+                  <option key={year.id} value={year.id}>
+                    {year.name || year.year || year.id}
+                  </option>
+                ))
+              )}
+            </select>
+          </div>
+
+          {loading ? (
+            <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
+              جاري تحميل الفترات المالية...
+            </div>
+          ) : normalizedPeriods.length === 0 ? (
+            <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
+              لا توجد فترات مالية لهذه السنة.
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {normalizedPeriods.map((period) => (
+                <PeriodCard
+                  key={period.id}
+                  period={period}
+                  canManage={canSoftClosePeriod}
+                  canReopen={canReopenPeriod}
+                  onManage={setActivePeriod}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
 
-      {/* Closing Wizard Modal */}
-      {closingTarget && (
+      {activePeriod ? (
         <ClosingWizard
-          period={closingTarget}
-          onClose={() => {
-            setClosingTarget(null)
+          period={activePeriod}
+          canHardClose={canHardClosePeriod}
+          canReopen={canReopenPeriod}
+          onClose={() => setActivePeriod(null)}
+          onComplete={() => {
+            fetchFiscalYears()
             fetchPeriods()
           }}
         />
-      )}
+      ) : null}
     </div>
   )
 }

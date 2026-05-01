@@ -140,9 +140,12 @@ describe('useDailyLogForm', () => {
     expect(payload.cost_total).toBeUndefined()
     expect(payload.smart_card_stack).toBeUndefined()
     expect(payload.log_details).toBeUndefined()
-    expect(payload.farm).toBe('21')
-    expect(payload.crop).toBe('8')
-    expect(payload.task).toBe('15')
+    expect(payload.farm_id).toBe(21)
+    expect(payload.crop_id).toBe(8)
+    expect(payload.task_id).toBe(15)
+    expect(payload.farm).toBeUndefined()
+    expect(payload.crop).toBeUndefined()
+    expect(payload.task).toBeUndefined()
   })
 
   it('builds registered labor payload when registered labor is allowed', () => {
@@ -293,6 +296,49 @@ describe('useDailyLogForm', () => {
     expect(result.current.form.draft_uuid).toBe('draft-55')
     expect(result.current.form.farm).toBe('7')
     expect(result.current.form.crop).toBe('3')
+  })
+
+  it('hydrates legacy draft foreign keys using canonical field names', async () => {
+    loadDraftMock.mockResolvedValueOnce({
+      draft_uuid: 'draft-legacy',
+      data: {
+        farm: '4',
+        date: '2026-04-14',
+        asset_id: 11,
+        well_asset_id: 22,
+        product: 33,
+        variety_id: 44,
+        serviceRows: [
+          {
+            variety_id: 55,
+            location_id: 66,
+            service_count: 7,
+          },
+        ],
+        items: [
+          {
+            item: 99,
+            qty: 2,
+            uom: 'kg',
+          },
+        ],
+      },
+    })
+
+    const { result } = renderHook(() =>
+      useDailyLogForm({}, { restoreDraftUuid: 'draft-legacy' }),
+    )
+
+    await act(async () => {})
+
+    expect(result.current.form.asset).toBe('11')
+    expect(result.current.form.asset_id).toBe('11')
+    expect(result.current.form.well_id).toBe('22')
+    expect(result.current.form.product_id).toBe('33')
+    expect(result.current.form.variety).toBe('44')
+    expect(result.current.form.items[0].item_id).toBe('99')
+    expect(result.current.form.serviceRows[0].varietyId).toBe('55')
+    expect(result.current.form.serviceRows[0].locationId).toBe('66')
   })
 
   it('scrubs diesel_qty when is_solar_powered is true', () => {

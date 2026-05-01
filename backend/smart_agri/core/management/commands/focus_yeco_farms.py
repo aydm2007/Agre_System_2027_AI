@@ -33,13 +33,12 @@ User = get_user_model()
 
 class Command(BaseCommand):
     help = (
-        "YECO focus command: keep only الجروبة + سردود operational scope, "
+        "YECO focus command: keep only the Sardud model farm operational scope, "
         "archive other farms, and seed Sardud Arabic operational E2E cycle."
     )
 
     TARGET_FARMS = (
-        ("الجروبة", "jarubah", "الحديدة"),
-        ("سردود", "sardud", "الحديدة"),
+        ("مزرعة سردود النموذجية", "sardud", "الحديدة"),
     )
 
     def add_arguments(self, parser):
@@ -79,7 +78,10 @@ class Command(BaseCommand):
             if farm.deleted_at is not None or not farm.is_active:
                 farm.deleted_at = None
                 farm.is_active = True
-                farm.save(update_fields=["deleted_at", "is_active", "updated_at"])
+            if farm.name != name or farm.region != region:
+                farm.name = name
+                farm.region = region
+            farm.save(update_fields=["name", "region", "deleted_at", "is_active", "updated_at"])
             result[slug] = farm
         self.stdout.write(
             self.style.SUCCESS(f"Target farms ready: {len(result)} (created={created}).")

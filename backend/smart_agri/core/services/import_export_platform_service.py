@@ -99,6 +99,19 @@ class ImportExportPlatformService:
         AsyncReportRequest.EXPORT_TYPE_INVENTORY_LOW_STOCK: "المواد منخفضة الرصيد",
     }
 
+    @classmethod
+    def _can_access_json_exports(cls, actor):
+        return bool(
+            actor and (getattr(actor, "is_superuser", False) or getattr(actor, "is_staff", False))
+        )
+
+    @classmethod
+    def _allowed_export_formats_for_actor(cls, definition, actor):
+        formats = list(definition.allowed_formats)
+        if AsyncReportRequest.FORMAT_JSON in formats and not cls._can_access_json_exports(actor):
+            formats = [fmt for fmt in formats if fmt != AsyncReportRequest.FORMAT_JSON]
+        return formats
+
     TEMPLATE_DEFINITIONS = {
         AsyncImportJob.TEMPLATE_INVENTORY_COUNT_SHEET: TemplateDefinition(
             code=AsyncImportJob.TEMPLATE_INVENTORY_COUNT_SHEET,
@@ -191,7 +204,7 @@ class ImportExportPlatformService:
                     "export_type": export_type,
                     "title": definition.title,
                     "description": definition.description,
-                    "formats": list(definition.allowed_formats),
+                    "formats": cls._allowed_export_formats_for_actor(definition, actor),
                     "template_code": f"{export_type}_{TEMPLATE_VERSION}",
                     "template_version": TEMPLATE_VERSION,
                     "rtl": True,
@@ -261,7 +274,7 @@ class ImportExportPlatformService:
         export_type = payload.get("export_type") or AsyncReportRequest.EXPORT_TYPE_ADVANCED_REPORT
         output_format = payload.get("format") or AsyncReportRequest.FORMAT_XLSX
         export_definition = cls._get_export_definition(export_type)
-        if output_format not in export_definition.allowed_formats:
+        if output_format not in cls._allowed_export_formats_for_actor(export_definition, actor):
             raise ValidationError("صيغة التصدير غير مدعومة لهذا التقرير.")
         mode_context = cls._mode_context_for_farm(farm)
         if export_definition.mode_scope == "strict_only" and mode_context != "STRICT":

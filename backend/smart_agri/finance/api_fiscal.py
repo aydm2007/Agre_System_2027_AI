@@ -6,6 +6,7 @@ from decimal import Decimal
 
 from django.db import transaction
 from django.db.models import Sum
+from django.utils import timezone
 from django.utils.dateparse import parse_date
 from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework import serializers, status
@@ -59,6 +60,7 @@ class FiscalYearViewSet(AuditedModelViewSet):
     @idempotent
     """
     serializer_class = FiscalYearSerializer
+    queryset = FiscalYear.objects.filter(deleted_at__isnull=True)
     permission_classes = [IsAuthenticated, StrictModeRequired]
     throttle_classes = [FinancialMutationThrottle]
     # [AGRI-GUARDIAN] Weak-network doctrine: mutation retries must be safe.
@@ -71,6 +73,10 @@ class FiscalYearViewSet(AuditedModelViewSet):
         if not user.is_superuser:
             allowed_farms = user_farm_ids(user)
             qs = qs.filter(farm_id__in=allowed_farms)
+
+        farm_id = self.request.query_params.get('farm') or self.request.query_params.get('farm_id')
+        if farm_id:
+            qs = qs.filter(farm_id=farm_id)
 
         return qs
 
@@ -114,6 +120,7 @@ class FiscalPeriodViewSet(AuditedModelViewSet):
     @idempotent
     """
     serializer_class = FiscalPeriodSerializer
+    queryset = FiscalPeriod.objects.filter(deleted_at__isnull=True).select_related('fiscal_year')
     permission_classes = [IsAuthenticated, StrictModeRequired]
     throttle_classes = [FinancialMutationThrottle]
     enforce_idempotency = True
@@ -152,6 +159,10 @@ class FiscalPeriodViewSet(AuditedModelViewSet):
             allowed_farms = user_farm_ids(user)
             qs = qs.filter(fiscal_year__farm_id__in=allowed_farms)
 
+        farm_id = self.request.query_params.get('farm') or self.request.query_params.get('farm_id')
+        if farm_id:
+            qs = qs.filter(fiscal_year__farm_id=farm_id)
+
         # Optional filter by fiscal_year
         fy_id = self.request.query_params.get('fiscal_year')
         if fy_id:
@@ -174,7 +185,7 @@ class FiscalPeriodViewSet(AuditedModelViewSet):
                     target_status=normalized_target,
                     user=request.user,
                 )
-            except ValidationError as exc:
+            except DjangoValidationError as exc:
                 return Response({'error': str(exc)}, status=400)
             response = Response({'status': message})
             self._commit_action_idempotency(request, key, object_id=str(period.id), response=response)
@@ -195,6 +206,13 @@ class FiscalPeriodViewSet(AuditedModelViewSet):
         if target_status == FiscalPeriod.STATUS_HARD_CLOSE:
             if not user_has_sector_finance_authority(user):
                 raise PermissionDenied("الإغلاق النهائي يتطلب صلاحية الإدارة العامة.")
+
+    def _enforce_reopen_permission(self, request, period):
+        user = request.user
+        if user.is_superuser:
+            return
+        if not user_has_sector_finance_authority(user):
+            raise PermissionDenied("إعادة فتح الفترة المالية تتطلب اعتماداً قطاعياً نهائياً.")
 
     @action(detail=True, methods=['post'])
     def close(self, request, pk=None):
@@ -219,6 +237,35 @@ class FiscalPeriodViewSet(AuditedModelViewSet):
             request, pk, FiscalPeriod.STATUS_HARD_CLOSE,
             'تم إغلاق الفترة نهائياً'
         )
+
+    @action(detail=True, methods=['post'], url_path='reopen')
+    def reopen(self, request, pk=None):
+        key, error_response = self._enforce_action_idempotency(request)
+        if error_response:
+            return error_response
+
+        with transaction.atomic():
+            period = FiscalPeriod.objects.select_related("fiscal_year").get(pk=pk)
+            self._enforce_reopen_permission(request, period)
+            reason = str(request.data.get('reason') or '').strip()
+            try:
+                period = FiscalGovernanceService.reopen_period(
+                    period_id=int(pk),
+                    user=request.user,
+                    reason=reason,
+                )
+            except DjangoValidationError as exc:
+                return Response({'error': str(exc)}, status=400)
+
+            response = Response(
+                {
+                    'status': 'تمت إعادة فتح الفترة المالية',
+                    'period_id': period.id,
+                    'period_status': period.status,
+                }
+            )
+            self._commit_action_idempotency(request, key, object_id=str(period.id), response=response)
+            return response
 
     @action(detail=False, methods=['get'], url_path='control-tower')
     def control_tower(self, request):

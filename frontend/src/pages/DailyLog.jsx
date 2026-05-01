@@ -233,6 +233,7 @@ export default function DailyLog() {
   })
   const [linkedCropPlan, setLinkedCropPlan] = useState(null)
   const [linkageLoading, setLinkageLoading] = useState(false)
+  const [cropLookupReady, setCropLookupReady] = useState(false)
 
   const setFreshness = useCallback((key, freshness) => {
     setLookupFreshness((prev) => ({
@@ -594,6 +595,7 @@ export default function DailyLog() {
   useEffect(() => {
     const fetchVarietiesAndProducts = async () => {
       if (!form.crop) {
+        setCropLookupReady(true)
         setLookups((prev) => ({
           ...prev,
           varieties: [],
@@ -608,6 +610,8 @@ export default function DailyLog() {
         }))
         return
       }
+
+      setCropLookupReady(false)
 
       const selectedLocationIds = Array.isArray(form.locations)
         ? form.locations.map((locationId) => String(locationId)).filter(Boolean)
@@ -732,6 +736,7 @@ export default function DailyLog() {
               ? prodRes.value.data?.results || prodRes.value.data || []
               : [],
         }))
+        setCropLookupReady(true)
 
         // [OFFLINE v4] Seed caches
         if (cropScopedVarieties.length) {
@@ -788,6 +793,7 @@ export default function DailyLog() {
         } else {
           addToast('فشل تحميل أصناف أو منتجات الحصاد للمحصول المحدد', 'error')
         }
+        setCropLookupReady(true)
       }
 
     }
@@ -799,6 +805,9 @@ export default function DailyLog() {
   }, [form.crop, form.farm, form.locations, addToast, loadCachedLookup, setFreshness])
 
   useEffect(() => {
+    if (!cropLookupReady) {
+      return
+    }
     // [FIX]: يجب أن تشمل القائمة البيضاء أصناف الجرد الشجري أيضاً وليس فقط كتالوج CropVariety
     // لأن بعض الأصناف موجودة في LocationTreeStock/BiologicalAssetCohort فقط
     const catalogIds = (lookups.varieties || []).map((variety) => String(variety.id))
@@ -806,6 +815,9 @@ export default function DailyLog() {
       .filter((entry) => entry?.variety_id != null)
       .map((entry) => String(entry.variety_id))
     const availableVarietyIds = new Set([...catalogIds, ...treeCensusIds])
+    if (availableVarietyIds.size === 0) {
+      return
+    }
     if (!form.variety && (!Array.isArray(form.serviceRows) || form.serviceRows.length === 0)) {
       return
     }
@@ -824,7 +836,7 @@ export default function DailyLog() {
         ),
       }))
     }
-  }, [lookups.varieties, lookups.treeVarietySummary, form.variety, form.serviceRows, setForm])
+  }, [cropLookupReady, lookups.varieties, lookups.treeVarietySummary, form.variety, form.serviceRows, setForm])
 
   useEffect(() => {
     const resolveLinkedPlan = async () => {

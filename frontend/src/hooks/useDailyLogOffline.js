@@ -18,15 +18,24 @@ import { normalizeServiceCountsList } from '../utils/serviceCoveragePayload'
 const LEGACY_DRAFT_KEY = 'daily-log-draft-v1'
 const nowIso = () => new Date().toISOString()
 
+const normalizeDraftFilters = (filters = {}) => ({
+  draft_uuid: filters.draftUuid ?? filters.draft_uuid ?? null,
+  farm_id: filters.farmId ?? filters.farm_id ?? null,
+  log_date: filters.logDate ?? filters.log_date ?? null,
+  status: filters.status ?? null,
+})
+
 const coerceDraftPayload = (formData, overrides = {}) => {
   const draftUuid = overrides.draftUuid || formData?.draft_uuid || uuidv4()
+  const logDate = overrides.logDate ?? formData?.log_date ?? formData?.date ?? null
   return {
     draft_uuid: draftUuid,
     farm_id: overrides.farmId ?? formData?.farm ?? formData?.farm_id ?? null,
+    log_date: logDate,
     status: overrides.status || 'draft',
     created_at: overrides.createdAt || formData?.created_at || nowIso(),
     updated_at: nowIso(),
-    data: { ...formData, draft_uuid: draftUuid }
+    data: { ...formData, draft_uuid: draftUuid, log_date: logDate }
   }
 }
 
@@ -65,12 +74,15 @@ export function useDailyLogOffline() {
       return await getLatestDailyLogDraft({ 
           status: 'draft', 
           ...(farmId ? { farm_id: String(farmId) } : {}),
-          ...(logDate ? { created_at: logDate } : {})
+          ...(logDate ? { log_date: logDate } : {})
       });
   }, []);
 
   const loadDrafts = useCallback(async (filters = {}) => {
-      return await listDailyLogDrafts(filters);
+      const normalizedFilters = normalizeDraftFilters(filters);
+      return await listDailyLogDrafts(
+        Object.fromEntries(Object.entries(normalizedFilters).filter(([, value]) => value !== null)),
+      );
   }, []);
 
   const saveDraft = useCallback(async (formData, overrides = {}) => {

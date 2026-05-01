@@ -1,9 +1,40 @@
 from rest_framework import serializers
+from smart_agri.core.constants import StandardUOM
 from smart_agri.core.models import (
     CropPlan, CropPlanBudgetLine, PlannedActivity, PlannedMaterial, 
     PlanImportLog, 
     CropTemplate, CropTemplateTask, CropTemplateMaterial,
 )
+
+
+UOM_ALIASES = {
+    'liter': StandardUOM.LITER,
+    'litre': StandardUOM.LITER,
+    'l': StandardUOM.LITER,
+    'لتر': StandardUOM.LITER,
+    'kg': StandardUOM.KG,
+    'كجم': StandardUOM.KG,
+    'kilogram': StandardUOM.KG,
+    'ton': StandardUOM.TON,
+    'طن': StandardUOM.TON,
+    'surra': StandardUOM.SURRA,
+    'hour': StandardUOM.HOUR,
+    'hr': StandardUOM.HOUR,
+    'ساعة': StandardUOM.HOUR,
+    'lot': StandardUOM.LOT,
+    'مقطوعية': StandardUOM.LOT,
+    'pcs': StandardUOM.PCS,
+    'piece': StandardUOM.PCS,
+    'pack': StandardUOM.PACK,
+    'unit': StandardUOM.UNIT,
+}
+
+
+def normalize_standard_uom(value):
+    if value in (None, ''):
+        return value
+    normalized = str(value).strip()
+    return UOM_ALIASES.get(normalized.lower(), normalized)
 
 class CropPlanSerializer(serializers.ModelSerializer):
     location_ids = serializers.ListField(
@@ -110,6 +141,13 @@ class CropPlanSerializer(serializers.ModelSerializer):
 
 class CropPlanBudgetLineSerializer(serializers.ModelSerializer):
     task_name = serializers.CharField(source='task.name', read_only=True)
+
+    def to_internal_value(self, data):
+        payload = data.copy() if hasattr(data, 'copy') else dict(data)
+        if 'uom' in payload:
+            payload['uom'] = normalize_standard_uom(payload.get('uom'))
+        return super().to_internal_value(payload)
+
     class Meta:
         model = CropPlanBudgetLine
         fields = "__all__"

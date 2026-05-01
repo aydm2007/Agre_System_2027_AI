@@ -18,6 +18,36 @@ export const ActivityItemsField = ({
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    if (!Array.isArray(materials) || materials.length === 0) return
+    const normalizedMaterials = materials.map((entry) => ({
+      id: entry?.item_id ?? entry?.id,
+      name: entry?.item_name ?? entry?.name,
+      group: entry?.item_group ?? entry?.group ?? '',
+      material_type: entry?.item_material_type ?? entry?.material_type ?? '',
+      uom:
+        entry?.recommended_uom ||
+        entry?.on_hand_uom ||
+        entry?.item_uom ||
+        entry?.uom ||
+        entry?.recommended_unit_detail?.symbol ||
+        '',
+      unit: entry?.recommended_unit || entry?.unit || entry?.recommended_unit_detail || null,
+      recommended_qty: entry?.recommended_qty,
+      on_hand_qty: entry?.on_hand_qty,
+      low_stock: entry?.low_stock,
+    })).filter((entry) => entry.id != null)
+
+    setAvailableItems((previous) => {
+      const merged = new Map(previous.map((entry) => [String(entry.id), entry]))
+      normalizedMaterials.forEach((entry) => {
+        const key = String(entry.id)
+        merged.set(key, { ...merged.get(key), ...entry })
+      })
+      return Array.from(merged.values())
+    })
+  }, [materials])
+
+  useEffect(() => {
     let isMounted = true
     const fetchItems = async () => {
       try {

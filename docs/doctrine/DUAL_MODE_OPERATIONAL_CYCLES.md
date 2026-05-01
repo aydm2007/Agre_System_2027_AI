@@ -60,6 +60,9 @@ The current mode-aware workflows rely on these fields:
 - Governed fixed-asset capitalization/disposal and fuel reconciliation posting must remain backend-owned service actions with `X-Idempotency-Key`, while SIMPLE stays posture-only.
 - Import/export workflows must remain backend-governed and service-layer only. Uploading an Excel file must not directly write transactional rows before validation and apply.
 - User-facing business files in this platform are `XLSX` first and Arabic RTL first. `JSON` is optional for integration. This first wave does not expose `CSV` in the user-facing contract.
+- In the `Reports Hub`, `XLSX` remains the default visible export for business users. `JSON` is a
+  technical format and should stay hidden by default unless the active role/policy explicitly
+  allows it.
 - Wave 2 and Wave 3 export catalogs must remain registry-driven through the central import/export platform. Module-local dashboards may host export actions, but they must not fork into dashboard-specific export engines.
 - Planning imports now follow the same platform contract. `MasterPlanImportModal`, `BudgetImportModal`, and `CropPlans` are wrappers over import jobs, not authoritative workbook parsers.
 
